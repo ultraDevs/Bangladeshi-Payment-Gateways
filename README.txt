@@ -1,0 +1,63 @@
+=== Bangladeshi Payment Gateways ===
+Contributors: ultradevs, mhimon
+Donate link: https://ultradevs.com/donate/
+Tags: mobile payments gateway, Bangladeshi Mobile banking, payment, gateway
+Requires at least: 4.4
+Tested up to: 5.4.2
+Stable tag: trunk
+Requires PHP: 5.6
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+
+Bangladeshi Payment Gateways for WooCommerce.
+
+== Description ==
+
+Bangladeshi Payment Gateways for WooCommerce. It has some advance feature that will help you to manage payment easily.
+
+### Features
+
+* Pay with QR Code
+* Fee for each gateway
+* And many more...
+
+### Supported Gateways
+* bKash
+* Rocket
+* Nagad
+
+#### Video
+
+[youtube https://www.youtube.com/watch?v=ArJ-zOW1KBU]
+
+
+Made with love by [ultraDevs](https://ultradevs.com)
+
+
+== Installation ==
+
+1. Upload the plugin files to the `/wp-content/plugins/Bangladeshi-payment-gateways` directory, or install the plugin through the WordPress plugins screen directly.
+1. Activate the plugin through the 'Plugins' screen in WordPress
+
+
+== Frequently Asked Questions ==
+
+= Is it possible to use without WooCommerce plugin? =
+
+No, You must install and active woocommerce plugin to make this plugin work.
+
+
+== Screenshots ==
+
+1. Checkout Page
+2. Order Received Page
+3. Order Details Page in Admin Area
+4. Payment Method Page in Admin Area
+
+== Changelog ==
+
+
+== Upgrade Notice ==
+
+= 1.0.0 - 07/07/2020 =
+* Initial Stable Release
