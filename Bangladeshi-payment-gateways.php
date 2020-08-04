@@ -28,6 +28,9 @@ define( 'BD_PAYMENT_GATEWAYS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_DIR_URL', plugin_dir_url( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_ASSETS', BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/' );
 
+/** Appsero */
+require BD_PAYMENT_GATEWAYS_DIR_PATH . 'lib/appsero/src/Client.php';
+
 /**
  * The code that runs during plugin activation.
  */
@@ -52,6 +55,26 @@ register_deactivation_hook( __FILE__, 'bd_payment_gateways_deactivate' );
  * Core plugin class
  */
 require BD_PAYMENT_GATEWAYS_DIR_PATH . 'includes/Init.php';
+
+/**
+ * Initialize the plugin tracker
+ *
+ * @return void
+ */
+function appsero_init_tracker_bangladeshi_payment_gateways() {
+
+    if ( ! class_exists( 'Appsero\Client' ) ) {
+		require_once BD_PAYMENT_GATEWAYS_DIR_PATH . 'lib/appsero/src/Client.php';
+    }
+
+    $client = new Appsero\Client( 'ea194db4-5e5b-4279-9717-302702dc628d', 'Bangladeshi Payment Gateways', __FILE__ );
+
+    // Active insights
+    $client->insights()->init();
+
+}
+
+appsero_init_tracker_bangladeshi_payment_gateways();
 
 /**
  * Begin execution of the plugin
