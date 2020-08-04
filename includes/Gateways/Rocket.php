@@ -375,7 +375,6 @@ if ( ! function_exists( 'woo_rocket_admin_order_data' ) ) {
 								<?php echo __( 'Rocket Number', 'bd-payment-gateways');?>
 							</strong>
 						</th>
-						<td>:</td>
 						<td>
 							<?php echo esc_attr( $number );?>
 						</td>
@@ -386,7 +385,6 @@ if ( ! function_exists( 'woo_rocket_admin_order_data' ) ) {
 								<?php echo __( 'Transaction ID', 'bd-payment-gateways');?>
 							</strong>
 						</th>
-						<td>:</td>
 						<td>
 							<?php echo esc_attr( $trans_id );?>
 						</td>
@@ -440,7 +438,11 @@ if ( ! function_exists( 'woo_rocket_data_order_review_page' ) ) {
 		if ( 'woo_rocket' !== $order->get_payment_method() ) return;
 		global $wp;
 
-		$order_id = (int) $wp->query_vars['order-received'];
+		if ( $wp->query_vars['order-received'] ) {
+			$order_id = (int) $wp->query_vars['order-received'];
+		} else {
+			$order_id = (int) $wp->query_vars['view-order'];
+		}
 
 		$number = ( get_post_meta( $order_id, 'woo_rocket_number', true) ) ? get_post_meta( $order_id, 'woo_rocket_number', true) : '';
 		$trans_id = ( get_post_meta( $order_id, 'woo_rocket_trans_id', true) ) ? get_post_meta( $order_id, 'woo_rocket_trans_id', true) : '';
@@ -455,7 +457,6 @@ if ( ! function_exists( 'woo_rocket_data_order_review_page' ) ) {
 								<?php echo __( 'Rocket Number', 'bd-payment-gateways');?>
 							</strong>
 						</th>
-						<td>:</td>
 						<td>
 							<?php echo esc_attr( $number );?>
 						</td>
@@ -466,7 +467,6 @@ if ( ! function_exists( 'woo_rocket_data_order_review_page' ) ) {
 								<?php echo __( 'Transaction ID', 'bd-payment-gateways');?>
 							</strong>
 						</th>
-						<td>:</td>
 						<td>
 							<?php echo esc_attr( $trans_id );?>
 						</td>

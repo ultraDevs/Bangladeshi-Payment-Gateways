@@ -13,7 +13,7 @@ Bangladeshi Payment Gateways for WooCommerce.
 
 == Description ==
 
-Bangladeshi Payment Gateways for WooCommerce. It has some advance feature that will help you to manage payment easily.
+Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that will help you to manage payment easily.
 
 ### Features
 
@@ -57,7 +57,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 == Changelog ==
 
 
-== Upgrade Notice ==
+== Changelog ==
+
+= 1.0.1 - 07/07/2020 =
+* Fixed: Payments information wasn't showing in my account page.
+* Added: Some CSS added.
 
 = 1.0.0 - 07/07/2020 =
 * Initial Stable Release
