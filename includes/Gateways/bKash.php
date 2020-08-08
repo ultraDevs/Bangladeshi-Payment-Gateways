@@ -24,11 +24,11 @@ class WC_BD_bKash_Gateway extends WC_Payment_Gateway {
 	 */
 	public function __construct() {
 
-		$this->id = 'woo_bkash';
-		$this->icon = apply_filters( 'woocommerce_bdpg_bKash_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/bKash.png' );
-		$this->has_fields = true;
+		$this->id                 = 'woo_bkash';
+		$this->icon               = apply_filters( 'woocommerce_bdpg_bKash_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/bKash.png' );
+		$this->has_fields         = true;
 		$this->method_description = __( 'bKash Payment Gateway Settings.', 'bd-payment-gateways' );
-		$this->method_title = __( 'bkash', 'bd-payment-gateways' );
+		$this->method_title       = __( 'bkash', 'bd-payment-gateways' );
 
 		// $this->supports = array(
 		// 	'products'

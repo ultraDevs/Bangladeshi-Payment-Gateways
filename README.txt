@@ -72,6 +72,7 @@ No, You must install and active woocommerce plugin to make this plugin work.
 * Fixed: Payments information wasn't showing in my account page.
 * Added: Some CSS added.
 * Added: Appsero
+* Fixed: Payment Method Image Height Problem fixed.
 
 = 1.0.0 - 07/07/2020 =
 * Initial Stable Release

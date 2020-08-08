@@ -32,9 +32,17 @@
 .bdpg-user__field {
     margin-bottom: 10px;
 }
+.bdpg-user__field label {
+    display: block;
 
-.bdpg-user__field input {
+}
+
+.bdpg-user__field input[type="text"] {
     margin-top: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 5px 15px;
+
 }
 
 .bdpg-g-details img {
@@ -53,3 +61,7 @@
     height: 30px;
     float: right;
 } */
+
+#payment_method_woo_bkash img {
+    height: 35px;
+}
