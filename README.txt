@@ -33,6 +33,8 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 
 Made with love by [ultraDevs](https://ultradevs.com)
 
+[Github Link](https://github.com/ultraDevs/Bangladeshi-Payment-Gateways)
+
 ## Privacy Policy
 Bangladeshi Payment Gateways uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
