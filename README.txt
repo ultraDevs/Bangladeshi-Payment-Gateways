@@ -1,10 +1,10 @@
 === Bangladeshi Payment Gateways ===
 Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
-Tags: mobile payments gateway, Bangladeshi Mobile banking, payment, gateway
+Tags: Mobile Payment Gateways,Bangladeshi Mobile Banking,Payment,Gateway,bKash,Rocket,Nagad
 Requires at least: 4.4
 Tested up to: 5.4.2
-Stable tag: trunk
+Stable tag: 1.0.2
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
