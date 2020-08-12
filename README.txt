@@ -1,7 +1,7 @@
 === Bangladeshi Payment Gateways ===
 Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
-Tags: Mobile Payment Gateways,Bangladeshi Mobile Banking,Payment,Gateway,bKash,Rocket,Nagad
+Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad, qr code
 Requires at least: 4.4
 Tested up to: 5.4.2
 Stable tag: 1.0.2
@@ -31,7 +31,12 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 [youtube https://www.youtube.com/watch?v=ArJ-zOW1KBU]
 
 
-Made with love by [ultraDevs](https://ultradevs.com)
+[Like Our Facebook Page](https://web.facebook.com/hello.ultradevs/)
+[Join Our Facebook Group](https://web.facebook.com/groups/ultraDevs)
+[Subscribe Our Youtube Channel](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w?sub_confirmation=1)
+
+
+#### Contribute
 
 [Github Link](https://github.com/ultraDevs/Bangladeshi-Payment-Gateways)
 
@@ -44,6 +49,8 @@ Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without
 
 Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
 
+
+Made with love by [ultraDevs](https://ultradevs.com)
 
 == Installation ==
 
@@ -71,15 +78,13 @@ No, You must install and active woocommerce plugin to make this plugin work.
 == Changelog ==
 
 = 1.0.2 - 09/07/2020 =
-* Added: Appsero
 * Fixed: Payment Method Image Height Problem fixed.
 * Added: Remove Plugin Data on Uninstall.
-* Updated: Appsero Updated.
+* Added: Appsero
 
 = 1.0.1 - 07/07/2020 =
 * Fixed: Payments information wasn't showing in my account page.
 * Added: Some CSS added.
-* Added: Appsero
 
 = 1.0.0 - 07/07/2020 =
 * Initial Stable Release

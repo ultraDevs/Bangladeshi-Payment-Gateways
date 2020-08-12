@@ -21,10 +21,16 @@
 
 [youtube https://www.youtube.com/watch?v=ArJ-zOW1KBU]
 
-Made with love by [ultraDevs](https://ultradevs.com)
+[Like Our Facebook Page](https://web.facebook.com/hello.ultradevs/)
+[Join Our Facebook Group](https://web.facebook.com/groups/ultraDevs)
+[Subscribe Our Youtube Channel](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w?sub_confirmation=1)
+
+
+#### Contribute
+
+[Github Link](https://github.com/ultraDevs/Bangladeshi-Payment-Gateways)
 
 ## Privacy Policy
-
 Bangladeshi Payment Gateways uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
@@ -33,16 +39,21 @@ Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without
 
 Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
 
+
+Made with love by [ultraDevs](https://ultradevs.com)
+
 == Installation ==
 
 1. Upload the plugin files to the `/wp-content/plugins/Bangladeshi-payment-gateways` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
+
 
 == Frequently Asked Questions ==
 
 = Is it possible to use without WooCommerce plugin? =
 
 No, You must install and active woocommerce plugin to make this plugin work.
+
 
 == Screenshots ==
 
@@ -53,19 +64,17 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
-= 1.0.2 - 09/07/2020 =
 
-* Added: Appsero
+== Changelog ==
+
+= 1.0.2 - 09/07/2020 =
 * Fixed: Payment Method Image Height Problem fixed.
 * Added: Remove Plugin Data on Uninstall.
-* Updated: Appsero Updated.
-
-= 1.0.1 - 07/07/2020 =
-
-* Fixed: Payments information wasn't showing in my account page.
-* Added: Some CSS added.
 * Added: Appsero
 
-= 1.0.0 - 07/07/2020 =
+= 1.0.1 - 07/07/2020 =
+* Fixed: Payments information wasn't showing in my account page.
+* Added: Some CSS added.
 
+= 1.0.0 - 07/07/2020 =
 * Initial Stable Release
