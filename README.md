@@ -47,13 +47,11 @@ Made with love by [ultraDevs](https://ultradevs.com)
 1. Upload the plugin files to the `/wp-content/plugins/Bangladeshi-payment-gateways` directory, or install the plugin through the WordPress plugins screen directly.
 1. Activate the plugin through the 'Plugins' screen in WordPress
 
-
 == Frequently Asked Questions ==
 
 = Is it possible to use without WooCommerce plugin? =
 
 No, You must install and active woocommerce plugin to make this plugin work.
-
 
 == Screenshots ==
 
@@ -64,17 +62,18 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
-
-== Changelog ==
+= 2.0.0 - 02/10/2020 =
+*Added: Payment Data in Order Column
+*Updated: Appsero
 
 = 1.0.2 - 09/07/2020 =
-* Fixed: Payment Method Image Height Problem fixed.
-* Added: Remove Plugin Data on Uninstall.
-* Added: Appsero
+*Fixed: Payment Method Image Height Problem fixed.
+*Added: Remove Plugin Data on Uninstall.
+*Added: Appsero
 
 = 1.0.1 - 07/07/2020 =
-* Fixed: Payments information wasn't showing in my account page.
-* Added: Some CSS added.
+*Fixed: Payments information wasn't showing in my account page.
+*Added: Some CSS added.
 
 = 1.0.0 - 07/07/2020 =
-* Initial Stable Release
+*Initial Stable Release

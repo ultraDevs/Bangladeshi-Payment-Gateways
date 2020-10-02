@@ -3,8 +3,8 @@ Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
 Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad, qr code
 Requires at least: 4.4
-Tested up to: 5.4.2
-Stable tag: 1.0.2
+Tested up to: 5.5.0
+Stable tag: 2.0.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -72,10 +72,12 @@ No, You must install and active woocommerce plugin to make this plugin work.
 3. Order Details Page in Admin Area
 4. Payment Method Page in Admin Area
 
-== Changelog ==
-
 
 == Changelog ==
+
+= 2.0.0 - 02/10/2020 =
+* Added: Payment Data in Order Column
+* Updated: Appsero
 
 = 1.0.2 - 09/07/2020 =
 * Fixed: Payment Method Image Height Problem fixed.

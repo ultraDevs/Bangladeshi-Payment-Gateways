@@ -41,7 +41,7 @@ class WC_BD_bKash_Gateway extends WC_Payment_Gateway {
 		$this->title = $this->get_option( 'title' );
 		$this->description = $this->get_option( 'description' );
 		$this->enabled = $this->get_option( 'enabled' );
-		$this->instructions = $this->get_option( 'instructions', $this->description );
+		$this->instructions = $this->get_option( 'instructions' );
 		$this->bkash_charge = $this->get_option( 'bkash_charge' );
 		$this->bkash_fee = $this->get_option( 'bkash_fee' );
 		$this->bkash_charge_details = $this->get_option( 'bkash_charge_details' );
@@ -475,5 +475,44 @@ if ( ! function_exists( 'woo_bkash_data_order_review_page' ) ) {
 			</table>
 		</div>
 		<?php
+	}
+}
+
+/**
+ * Register New Column For Payment Info
+ */
+add_filter( 'manage_edit-shop_order_columns', 'bdpg_bkash_admin_register_column' );
+function bdpg_bkash_admin_register_column( $columns ) {
+
+	$columns = ( is_array($columns ) ) ? $columns : array();
+
+	if ( $columns['order_actions'] ) unset( $columns['order_actions'] );
+
+	$columns['payment_no']   = esc_html__( 'Payment No', 'bd-payment-gateways' );
+	$columns['tran_id']     = esc_html__( 'Tran. ID', 'bd-payment-gateways' );
+
+	$columns['order_actions'] = $columns['order_actions'];
+
+	return $columns;
+
+}
+
+/**
+ * Load Payment Data in New Column
+ */
+add_action( 'manage_shop_order_posts_custom_column', 'bdpg_bkash_admin_column_value', 2 );
+function bdpg_bkash_admin_column_value( $column ) {
+
+	global $post;
+
+	$payment_no = ( get_post_meta( $post->ID, 'woo_bkash_number', true ) ) ? get_post_meta( $post->ID, 'woo_bkash_number', true ) : '';
+	$tran_id  = ( get_post_meta( $post->ID, 'woo_bkash_trans_id', true ) ) ? get_post_meta( $post->ID, 'woo_bkash_trans_id', true ) : '';
+
+	if ( $column == 'payment_no' ) {
+		echo esc_attr( $payment_no );
+	}
+	
+	if ( $column == 'tran_id' ) {
+		echo esc_attr( $tran_id );
 	}
 }
