@@ -19,18 +19,18 @@
 
 #### Video
 
-[youtube https://www.youtube.com/watch?v=ArJ-zOW1KBU]
+[youtube <https://www.youtube.com/watch?v=ArJ-zOW1KBU>]
 
 [Like Our Facebook Page](https://web.facebook.com/hello.ultradevs/)
 [Join Our Facebook Group](https://web.facebook.com/groups/ultraDevs)
 [Subscribe Our Youtube Channel](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w?sub_confirmation=1)
-
 
 #### Contribute
 
 [Github Link](https://github.com/ultraDevs/Bangladeshi-Payment-Gateways)
 
 ## Privacy Policy
+
 Bangladeshi Payment Gateways uses [Appsero](https://appsero.com) SDK to collect some telemetry data upon user's confirmation. This helps us to troubleshoot problems faster & make product improvements.
 
 Appsero SDK **does not gather any data by default.** The SDK only starts gathering basic telemetry data **when a user allows it via the admin notice**. We collect the data to ensure a great user experience for all our users.
@@ -38,7 +38,6 @@ Appsero SDK **does not gather any data by default.** The SDK only starts gatheri
 Integrating Appsero SDK **DOES NOT IMMEDIATELY** start gathering data, **without confirmation from users in any case.**
 
 Learn more about how [Appsero collects and uses this data](https://appsero.com/privacy-policy/).
-
 
 Made with love by [ultraDevs](https://ultradevs.com)
 
@@ -61,6 +60,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 4. Payment Method Page in Admin Area
 
 == Changelog ==
+
+= 2.0.1 - 21/11/2020 =
+*Added: Translation
+*Updated: Appsero
+*Fixed: Appsero issue with some other plugin like Dokan
 
 = 2.0.0 - 02/10/2020 =
 *Added: Payment Data in Order Column
