@@ -439,7 +439,7 @@ if (! function_exists('bdpg_Nagad_charge_settings') ) {
 
             if($payment_method == 'woo_nagad' ) {
                 $label = __('Nagad Charge', 'bd-payment-gateways');
-                $amount = round($cart->cart_contents_total * ( $nagad_settings['nagad_fee'] / 100 ));
+                $amount = ceil( $cart->cart_contents_total * ( $nagad_settings['nagad_fee'] / 100 ) );
                 $cart->add_fee($label, $amount, true, 'standard');
             }
         }

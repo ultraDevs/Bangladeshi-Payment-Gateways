@@ -439,7 +439,7 @@ if (! function_exists('bdpg_Rocket_charge_settings') ) {
 
             if($payment_method == 'woo_rocket' ) {
                 $label = __('Rocket Charge', 'bd-payment-gateways');
-                $amount = round($cart->cart_contents_total * ( $rocket_settings['rocket_fee'] / 100 ));
+                $amount = ceil( $cart->cart_contents_total * ( $rocket_settings['rocket_fee'] / 100 ) );
                 $cart->add_fee($label, $amount, true, 'standard');
             }
         }
