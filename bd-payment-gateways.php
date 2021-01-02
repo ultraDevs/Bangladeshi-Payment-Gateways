@@ -87,13 +87,15 @@ require BD_PAYMENT_GATEWAYS_DIR_PATH . 'includes/Init.php';
 function appsero_init_tracker_bangladeshi_payment_gateways() {
 
 	if ( ! class_exists( 'Appsero\Client' ) ) {
-		require_once BD_PAYMENT_GATEWAYS_DIR_PATH . 'lib/appsero/src/Client.php';
+		require_once BD_PAYMENT_GATEWAYS_DIR_PATH . 'includes/lib/appsero/src/Client.php';
 	}
 
 	$client = new Appsero\Client( 'ea194db4-5e5b-4279-9717-302702dc628d', 'Bangladeshi Payment Gateways', __FILE__ );
 
 	// Active insights.
 	$client->insights()->init();
+
+	$client->set_textdomain( 'bangladeshi-payment-gateways' );
 
 }
 
