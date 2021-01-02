@@ -61,6 +61,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
+= 2.0.2 - 21/11/2020 =
+*Updated: Text Domain
+*Updated: Appsero
+*Fixed: CSS ( order page on mobile )
+
 = 2.0.1 - 21/11/2020 =
 *Added: Translation
 *Updated: Appsero

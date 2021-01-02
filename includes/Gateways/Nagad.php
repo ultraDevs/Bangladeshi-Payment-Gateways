@@ -29,8 +29,8 @@ class WC_BD_Nagad_Gateway extends WC_Payment_Gateway
         $this->id = 'woo_nagad';
         $this->icon = apply_filters('woocommerce_bdpg_Nagad_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Nagad.png');
         $this->has_fields = true;
-        $this->method_description = __('Nagad Payment Gateway Settings.', 'bd-payment-gateways');
-        $this->method_title = __('Nagad', 'bd-payment-gateways');
+        $this->method_description = __('Nagad Payment Gateway Settings.', 'bangladeshi-payment-gateways');
+        $this->method_title = __('Nagad', 'bangladeshi-payment-gateways');
 
         // $this->supports = array(
         //     'products'
@@ -70,48 +70,48 @@ class WC_BD_Nagad_Gateway extends WC_Payment_Gateway
     {
         $this->form_fields = array(
         'enabled' => array(
-        'title'       => __('Enable/Disable', 'bd-payment-gateways'),
-        'label'       => __('Enable Nagad Gateway', 'bd-payment-gateways'),
+        'title'       => __('Enable/Disable', 'bangladeshi-payment-gateways'),
+        'label'       => __('Enable Nagad Gateway', 'bangladeshi-payment-gateways'),
         'type'        => 'checkbox',
         'description' => '',
         'default'     => 'no'
         ),
         'title' => array(
-        'title'       => __('Title', 'bd-payment-gateways'),
+        'title'       => __('Title', 'bangladeshi-payment-gateways'),
         'type'        => 'text',
         'default'     => 'Nagad',
-        'description' => __('Title', 'bd-payment-gateways'),
+        'description' => __('Title', 'bangladeshi-payment-gateways'),
         'desc_tip'    => true,
         ),
         'description' => array(
-        'title'       => __('Description', 'bd-payment-gateways'),
+        'title'       => __('Description', 'bangladeshi-payment-gateways'),
         'default'     => 'Description here. ',
         'type'        => 'textarea',
         ),
         'nagad_charge' => array(
-        'title'       => __('Nagad Charge?', 'bd-payment-gateways'),
+        'title'       => __('Nagad Charge?', 'bangladeshi-payment-gateways'),
         'type'        => 'checkbox',
-        'description' => __('Add Nagad <b>Send Money</b> charge.', 'bd-payment-gateways'),
+        'description' => __('Add Nagad <b>Send Money</b> charge.', 'bangladeshi-payment-gateways'),
         'default' => 'no'
         ),
 
         'nagad_fee' => array(
-        'title'       => __('Nagad Fee? (in %)', 'bd-payment-gateways'),
+        'title'       => __('Nagad Fee? (in %)', 'bangladeshi-payment-gateways'),
         'type'        => 'text',
         'default'     => '1.45',
-        'description' => __('Don\'t add %.', 'bd-payment-gateways'),
+        'description' => __('Don\'t add %.', 'bangladeshi-payment-gateways'),
         ),
 
         'nagad_charge_details' => array(
-        'title'       => __('Nagad Charge Details', 'bd-payment-gateways'),
+        'title'       => __('Nagad Charge Details', 'bangladeshi-payment-gateways'),
         'type'        => 'textarea',
         'default' => __('Nagad "Send Money" fee will be added with net price.'),
         ),
 
         'instructions' => array(
-        'title'       => __('Instructions', 'bd-payment-gateways'),
+        'title'       => __('Instructions', 'bangladeshi-payment-gateways'),
         'type'        => 'textarea',
-        'description' => __('Instructions', 'bd-payment-gateways'),
+        'description' => __('Instructions', 'bangladeshi-payment-gateways'),
         'default'     => 'Instructions',
         ),
         'accounts' => array(
@@ -129,7 +129,7 @@ class WC_BD_Nagad_Gateway extends WC_Payment_Gateway
         global $woocommerce;
 
         $nagad_charge_details = ( 'yes' == $this->nagad_charge ) ? $this->nagad_charge_details : '';
-        echo wpautop(wptexturize(esc_html__($this->description, 'bd-payment-gateways')) . ' ' . $nagad_charge_details);
+        echo wpautop(wptexturize(esc_html__($this->description, 'bangladeshi-payment-gateways')) . ' ' . $nagad_charge_details);
 
         $total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b>';
         echo '<div class="bdpg-total-amount">' .  $total_amount . '</div>';
@@ -340,11 +340,11 @@ if (! function_exists('woo_nagad_payment_process') ) {
         $trans_id = sanitize_text_field($_POST['nagad_trans_id']);
 
         if ('' == $number ) {
-            wc_add_notice(__('Please enter your Nagad number.', 'bd-payment-gateways'), 'error');
+            wc_add_notice(__('Please enter your Nagad number.', 'bangladeshi-payment-gateways'), 'error');
         }
 
         if ('' == $trans_id ) {
-            wc_add_notice(__('Please enter your Nagad transaction ID.', 'bd-payment-gateways'), 'error');
+            wc_add_notice(__('Please enter your Nagad transaction ID.', 'bangladeshi-payment-gateways'), 'error');
         }
     }
 }
@@ -383,12 +383,12 @@ if (! function_exists('woo_nagad_admin_order_data') ) {
         ?>
         <div class="form-field form-field-wide bdpg-admin-data">
             <img src="<?php echo BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Nagad.png';?> " alt="Nagad">
-            <table class="wp-list-table widefat fixed striped posts">
+            <table class="wp-list-table widefat striped posts">
                 <tbody>
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Nagad Number', 'bd-payment-gateways');?>
+                                <?php echo __('Nagad Number', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -398,7 +398,7 @@ if (! function_exists('woo_nagad_admin_order_data') ) {
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Transaction ID', 'bd-payment-gateways');?>
+                                <?php echo __('Transaction ID', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -438,7 +438,7 @@ if (! function_exists('bdpg_Nagad_charge_settings') ) {
             }
 
             if($payment_method == 'woo_nagad' ) {
-                $label = __('Nagad Charge', 'bd-payment-gateways');
+                $label = __('Nagad Charge', 'bangladeshi-payment-gateways');
                 $amount = round( $cart->cart_contents_total * ( $nagad_settings['nagad_fee'] / 100 ) );
                 $cart->add_fee($label, $amount, true, 'standard');
             }
@@ -469,12 +469,12 @@ if (! function_exists('woo_nagad_data_order_review_page') ) {
         ?>
         <div class="bdpg-g-details">
             <img src="<?php echo BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Nagad.png';?> " alt="Nagad">
-            <table class="wp-list-table widefat fixed striped posts">
+            <table class="wp-list-table widefat striped posts">
                 <tbody>
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Nagad Number', 'bd-payment-gateways');?>
+                                <?php echo __('Nagad Number', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -484,7 +484,7 @@ if (! function_exists('woo_nagad_data_order_review_page') ) {
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Transaction ID', 'bd-payment-gateways');?>
+                                <?php echo __('Transaction ID', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -508,8 +508,8 @@ function bdpg_nagad_admin_register_column( $columns )
 
     $columns = ( is_array($columns) ) ? $columns : array();
 
-    $columns['payment_no']   = esc_html__('Payment No', 'bd-payment-gateways');
-    $columns['tran_id']     = esc_html__('Tran. ID', 'bd-payment-gateways');
+    $columns['payment_no']   = esc_html__('Payment No', 'bangladeshi-payment-gateways');
+    $columns['tran_id']     = esc_html__('Tran. ID', 'bangladeshi-payment-gateways');
 
     $columns['order_actions'] = $columns['order_actions'];
 

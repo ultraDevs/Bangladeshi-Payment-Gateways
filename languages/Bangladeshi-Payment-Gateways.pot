@@ -1,4 +1,4 @@
-# Copyright (C) 2020 ultraDevs
+# Copyright (C) 2021 ultraDevs
 # This file is distributed under the same license as the Bangladeshi Payment Gateways plugin.
 msgid ""
 msgstr ""
@@ -9,18 +9,17 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-11-21T02:06:53+00:00\n"
+"POT-Creation-Date: 2021-01-02T01:05:37+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: bd-payment-gateways\n"
 
 #. Plugin Name of the plugin
-#: includes/Init.php:99
 msgid "Bangladeshi Payment Gateways"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://ultradevs.com/wp/plugins/bangladeshi-payment-gateways"
+msgid "https://ultradevs.com/plugins/bangladeshi-payment-gateways"
 msgstr ""
 
 #. Description of the plugin
@@ -33,200 +32,4 @@ msgstr ""
 
 #. Author URI of the plugin
 msgid "https://ultradevs.com"
-msgstr ""
-
-#: includes/Gateways/bKash.php:30
-msgid "bKash Payment Gateway Settings."
-msgstr ""
-
-#: includes/Gateways/bKash.php:31
-msgid "bkash"
-msgstr ""
-
-#: includes/Gateways/bKash.php:70
-#: includes/Gateways/Nagad.php:70
-#: includes/Gateways/Rocket.php:70
-msgid "Enable/Disable"
-msgstr ""
-
-#: includes/Gateways/bKash.php:71
-msgid "Enable bKash Gateway"
-msgstr ""
-
-#: includes/Gateways/bKash.php:77
-#: includes/Gateways/bKash.php:80
-#: includes/Gateways/Nagad.php:77
-#: includes/Gateways/Nagad.php:80
-#: includes/Gateways/Rocket.php:77
-#: includes/Gateways/Rocket.php:80
-msgid "Title"
-msgstr ""
-
-#: includes/Gateways/bKash.php:84
-#: includes/Gateways/Nagad.php:84
-#: includes/Gateways/Rocket.php:84
-msgid "Description"
-msgstr ""
-
-#: includes/Gateways/bKash.php:89
-msgid "bKash Charge?"
-msgstr ""
-
-#: includes/Gateways/bKash.php:91
-msgid "Add bKash <b>Send Money</b> charge."
-msgstr ""
-
-#: includes/Gateways/bKash.php:96
-msgid "bKash Fee? (in %)"
-msgstr ""
-
-#: includes/Gateways/bKash.php:99
-#: includes/Gateways/Nagad.php:99
-#: includes/Gateways/Rocket.php:99
-msgid "Don't add %."
-msgstr ""
-
-#: includes/Gateways/bKash.php:103
-msgid "bKash Charge Details"
-msgstr ""
-
-#: includes/Gateways/bKash.php:109
-#: includes/Gateways/bKash.php:111
-#: includes/Gateways/Nagad.php:109
-#: includes/Gateways/Nagad.php:111
-#: includes/Gateways/Rocket.php:109
-#: includes/Gateways/Rocket.php:111
-msgid "Instructions"
-msgstr ""
-
-#: includes/Gateways/bKash.php:331
-msgid "Please enter your bKash number."
-msgstr ""
-
-#: includes/Gateways/bKash.php:335
-msgid "Please enter your bKash transaction ID."
-msgstr ""
-
-#: includes/Gateways/bKash.php:375
-#: includes/Gateways/bKash.php:457
-msgid "bKash Number"
-msgstr ""
-
-#: includes/Gateways/bKash.php:385
-#: includes/Gateways/bKash.php:467
-#: includes/Gateways/Nagad.php:385
-#: includes/Gateways/Nagad.php:467
-#: includes/Gateways/Rocket.php:385
-#: includes/Gateways/Rocket.php:467
-msgid "Transaction ID"
-msgstr ""
-
-#: includes/Gateways/bKash.php:423
-msgid "bKash Charge"
-msgstr ""
-
-#: includes/Gateways/bKash.php:491
-#: includes/Gateways/Nagad.php:490
-#: includes/Gateways/Rocket.php:491
-msgid "Payment No"
-msgstr ""
-
-#: includes/Gateways/bKash.php:492
-#: includes/Gateways/Nagad.php:491
-#: includes/Gateways/Rocket.php:492
-msgid "Tran. ID"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:30
-msgid "Nagad Payment Gateway Settings."
-msgstr ""
-
-#: includes/Gateways/Nagad.php:31
-msgid "Nagad"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:71
-msgid "Enable Nagad Gateway"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:89
-msgid "Nagad Charge?"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:91
-msgid "Add Nagad <b>Send Money</b> charge."
-msgstr ""
-
-#: includes/Gateways/Nagad.php:96
-msgid "Nagad Fee? (in %)"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:103
-msgid "Nagad Charge Details"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:331
-msgid "Please enter your Nagad number."
-msgstr ""
-
-#: includes/Gateways/Nagad.php:335
-msgid "Please enter your Nagad transaction ID."
-msgstr ""
-
-#: includes/Gateways/Nagad.php:375
-#: includes/Gateways/Nagad.php:457
-msgid "Nagad Number"
-msgstr ""
-
-#: includes/Gateways/Nagad.php:423
-msgid "Nagad Charge"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:30
-msgid "Rocket Payment Gateway Settings."
-msgstr ""
-
-#: includes/Gateways/Rocket.php:31
-msgid "Rocket"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:71
-msgid "Enable Rocket Gateway"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:89
-msgid "Rocket Charge?"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:91
-msgid "Add Rocket <b>Send Money</b> charge."
-msgstr ""
-
-#: includes/Gateways/Rocket.php:96
-msgid "Rocket Fee? (in %)"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:103
-msgid "Rocket Charge Details"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:331
-msgid "Please enter your Rocket number."
-msgstr ""
-
-#: includes/Gateways/Rocket.php:335
-msgid "Please enter your Rocket transaction ID."
-msgstr ""
-
-#: includes/Gateways/Rocket.php:375
-#: includes/Gateways/Rocket.php:457
-msgid "Rocket Number"
-msgstr ""
-
-#: includes/Gateways/Rocket.php:423
-msgid "Rocket Charge"
-msgstr ""
-
-#: includes/Init.php:100
-msgid "WooCommerce"
 msgstr ""

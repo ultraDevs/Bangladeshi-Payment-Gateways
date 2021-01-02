@@ -7,9 +7,9 @@
 
 /**
  * Plugin Name:       Bangladeshi Payment Gateways
- * Plugin URI:        https://ultradevs.com/wp/plugins/bangladeshi-payment-gateways
+ * Plugin URI:        https://ultradevs.com/plugins/bangladeshi-payment-gateways
  * Description:       Bangladeshi Payment Gateways for WooCommerce.
- * Version:           2.0.1
+ * Version:           2.0.2
  * Author:            ultraDevs
  * Author URI:        https://ultradevs.com
  * License:           GPL v2 or later
@@ -54,7 +54,7 @@ if ( ! function_exists( 'bd_payment_gateways_load_text_domain' ) ) {
 	 * @return void
 	 */
 	function bd_payment_gateways_load_text_domain() {
-		load_plugin_textdomain( 'bd-payment-gateways', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'bangladeshi-payment-gateways', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	}
 }
 add_action( 'plugins_loaded', 'bd_payment_gateways_load_text_domain' );

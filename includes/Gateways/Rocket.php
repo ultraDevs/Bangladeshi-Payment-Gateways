@@ -29,8 +29,8 @@ class WC_BD_Rocket_Gateway extends WC_Payment_Gateway
         $this->id = 'woo_rocket';
         $this->icon = apply_filters('woocommerce_bdpg_Rocket_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Rocket.png');
         $this->has_fields = true;
-        $this->method_description = __('Rocket Payment Gateway Settings.', 'bd-payment-gateways');
-        $this->method_title = __('Rocket', 'bd-payment-gateways');
+        $this->method_description = __('Rocket Payment Gateway Settings.', 'bangladeshi-payment-gateways');
+        $this->method_title = __('Rocket', 'bangladeshi-payment-gateways');
 
         // $this->supports = array(
         //     'products'
@@ -70,48 +70,48 @@ class WC_BD_Rocket_Gateway extends WC_Payment_Gateway
     {
         $this->form_fields = array(
         'enabled' => array(
-        'title'       => __('Enable/Disable', 'bd-payment-gateways'),
-        'label'       => __('Enable Rocket Gateway', 'bd-payment-gateways'),
+        'title'       => __('Enable/Disable', 'bangladeshi-payment-gateways'),
+        'label'       => __('Enable Rocket Gateway', 'bangladeshi-payment-gateways'),
         'type'        => 'checkbox',
         'description' => '',
         'default'     => 'no'
         ),
         'title' => array(
-        'title'       => __('Title', 'bd-payment-gateways'),
+        'title'       => __('Title', 'bangladeshi-payment-gateways'),
         'type'        => 'text',
         'default'     => 'Rocket',
-        'description' => __('Title', 'bd-payment-gateways'),
+        'description' => __('Title', 'bangladeshi-payment-gateways'),
         'desc_tip'    => true,
         ),
         'description' => array(
-        'title'       => __('Description', 'bd-payment-gateways'),
+        'title'       => __('Description', 'bangladeshi-payment-gateways'),
         'default'     => 'Description here. ',
         'type'        => 'textarea',
         ),
         'rocket_charge' => array(
-        'title'       => __('Rocket Charge?', 'bd-payment-gateways'),
+        'title'       => __('Rocket Charge?', 'bangladeshi-payment-gateways'),
         'type'        => 'checkbox',
-        'description' => __('Add Rocket <b>Send Money</b> charge.', 'bd-payment-gateways'),
+        'description' => __('Add Rocket <b>Send Money</b> charge.', 'bangladeshi-payment-gateways'),
         'default' => 'no'
         ),
 
         'rocket_fee' => array(
-        'title'       => __('Rocket Fee? (in %)', 'bd-payment-gateways'),
+        'title'       => __('Rocket Fee? (in %)', 'bangladeshi-payment-gateways'),
         'type'        => 'text',
         'default'     => '1.8',
-        'description' => __('Don\'t add %.', 'bd-payment-gateways'),
+        'description' => __('Don\'t add %.', 'bangladeshi-payment-gateways'),
         ),
 
         'rocket_charge_details' => array(
-        'title'       => __('Rocket Charge Details', 'bd-payment-gateways'),
+        'title'       => __('Rocket Charge Details', 'bangladeshi-payment-gateways'),
         'type'        => 'textarea',
         'default' => __('Rocket "Send Money" fee will be added with net price.'),
         ),
 
         'instructions' => array(
-        'title'       => __('Instructions', 'bd-payment-gateways'),
+        'title'       => __('Instructions', 'bangladeshi-payment-gateways'),
         'type'        => 'textarea',
-        'description' => __('Instructions', 'bd-payment-gateways'),
+        'description' => __('Instructions', 'bangladeshi-payment-gateways'),
         'default'     => 'Instructions',
         ),
         'accounts' => array(
@@ -129,7 +129,7 @@ class WC_BD_Rocket_Gateway extends WC_Payment_Gateway
         global $woocommerce;
 
         $rocket_charge_details = ( 'yes' == $this->rocket_charge ) ? $this->rocket_charge_details : '';
-        echo wpautop(wptexturize(esc_html__($this->description, 'bd-payment-gateways')) . ' ' . $rocket_charge_details);
+        echo wpautop(wptexturize(esc_html__($this->description, 'bangladeshi-payment-gateways')) . ' ' . $rocket_charge_details);
 
         $total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b>';
         echo '<div class="bdpg-total-amount">' .  $total_amount . '</div>';
@@ -340,11 +340,11 @@ if (! function_exists('woo_rocket_payment_process') ) {
         $trans_id = sanitize_text_field($_POST['rocket_trans_id']);
 
         if ('' == $number ) {
-            wc_add_notice(__('Please enter your Rocket number.', 'bd-payment-gateways'), 'error');
+            wc_add_notice(__('Please enter your Rocket number.', 'bangladeshi-payment-gateways'), 'error');
         }
 
         if ('' == $trans_id ) {
-            wc_add_notice(__('Please enter your Rocket transaction ID.', 'bd-payment-gateways'), 'error');
+            wc_add_notice(__('Please enter your Rocket transaction ID.', 'bangladeshi-payment-gateways'), 'error');
         }
     }
 }
@@ -383,12 +383,12 @@ if (! function_exists('woo_rocket_admin_order_data') ) {
         ?>
         <div class="form-field form-field-wide bdpg-admin-data">
             <img src="<?php echo BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Rocket.png';?> " alt="Rocket">
-            <table class="wp-list-table widefat fixed striped posts">
+            <table class="wp-list-table widefat striped posts">
                 <tbody>
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Rocket Number', 'bd-payment-gateways');?>
+                                <?php echo __('Rocket Number', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -398,7 +398,7 @@ if (! function_exists('woo_rocket_admin_order_data') ) {
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Transaction ID', 'bd-payment-gateways');?>
+                                <?php echo __('Transaction ID', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -438,7 +438,7 @@ if (! function_exists('bdpg_Rocket_charge_settings') ) {
             }
 
             if($payment_method == 'woo_rocket' ) {
-                $label = __('Rocket Charge', 'bd-payment-gateways');
+                $label = __('Rocket Charge', 'bangladeshi-payment-gateways');
                 $amount = round( $cart->cart_contents_total * ( $rocket_settings['rocket_fee'] / 100 ) );
                 $cart->add_fee($label, $amount, true, 'standard');
             }
@@ -469,12 +469,12 @@ if (! function_exists('woo_rocket_data_order_review_page') ) {
         ?>
         <div class="bdpg-g-details">
             <img src="<?php echo BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Rocket.png';?> " alt="Rocket">
-            <table class="wp-list-table widefat fixed striped posts">
+            <table class="wp-list-table widefat striped posts">
                 <tbody>
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Rocket Number', 'bd-payment-gateways');?>
+                                <?php echo __('Rocket Number', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -484,7 +484,7 @@ if (! function_exists('woo_rocket_data_order_review_page') ) {
                     <tr>
                         <th>
                             <strong>
-                                <?php echo __('Transaction ID', 'bd-payment-gateways');?>
+                                <?php echo __('Transaction ID', 'bangladeshi-payment-gateways');?>
                             </strong>
                         </th>
                         <td>
@@ -510,8 +510,8 @@ function bdpg_rocket_admin_register_column( $columns )
     if ($columns['order_actions'] ) { unset($columns['order_actions']);
     }
 
-    $columns['payment_no']   = esc_html__('Payment No', 'bd-payment-gateways');
-    $columns['tran_id']     = esc_html__('Tran. ID', 'bd-payment-gateways');
+    $columns['payment_no']   = esc_html__('Payment No', 'bangladeshi-payment-gateways');
+    $columns['tran_id']     = esc_html__('Tran. ID', 'bangladeshi-payment-gateways');
 
     $columns['order_actions'] = $columns['order_actions'];
 
