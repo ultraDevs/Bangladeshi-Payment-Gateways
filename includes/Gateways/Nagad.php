@@ -413,7 +413,7 @@ if (! function_exists('woo_nagad_admin_order_data') ) {
 }
 
 $nagad_settings = get_option('woocommerce_woo_nagad_settings');
-if ('yes' == $nagad_settings['nagad_charge'] ) {
+if ('yes' ?? $nagad_settings['nagad_charge'] ) {
     add_action('woocommerce_cart_calculate_fees', 'bdpg_Nagad_charge_settings', 20, 1);
 }
 
