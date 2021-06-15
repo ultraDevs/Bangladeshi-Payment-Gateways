@@ -413,7 +413,7 @@ if (! function_exists('woo_rocket_admin_order_data') ) {
 }
 
 $rocket_settings = get_option('woocommerce_woo_rocket_settings');
-if ('yes' == $rocket_settings['rocket_charge'] ) {
+if ('yes' ?? $rocket_settings['rocket_charge'] ) {
     add_action('woocommerce_cart_calculate_fees', 'bdpg_Rocket_charge_settings', 20, 1);
 }
 
