@@ -413,7 +413,7 @@ if (! function_exists('woo_bkash_admin_order_data') ) {
 }
 
 $bkash_settings = get_option('woocommerce_woo_bkash_settings');
-if ('yes' == $bkash_settings['bkash_charge'] ) {
+if ('yes' ?? $bkash_settings['bkash_charge'] ) {
     add_action('woocommerce_cart_calculate_fees', 'bdpg_bKash_charge_settings', 20, 1);
 }
 
