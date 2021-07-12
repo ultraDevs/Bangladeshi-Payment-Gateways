@@ -1,0 +1,20 @@
+{
+    "name": "ultradevs/bangladeshi-payment-gateways",
+    "description": "Bangladeshi Payment Gateways",
+    "authors": [
+        {
+            "name": "mhimon",
+            "email": "mahbubhasanimon@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "appsero/client": "dev-develop"
+    },
+    "autoload": {
+        "psr-4": {
+            "ultraDevs\\BDPG\\": "includes/"
+        },
+        "files": [ "includes/functions.php" ]
+    }
+}

@@ -1,0 +1,308 @@
+# Copyright (C) 2021 ultraDevs
+# This file is distributed under the same license as the Bangladeshi Payment Gateways plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Bangladeshi Payment Gateways 2.0.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bangladeshi-payment-gateways\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-07-12T09:12:54+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: bangladeshi-payment-gateways\n"
+
+#. Plugin Name of the plugin
+#. translators: %1$s Plugin Name, %2$s wooCommerce.
+#: bd-payment-gateways.php:196
+msgid "Bangladeshi Payment Gateways"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://ultradevs.com/plugins/bangladeshi-payment-gateways"
+msgstr ""
+
+#. Description of the plugin
+msgid "Bangladeshi Payment Gateways for WooCommerce."
+msgstr ""
+
+#. Author of the plugin
+msgid "ultraDevs"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://ultradevs.com"
+msgstr ""
+
+#. translators: %1$s Plugin Name, %2$s wooCommerce.
+#: bd-payment-gateways.php:195
+msgid " %1$s requires %2$s to be installed and activated. Please activate %2$s to continue."
+msgstr ""
+
+#: bd-payment-gateways.php:197
+msgid "WooCommerce"
+msgstr ""
+
+#: bd-payment-gateways.php:213
+msgid "Payment Settings"
+msgstr ""
+
+#: bd-payment-gateways.php:219
+msgid "<b style=\"color: green\">Write a Review</b>"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:36
+msgid "bKash Payment Gateway Settings."
+msgstr ""
+
+#: includes/Gateways/Bkash.php:37
+msgid "bkash"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:85
+#: includes/Gateways/Nagad.php:85
+#: includes/Gateways/Rocket.php:85
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:86
+msgid "Enable bKash Gateway"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:92
+#: includes/Gateways/Bkash.php:95
+#: includes/Gateways/Nagad.php:92
+#: includes/Gateways/Nagad.php:95
+#: includes/Gateways/Rocket.php:92
+#: includes/Gateways/Rocket.php:95
+msgid "Title"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:99
+#: includes/Gateways/Nagad.php:99
+#: includes/Gateways/Rocket.php:99
+msgid "Description"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:100
+msgid ""
+"\n"
+"\t\t\t\t\t01. Go to your bKash app or Dial *247#\n"
+"\t\t\t\t\t02. Choose “Send Money”\n"
+"\t\t\t\t\t03. Enter below bKash Account Number\n"
+"\t\t\t\t\t04. Enter <b>total amount</b>\n"
+"\t\t\t\t\t06. Now enter your bKash Account PIN to confirm the transaction\n"
+"\t\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:113
+msgid "bKash Charge?"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:115
+msgid "Add bKash <b>Send Money</b> charge."
+msgstr ""
+
+#: includes/Gateways/Bkash.php:120
+msgid "bKash Fee? (in %)"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:123
+#: includes/Gateways/Nagad.php:123
+#: includes/Gateways/Rocket.php:123
+msgid "Don't add %."
+msgstr ""
+
+#: includes/Gateways/Bkash.php:127
+msgid "bKash Charge Details"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:133
+#: includes/Gateways/Bkash.php:135
+#: includes/Gateways/Nagad.php:133
+#: includes/Gateways/Nagad.php:135
+#: includes/Gateways/Rocket.php:133
+#: includes/Gateways/Rocket.php:135
+msgid "Instructions"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:309
+msgid "Awaiting bKash payment"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:371
+msgid "Please enter your bKash number."
+msgstr ""
+
+#: includes/Gateways/Bkash.php:375
+msgid "Please enter your bKash transaction ID."
+msgstr ""
+
+#: includes/Gateways/Bkash.php:415
+#: includes/Gateways/Bkash.php:490
+msgid "bKash Number"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:425
+#: includes/Gateways/Bkash.php:500
+#: includes/Gateways/Nagad.php:425
+#: includes/Gateways/Nagad.php:500
+#: includes/Gateways/Rocket.php:425
+#: includes/Gateways/Rocket.php:500
+msgid "Transaction ID"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:457
+msgid "bKash Charge"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:521
+#: includes/Gateways/Nagad.php:521
+#: includes/Gateways/Rocket.php:521
+msgid "Payment No"
+msgstr ""
+
+#: includes/Gateways/Bkash.php:522
+#: includes/Gateways/Nagad.php:522
+#: includes/Gateways/Rocket.php:522
+msgid "Tran. ID"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:36
+msgid "Nagad Payment Gateway Settings."
+msgstr ""
+
+#: includes/Gateways/Nagad.php:37
+msgid "Nagad"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:86
+msgid "Enable Nagad Gateway"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:100
+msgid ""
+"\n"
+"\t\t\t\t\t01. Go to your Nagad app or Dial *167#\n"
+"\t\t\t\t\t02. Choose “Send Money”\n"
+"\t\t\t\t\t03. Enter below Nagad Account Number\n"
+"\t\t\t\t\t04. Enter <b>total amount</b>\n"
+"\t\t\t\t\t06. Now enter your Nagad Account PIN to confirm the transaction\n"
+"\t\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:113
+msgid "Nagad Charge?"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:115
+msgid "Add Nagad <b>Send Money</b> charge."
+msgstr ""
+
+#: includes/Gateways/Nagad.php:120
+msgid "Nagad Fee? (in %)"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:127
+msgid "Nagad Charge Details"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:309
+msgid "Awaiting Nagad payment"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:371
+msgid "Please enter your Nagad number."
+msgstr ""
+
+#: includes/Gateways/Nagad.php:375
+msgid "Please enter your Nagad transaction ID."
+msgstr ""
+
+#: includes/Gateways/Nagad.php:415
+#: includes/Gateways/Nagad.php:490
+msgid "Nagad Number"
+msgstr ""
+
+#: includes/Gateways/Nagad.php:457
+msgid "Nagad Charge"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:36
+msgid "Rocket Payment Gateway Settings."
+msgstr ""
+
+#: includes/Gateways/Rocket.php:37
+msgid "Rocket"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:86
+msgid "Enable Rocket Gateway"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:100
+msgid ""
+"\n"
+"\t\t\t\t\t01. Go to your Rocket app or Dial *322#\n"
+"\t\t\t\t\t02. Choose “Send Money”\n"
+"\t\t\t\t\t03. Enter below Rocket Account Number\n"
+"\t\t\t\t\t04. Enter <b>total amount</b>\n"
+"\t\t\t\t\t06. Now enter your Rocket Account PIN to confirm the transaction\n"
+"\t\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:113
+msgid "Rocket Charge?"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:115
+msgid "Add Rocket <b>Send Money</b> charge."
+msgstr ""
+
+#: includes/Gateways/Rocket.php:120
+msgid "Rocket Fee? (in %)"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:127
+msgid "Rocket Charge Details"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:309
+msgid "Awaiting Rocket payment"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:371
+msgid "Please enter your Rocket number."
+msgstr ""
+
+#: includes/Gateways/Rocket.php:375
+msgid "Please enter your Rocket transaction ID."
+msgstr ""
+
+#: includes/Gateways/Rocket.php:415
+#: includes/Gateways/Rocket.php:490
+msgid "Rocket Number"
+msgstr ""
+
+#: includes/Gateways/Rocket.php:457
+msgid "Rocket Charge"
+msgstr ""
+
+#. translators: %1$s Plugin Name.
+#: includes/Review.php:119
+msgid "Hey, we noticed you have been using %1$s for more than 3 days now - that's awesome! <br> Could you please do us a BIG favor and give it a rating on WordPress.org to help us do more great work and boost our motivation?"
+msgstr ""
+
+#: includes/Review.php:164
+msgid "Yes, you deserve it"
+msgstr ""
+
+#: includes/Review.php:168
+msgid "No, maybe later"
+msgstr ""
+
+#: includes/Review.php:172
+msgid "I already did"
+msgstr ""
