@@ -58,8 +58,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 3. Order Details Page in Admin Area
 4. Payment Method Page in Admin Area
 
-
 == Changelog ==
+
+= 2.0.4 - 13/07/2021 =
+
+* Fixed: Appsero Issue.
 
 = 2.0.3 - 12/07/2021 =
 

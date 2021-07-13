@@ -9,7 +9,7 @@
  * Plugin Name:       Bangladeshi Payment Gateways
  * Plugin URI:        https://ultradevs.com/plugins/bangladeshi-payment-gateways
  * Description:       Bangladeshi Payment Gateways for WooCommerce.
- * Version:           2.0.3
+ * Version:           2.0.4
  * Author:            ultraDevs
  * Author URI:        https://ultradevs.com
  * License:           GPL v2 or later
@@ -22,7 +22,7 @@
 defined( 'ABSPATH' ) || exit( 'bYe bYe!' );
 
 // Constant.
-define( 'BD_PAYMENT_GATEWAYS_VERSION', '2.0.3' );
+define( 'BD_PAYMENT_GATEWAYS_VERSION', '2.0.4' );
 define( 'BD_PAYMENT_GATEWAYS_NAME', 'Bangladeshi Payment Gateways' );
 define( 'BD_PAYMENT_GATEWAYS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_DIR_URL', plugin_dir_url( __FILE__ ) );
@@ -231,7 +231,7 @@ final class BDPaymentGateways {
 	public function appsero_init_tracker() {
 
 		if ( ! class_exists( 'Appsero\Client' ) ) {
-			require_once BD_PAYMENT_GATEWAYS_DIR_PATH . '/vendor/appsero/src/Client.php';
+			require_once BD_PAYMENT_GATEWAYS_DIR_PATH . 'vendor/appsero/src/Client.php';
 		}
 
 		$client = new Appsero\Client( 'ea194db4-5e5b-4279-9717-302702dc628d', 'Bangladeshi Payment Gateways', __FILE__ );
