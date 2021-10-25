@@ -20,9 +20,13 @@
 
 [youtube [https://www.youtube.com/watch?v=ArJ-zOW1KBU](https://www.youtube.com/watch?v=ArJ-zOW1KBU)]
 
-[Like Our Facebook Page](https://web.facebook.com/hello.ultradevs/)
-[Join Our Facebook Group](https://web.facebook.com/groups/ultraDevs)
-[Subscribe Our Youtube Channel](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w?sub_confirmation=1)
+### Need Help?
+
+[Free Support](https://wordpress.org/support/plugin/bangladeshi-payment-gateways/) | [Live Chat](https://web.facebook.com/hello.ultradevs) | [Documentation](https://ultradevs.com/docs/bangladeshi-payment-gateways)  | [Video Tutorials](https://www.youtube.com/playlist?list=PL6-MOhUm73eiSSVHgAVnFFEvs6rO2sZyC)
+
+### Join With US
+
+[Facebook - Community](https://web.facebook.com/groups/powerfulblocks/) | [Facebook - Page](https://web.facebook.com/hello.ultradevs) | [Youtube](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w) | [Twitter](https://twitter.com/ultraDevsBD) | [Instagram](https://www.instagram.com/ultradevs/)
 
 #### Contribute
 
@@ -59,6 +63,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 4. Payment Method Page in Admin Area
 
 == Changelog ==
+
+= 2.0.5 - 25/10/2021 =
+
+* Added: Upay
+* Fixed: b tag issue
 
 = 2.0.4 - 13/07/2021 =
 

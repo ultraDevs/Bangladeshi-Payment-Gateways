@@ -1,52 +1,43 @@
-<?php
+<?php // @codingStandardsIgnoreLine
 /**
- * Nagad Functionality.
+ * Bkash Functionality.
  *
  * @package BDPaymentGateways
  * @since   1.0.0
  */
-
 namespace ultraDevs\BDPG\Gateways;
 
+use ultraDevs\BDPG\Helper;
 /**
- * Nagad class.
+ * Upay class.
  *
  * @package BDPaymentGateways
  * @since   1.0.0
  */
-class Nagad extends \WC_Payment_Gateway {
-
-	/**
-	 * Payment Gateway Icon.
-	 *
-	 * @var string
-	 */
-	public $pg_icon = null;
+class Upay extends \WC_Payment_Gateway {
 
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
 
-		$this->pg_icon = apply_filters( 'bdpg_nagad_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Nagad.png' );
-
-		$this->id                 = 'woo_nagad';
-		$this->icon               = $this->pg_icon;
+		$this->id                 = 'woo_upay';
+		$this->icon               = apply_filters( 'bdpg_upay_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/Upay.jpg' );
 		$this->has_fields         = true;
-		$this->method_description = __( 'Nagad Payment Gateway Settings.', 'bangladeshi-payment-gateways' );
-		$this->method_title       = __( 'Nagad', 'bangladeshi-payment-gateways' );
+		$this->method_description = __( 'Upay Payment Gateway Settings.', 'bangladeshi-payment-gateways' );
+		$this->method_title       = __( 'Upay', 'bangladeshi-payment-gateways' );
 
 		$this->init_form_fields();
 
 		// Load the Settings.
 		$this->init_settings();
-		$this->title                = $this->get_option( 'title' );
-		$this->description          = $this->get_option( 'description' );
-		$this->enabled              = $this->get_option( 'enabled' );
-		$this->instructions         = $this->get_option( 'instructions' );
-		$this->nagad_charge         = $this->get_option( 'nagad_charge' );
-		$this->nagad_fee            = $this->get_option( 'nagad_fee' );
-		$this->nagad_charge_details = $this->get_option( 'nagad_charge_details' );
+		$this->title               = $this->get_option( 'title' );
+		$this->description         = $this->get_option( 'description' );
+		$this->enabled             = $this->get_option( 'enabled' );
+		$this->instructions        = $this->get_option( 'instructions' );
+		$this->upay_charge         = $this->get_option( 'upay_charge' );
+		$this->upay_fee            = $this->get_option( 'upay_fee' );
+		$this->upay_charge_details = $this->get_option( 'upay_charge_details' );
 
 		$this->all_account = array(
 			array(
@@ -55,19 +46,19 @@ class Nagad extends \WC_Payment_Gateway {
 				'qr_code' => $this->get_option( 'qr_code' ),
 			),
 		);
-		$this->accounts    = get_option( 'bdpg_nagad_accounts', $this->all_account );
+		$this->accounts = get_option( 'bdpg_upay_accounts', $this->all_account );
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_accounts' ) );
-		add_action( 'woocommerce_thankyou_woo_nagad', array( $this, 'bdpg_thankyou' ) );
+		add_action( 'woocommerce_thankyou_woo_upay', array( $this, 'bdpg_thankyou' ) );
 		add_action( 'woocommerce_email_before_order_table', array( $this, 'customer_email_instructions' ), 10, 3 );
 
 		add_action( 'woocommerce_checkout_process', array( $this, 'payment_process' ) );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'fields_update' ) );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'admin_order_data' ) );
 
-		$nagad_settings = get_option( 'woocommerce_woo_nagad_settings' );
-		if ( isset( $nagad_settings['nagad_charge'] ) && 'yes' === $nagad_settings['nagad_charge'] ) {
+		$upay_settings = get_option( 'woocommerce_woo_upay_settings' );
+		if ( isset( $upay_settings['upay_charge'] ) && 'yes' === $upay_settings['upay_charge'] ) {
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'charge_settings' ), 20, 1 );
 		}
 
@@ -81,59 +72,59 @@ class Nagad extends \WC_Payment_Gateway {
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
-			'enabled'              => array(
+			'enabled'             => array(
 				'title'       => __( 'Enable/Disable', 'bangladeshi-payment-gateways' ),
-				'label'       => __( 'Enable Nagad Gateway', 'bangladeshi-payment-gateways' ),
+				'label'       => __( 'Enable Upay Gateway', 'bangladeshi-payment-gateways' ),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'no',
 			),
-			'title'                => array(
+			'title'               => array(
 				'title'       => __( 'Title', 'bangladeshi-payment-gateways' ),
 				'type'        => 'text',
-				'default'     => 'Nagad',
+				'default'     => 'Upay',
 				'description' => __( 'Title', 'bangladeshi-payment-gateways' ),
 				'desc_tip'    => true,
 			),
-			'description'          => array(
+			'description'         => array(
 				'title'   => __( 'Description', 'bangladeshi-payment-gateways' ),
 				'default' => __(
 					'
-					01. Go to your Nagad app or Dial *167#
+					01. Go to your Upay app or Dial *268#
 					02. Choose “Send Money”
-					03. Enter below Nagad Account Number
+					03. Enter below Upay Account Number
 					04. Enter <b>total amount</b>
-					06. Now enter your Nagad Account PIN to confirm the transaction
+					06. Now enter your Upay Account PIN to confirm the transaction
 					07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below',
 					'bangladeshi-payment-gateways'
 				),
 				'type'    => 'textarea',
 			),
-			'nagad_charge'         => array(
-				'title'       => __( 'Nagad Charge?', 'bangladeshi-payment-gateways' ),
+			'upay_charge'         => array(
+				'title'       => __( 'Upay Charge?', 'bangladeshi-payment-gateways' ),
 				'type'        => 'checkbox',
-				'description' => __( 'Add Nagad <b>Send Money</b> charge.', 'bangladeshi-payment-gateways' ),
+				'description' => __( 'Add Upay <b>Send Money</b> charge.', 'bangladeshi-payment-gateways' ),
 				'default'     => 'no',
 			),
 
-			'nagad_fee'            => array(
-				'title'       => __( 'Nagad Fee? (in %)', 'bangladeshi-payment-gateways' ),
+			'upay_fee'            => array(
+				'title'       => __( 'Upay Fee? (in %)', 'bangladeshi-payment-gateways' ),
 				'type'        => 'text',
-				'default'     => '1.45',
+				'default'     => '1.4',
 				'description' => __( 'Don\'t add %.', 'bangladeshi-payment-gateways' ),
 			),
 
-			'nagad_charge_details' => array(
-				'title'   => __( 'Nagad Charge Details', 'bangladeshi-payment-gateways' ),
+			'upay_charge_details' => array(
+				'title'   => __( 'Upay Charge Details', 'bangladeshi-payment-gateways' ),
 				'type'    => 'textarea',
-				'default' => __( 'Nagad "Send Money" fee will be added with net price.' ),
+				'default' => __( 'Upay "Send Money" fee will be added with net price.' ),
 			),
 
-			'instructions'         => array(
+			'instructions'        => array(
 				'title'       => __( 'Instructions', 'bangladeshi-payment-gateways' ),
 				'type'        => 'textarea',
 				'description' => __( 'Instructions', 'bangladeshi-payment-gateways' ),
-				'default'     => ''
+				'default'     => '',
 			),
 			'accounts'             => array(
 				'type' => 'accounts',
@@ -148,8 +139,8 @@ class Nagad extends \WC_Payment_Gateway {
 	public function payment_fields() {
 		global $woocommerce;
 
-		$nagad_charge_details = ( 'yes' === $this->nagad_charge ) ? $this->nagad_charge_details : '';
-		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $nagad_charge_details );
+		$upay_charge_details = ( 'yes' === $this->upay_charge ) ? $this->upay_charge_details : '';
+		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $upay_charge_details ); // @codingStandardsIgnoreLine
 
 		$total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b></br>';
 		echo '<div class="bdpg-total-amount">' . $total_amount . '</div>';
@@ -178,16 +169,16 @@ class Nagad extends \WC_Payment_Gateway {
 		?>
 			<div class="bdpg-user__acc">
 				<div class="bdpg-user__field">
-					<label for="nagad_acc_no">
-						Your Nagad Account Number
+					<label for="Upay_acc_no">
+						Your Upay Account Number
 					</label>
-					<input type="text" class="widefat" name="nagad_acc_no" placeholder="01XXXXXXXXX">
+					<input type="text" class="widefat" name="Upay_acc_no" placeholder="01XXXXXXXXX">
 				</div>
 				<div class="bdpg-user__field">
-					<label for="nagad_trans_id">
-						Nagad Transaction ID
+					<label for="Upay_trans_id">
+						Upay Transaction ID
 					</label>
-					<input type="text" class="widefat" name="nagad_trans_id" placeholder="2M7A5">
+					<input type="text" class="widefat" name="Upay_trans_id" placeholder="2M7A5">
 				</div>
 			</div>
 		</div>
@@ -202,7 +193,7 @@ class Nagad extends \WC_Payment_Gateway {
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc"><?php esc_html_e( 'Account Details', 'woocommerce' ); ?>:</th>
-			<td class="forminp" id="nagad_accounts">
+			<td class="forminp" id="upay_accounts">
 				<table class="widefat wc_input_table sortable" cellspacing="0">
 					<thead>
 						<tr>
@@ -217,7 +208,7 @@ class Nagad extends \WC_Payment_Gateway {
 							<th colspan="7">
 								<a href="#" class="add button">
 								<?php esc_html_e( '+ Add Account', 'woocommerce' ); ?></a>
-								<a href="#" class="remove_rows button"><?php esc_html_e( 'Remove selected account(s)', 'woocommerce' );?>
+								<a href="#" class="remove_rows button"><?php esc_html_e( 'Remove selected account(s)', 'woocommerce' ); ?>
 								</a>
 							</th>
 						</tr>
@@ -230,8 +221,8 @@ class Nagad extends \WC_Payment_Gateway {
 								$i++;
 								echo '<tr class="account">
 									<td class="sort"></td>
-									<td><input type="text" value="' . esc_attr( $account['type'] ) . '" name="nagad_account_type[' . $i . ']" /></td>
-									<td><input type="text" value="' . esc_attr( $account['number'] ) . '" name="nagad_account_number[' . $i . ']" /></td><td><input type="hidden" value="' . esc_attr( $account['qr_code'] ) . '" name="nagad_account_qr_code[' . $i . ']" id="bdpg_qr_code-' . $i . '" />
+									<td><input type="text" value="' . esc_attr( $account['type'] ) . '" name="upay_account_type[' . $i . ']" /></td>
+									<td><input type="text" value="' . esc_attr( $account['number'] ) . '" name="upay_account_number[' . $i . ']" /></td><td><input type="hidden" value="' . esc_attr( $account['qr_code'] ) . '" name="upay_account_qr_code[' . $i . ']" id="bdpg_qr_code-' . $i . '" />
 									<input type="button" class="button button-primary add_qr_c_img" value="Edit Image" data-target="#bdpg_qr_code-' . $i . '"  data-qr="#bdpg_qr_img-' . $i . '"><div  id="bdpg_qr_img-' . $i . '"><img src="' . esc_attr( $account['qr_code'] ) . '" alt="QR Code" id="qr_code" /></div>
 									</td>
 									</tr>';
@@ -243,17 +234,17 @@ class Nagad extends \WC_Payment_Gateway {
 				<script>
 
 					jQuery(function($) {
-						$('#nagad_accounts').on( 'click', 'a.add', function(){
+						$('#upay_accounts').on( 'click', 'a.add', function(){
 
-							var size = $('#nagad_accounts').find('tbody .account').length;
+							var size = $('#upay_accounts').find('tbody .account').length;
 
 							$('<tr class="account">\
 									<td class="sort"></td>\
-									<td><input type="text" name="nagad_account_type[' + size + ']" /></td>\
-									<td><input type="text" name="nagad_account_number[' + size + ']" /></td>\
-									<td><input type="hidden" id="bdpg_qr_code-' + size + '" name="nagad_account_qr_code[' + size + ']" /><input type="button" class="button button-primary add_qr_c_img" value="Add Image" data-target="#bdpg_qr_code-' + size + '" data-qr="#bdpg_qr_img-' + size + '"><div id="bdpg_qr_img-' + size + '"></div>\
+									<td><input type="text" name="upay_account_type[' + size + ']" /></td>\
+									<td><input type="text" name="upay_account_number[' + size + ']" /></td>\
+									<td><input type="hidden" id="bdpg_qr_code-' + size + '" name="upay_account_qr_code[' + size + ']" /><input type="button" class="button button-primary add_qr_c_img" value="Add Image" data-target="#bdpg_qr_code-' + size + '" data-qr="#bdpg_qr_img-' + size + '"><div id="bdpg_qr_img-' + size + '"></div>\
 									</td>\
-								</tr>').appendTo('#nagad_accounts table tbody');
+								</tr>').appendTo('#upay_accounts table tbody');
 
 							return false;
 						});
@@ -272,12 +263,12 @@ class Nagad extends \WC_Payment_Gateway {
 	 */
 	public function save_accounts() {
 
-		if ( isset( $_POST['nagad_account_type'] ) ) {
+		if ( isset( $_POST['upay_account_type'] ) ) {
 			$accounts = array();
 
-			$type    = array_map( 'wc_clean', $_POST['nagad_account_type'] );
-			$number  = array_map( 'wc_clean', $_POST['nagad_account_number'] );
-			$qr_code = array_map( 'wc_clean', $_POST['nagad_account_qr_code'] );
+			$type    = array_map( 'wc_clean', $_POST['upay_account_type'] );
+			$number  = array_map( 'wc_clean', $_POST['upay_account_number'] );
+			$qr_code = array_map( 'wc_clean', $_POST['upay_account_qr_code'] );
 
 			foreach ( $type as $key => $value ) {
 				if ( ! isset( $type[ $key ] ) ) {
@@ -290,7 +281,7 @@ class Nagad extends \WC_Payment_Gateway {
 					'qr_code' => $qr_code[ $key ],
 				);
 			}
-			update_option( 'bdpg_nagad_accounts', $accounts );
+			update_option( 'bdpg_upay_accounts', $accounts );
 		}
 
 	}
@@ -306,7 +297,7 @@ class Nagad extends \WC_Payment_Gateway {
 		$order = new \WC_Order( $order_id );
 
 		// Mark as on-hold (we're awaiting the cheque).
-		$order->update_status( 'on-hold', __( 'Awaiting Nagad payment', 'bangladeshi-payment-gateways' ) );
+		$order->update_status( 'on-hold', __( 'Awaiting Upay payment', 'bangladeshi-payment-gateways' ) );
 
 		// Reduce stock levels.
 		$order->reduce_order_stock();
@@ -360,19 +351,23 @@ class Nagad extends \WC_Payment_Gateway {
 	 * Field Validation.
 	 */
 	public function payment_process() {
-		if ( 'woo_nagad' !== $_POST['payment_method'] ) {
+		if ( 'woo_upay' !== $_POST['payment_method'] ) {
 			return;
 		}
 
-		$number   = sanitize_text_field( $_POST['nagad_acc_no'] );
-		$trans_id = sanitize_text_field( $_POST['nagad_trans_id'] );
+		$number   = sanitize_text_field( $_POST['Upay_acc_no'] );
+		$trans_id = sanitize_text_field( $_POST['Upay_trans_id'] );
 
 		if ( '' === $number ) {
-			wc_add_notice( __( 'Please enter your Nagad number.', 'bangladeshi-payment-gateways' ), 'error' );
+			wc_add_notice( __( 'Please enter your Upay number.', 'bangladeshi-payment-gateways' ), 'error' );
+		}
+
+		if ( '' === $number ) {
+			wc_add_notice( __( 'Please enter your Upay number.', 'bangladeshi-payment-gateways' ), 'error' );
 		}
 
 		if ( '' === $trans_id ) {
-			wc_add_notice( __( 'Please enter your Nagad transaction ID.', 'bangladeshi-payment-gateways' ), 'error' );
+			wc_add_notice( __( 'Please enter your Upay transaction ID.', 'bangladeshi-payment-gateways' ), 'error' );
 		}
 	}
 
@@ -383,36 +378,36 @@ class Nagad extends \WC_Payment_Gateway {
 	 */
 	public function fields_update( $order_id ) {
 
-		if ( 'woo_nagad' !== $_POST['payment_method'] ) {
+		if ( 'woo_upay' !== $_POST['payment_method'] ) {
 			return;
 		}
-		$number   = sanitize_text_field( $_POST['nagad_acc_no'] );
-		$trans_id = sanitize_text_field( $_POST['nagad_trans_id'] );
+		$number   = sanitize_text_field( $_POST['Upay_acc_no'] );
+		$trans_id = sanitize_text_field( $_POST['Upay_trans_id'] );
 
-		update_post_meta( $order_id, 'woo_nagad_number', $number );
-		update_post_meta( $order_id, 'woo_nagad_trans_id', $trans_id );
+		update_post_meta( $order_id, 'woo_upay_number', $number );
+		update_post_meta( $order_id, 'woo_upay_trans_id', $trans_id );
 	}
 	/**
-	 * Display Nagad data in admin page.
+	 * Display Upay data in admin page.
 	 *
 	 * @param Object $order Order.
 	 */
 	public function admin_order_data( $order ) {
-		if ( 'woo_nagad' !== $order->get_payment_method() ) {
+		if ( 'woo_upay' !== $order->get_payment_method() ) {
 			return;
 		}
 
-		$number   = ( get_post_meta( $_GET['post'], 'woo_nagad_number', true ) ) ? get_post_meta( $_GET['post'], 'woo_nagad_number', true ) : '';
-		$trans_id = ( get_post_meta( $_GET['post'], 'woo_nagad_trans_id', true ) ) ? get_post_meta( $_GET['post'], 'woo_nagad_trans_id', true ) : '';
+		$number   = ( get_post_meta( $_GET['post'], 'woo_upay_number', true ) ) ? get_post_meta( $_GET['post'], 'woo_upay_number', true ) : '';
+		$trans_id = ( get_post_meta( $_GET['post'], 'woo_upay_trans_id', true ) ) ? get_post_meta( $_GET['post'], 'woo_upay_trans_id', true ) : '';
 		?>
 		<div class="form-field form-field-wide bdpg-admin-data">
-			<img src="<?php echo esc_url( $this->pg_icon ); ?> " alt="Nagad">
+			<img src="<?php echo esc_url( $this->pg_icon ); ?> " alt="Upay">
 			<table class="wp-list-table widefat striped posts">
 				<tbody>
 					<tr>
 						<th>
 							<strong>
-								<?php echo __( 'Nagad Number', 'bangladeshi-payment-gateways' ); ?>
+								<?php echo __( 'Upay Number', 'bangladeshi-payment-gateways' ); ?>
 							</strong>
 						</th>
 						<td>
@@ -436,13 +431,13 @@ class Nagad extends \WC_Payment_Gateway {
 	}
 
 	/**
-	 * Check if Nagad charge status.
+	 * Check if Upay charge status.
 	 *
 	 * @param Object $cart Cart.
 	 */
 	public function charge_settings( $cart ) {
 		global $woocommerce;
-		$nagad_settings = get_option( 'woocommerce_woo_nagad_settings' );
+		$upay_settings = get_option( 'woocommerce_woo_upay_settings' );
 
 		$av_gateways = $woocommerce->payment_gateways->get_available_payment_gateways();
 		if ( ! empty( $av_gateways ) ) {
@@ -453,20 +448,20 @@ class Nagad extends \WC_Payment_Gateway {
 				return;
 			}
 
-			if ( 'woo_nagad' === $payment_method ) {
-				$label  = __( 'Nagad Charge', 'bangladeshi-payment-gateways' );
-				$amount = round( $cart->cart_contents_total * ( $nagad_settings['nagad_fee'] / 100 ) );
+			if ( 'woo_upay' === $payment_method ) {
+				$label  = __( 'Upay Charge', 'bangladeshi-payment-gateways' );
+				$amount = round( $cart->cart_contents_total * ( $upay_settings['upay_fee'] / 100 ) );
 				$cart->add_fee( $label, $amount, true, 'standard' );
 			}
 		}
 	}
 	/**
-	 * Display Nagad data in order review page
+	 * Display Upay data in order review page
 	 *
 	 * @param Object $order Order.
 	 */
 	public function data_order_review_page( $order ) {
-		if ( 'woo_nagad' !== $order->get_payment_method() ) {
+		if ( 'woo_upay' !== $order->get_payment_method() ) {
 			return;
 		}
 		global $wp;
@@ -477,17 +472,17 @@ class Nagad extends \WC_Payment_Gateway {
 			$order_id = (int) $wp->query_vars['view-order'];
 		}
 
-		$number   = ( get_post_meta( $order_id, 'woo_nagad_number', true ) ) ? get_post_meta( $order_id, 'woo_nagad_number', true ) : '';
-		$trans_id = ( get_post_meta( $order_id, 'woo_nagad_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_nagad_trans_id', true ) : '';
+		$number   = ( get_post_meta( $order_id, 'woo_upay_number', true ) ) ? get_post_meta( $order_id, 'woo_upay_number', true ) : '';
+		$trans_id = ( get_post_meta( $order_id, 'woo_upay_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_upay_trans_id', true ) : '';
 		?>
 		<div class="bdpg-g-details">
-			<img src="<?php echo esc_html( $this->pg_icon ); ?> " alt="Nagad">
+			<img src="<?php echo esc_html( $this->pg_icon ); ?> " alt="Upay">
 			<table class="wp-list-table widefat striped posts">
 				<tbody>
 					<tr>
 						<th>
 							<strong>
-								<?php echo esc_html__( 'Nagad Number', 'bangladeshi-payment-gateways' ); ?>
+								<?php echo esc_html__( 'Upay Number', 'bangladeshi-payment-gateways' ); ?>
 							</strong>
 						</th>
 						<td>
@@ -534,8 +529,8 @@ class Nagad extends \WC_Payment_Gateway {
 
 		global $post;
 
-		$payment_no = ( get_post_meta( $post->ID, 'woo_nagad_number', true ) ) ? get_post_meta( $post->ID, 'woo_nagad_number', true ) : '';
-		$tran_id    = ( get_post_meta( $post->ID, 'woo_nagad_trans_id', true ) ) ? get_post_meta( $post->ID, 'woo_nagad_trans_id', true ) : '';
+		$payment_no = ( get_post_meta( $post->ID, 'woo_upay_number', true ) ) ? get_post_meta( $post->ID, 'woo_upay_number', true ) : '';
+		$tran_id    = ( get_post_meta( $post->ID, 'woo_upay_trans_id', true ) ) ? get_post_meta( $post->ID, 'woo_upay_trans_id', true ) : '';
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );

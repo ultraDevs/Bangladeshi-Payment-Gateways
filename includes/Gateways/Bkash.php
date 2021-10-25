@@ -151,7 +151,7 @@ class Bkash extends \WC_Payment_Gateway {
 		$bkash_charge_details = ( 'yes' === $this->bkash_charge ) ? $this->bkash_charge_details : '';
 		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $bkash_charge_details ); // @codingStandardsIgnoreLine
 
-		$total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</br>';
+		$total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b></br>';
 		echo '<div class="bdpg-total-amount">' . $total_amount . '</div>';
 		?>
 		<div class="bdpg-available-accounts">

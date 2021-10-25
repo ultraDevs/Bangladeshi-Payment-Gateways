@@ -9,7 +9,7 @@
  * Plugin Name:       Bangladeshi Payment Gateways
  * Plugin URI:        https://ultradevs.com/plugins/bangladeshi-payment-gateways
  * Description:       Bangladeshi Payment Gateways for WooCommerce.
- * Version:           2.0.4
+ * Version:           2.0.5
  * Author:            ultraDevs
  * Author URI:        https://ultradevs.com
  * License:           GPL v2 or later
@@ -22,7 +22,7 @@
 defined( 'ABSPATH' ) || exit( 'bYe bYe!' );
 
 // Constant.
-define( 'BD_PAYMENT_GATEWAYS_VERSION', '2.0.4' );
+define( 'BD_PAYMENT_GATEWAYS_VERSION', '2.0.5' );
 define( 'BD_PAYMENT_GATEWAYS_NAME', 'Bangladeshi Payment Gateways' );
 define( 'BD_PAYMENT_GATEWAYS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_DIR_URL', plugin_dir_url( __FILE__ ) );
@@ -44,23 +44,30 @@ final class BDPaymentGateways {
 	/**
 	 * Bkash.
 	 *
-	 * @var Bkash
+	 * @var mixed
 	 */
 	public $bkash = null;
 
 	/**
 	 * Rocket.
 	 *
-	 * @var Rocket
+	 * @var mixed
 	 */
 	public $rocket = null;
 
 	/**
 	 * Nagad.
 	 *
-	 * @var Nagad
+	 * @var mixed
 	 */
 	public $nagad = null;
+
+	/**
+	 * Upay.
+	 *
+	 * @var mixed
+	 */
+	public $upay = null;
 
 	/**
 	 * Constructor
@@ -112,6 +119,7 @@ final class BDPaymentGateways {
 		$this->bkash  = new ultraDevs\BDPG\Gateways\Bkash();
 		$this->rocket = new ultraDevs\BDPG\Gateways\Rocket();
 		$this->nagad  = new ultraDevs\BDPG\Gateways\Nagad();
+		$this->upay   = new ultraDevs\BDPG\Gateways\Upay();
 
 		// Helper Class.
 		$helper = new ultraDevs\BDPG\Helper();
@@ -182,6 +190,7 @@ final class BDPaymentGateways {
 		$gateways[] = $this->bkash;
 		$gateways[] = $this->rocket;
 		$gateways[] = $this->nagad;
+		$gateways[] = $this->upay;
 
 		return $gateways;
 	}

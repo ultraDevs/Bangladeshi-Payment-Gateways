@@ -67,4 +67,31 @@ class Helper {
 		$current_time = current_time( 'timestamp' ); //phpcs:ignore
 		return round( ( $current_time - $time ) / 24 / 60 / 60 );
 	}
+
+
+	/**
+	 * Get All Meta values by meta key.
+	 *
+	 * @param string $meta_key Meta Key.
+	 * @param string $post_type Post Type.
+	 * @return array
+	 */
+	public static function get_meta_values( $meta_key, $post_type = 'post' ) {
+
+		$posts = get_posts(
+			array(
+				'post_type'      => $post_type,
+				'meta_key'       => $meta_key,
+				'posts_per_page' => -1,
+			)
+		);
+
+		$meta_values = array();
+		foreach( $posts as $post ) {
+			$meta_values[] = get_post_meta( $post->ID, $meta_key, true );
+		}
+
+		return $meta_values;
+
+	}
 }

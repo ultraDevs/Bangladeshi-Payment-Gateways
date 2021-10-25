@@ -1,10 +1,10 @@
 === Bangladeshi Payment Gateways ===
 Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
-Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad, qr code
+Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code
 Requires at least: 4.4
-Tested up to: 5.7.2
-Stable tag: 2.0.4
+Tested up to: 5.8.1
+Stable tag: 2.0.5
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -25,15 +25,19 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 * bKash
 * Rocket
 * Nagad
+* Upay
 
 #### Video
 
 [youtube https://www.youtube.com/watch?v=ArJ-zOW1KBU]
 
+### Need Help?
 
-[Like Our Facebook Page](https://web.facebook.com/hello.ultradevs/)
-[Join Our Facebook Group](https://web.facebook.com/groups/ultraDevs)
-[Subscribe Our Youtube Channel](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w?sub_confirmation=1)
+[Free Support](https://wordpress.org/support/plugin/bangladeshi-payment-gateways/) | [Live Chat](https://web.facebook.com/hello.ultradevs) | [Documentation](https://ultradevs.com/docs/bangladeshi-payment-gateways)  | [Video Tutorials](https://www.youtube.com/playlist?list=PL6-MOhUm73eiSSVHgAVnFFEvs6rO2sZyC)
+
+### Join With US
+[Facebook - Community](https://web.facebook.com/groups/powerfulblocks/) | [Facebook - Page](https://web.facebook.com/hello.ultradevs) | [Youtube](https://www.youtube.com/channel/UCc2yL-QGQjscXpPx9Pp7J8w) | [Twitter](https://twitter.com/ultraDevsBD) | [Instagram](https://www.instagram.com/ultradevs/)
+
 
 
 #### Contribute
@@ -74,6 +78,10 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 
 == Changelog ==
+
+= 2.0.5 - 25/10/2021 =
+* Added: Upay
+* Fixed: b tag issue
 
 = 2.0.4 - 13/07/2021 =
 * Fixed: Appsero Issue.
