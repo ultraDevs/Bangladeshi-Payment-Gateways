@@ -1,6 +1,6 @@
 <?php // @codingStandardsIgnoreLine
 /**
- * Bkash Functionality.
+ * Upay Functionality.
  *
  * @package BDPaymentGateways
  * @since   1.0.0
