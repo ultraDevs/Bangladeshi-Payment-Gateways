@@ -3,7 +3,7 @@ Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
 Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code
 Requires at least: 4.4
-Tested up to: 5.8.1
+Tested up to: 6.0
 Stable tag: 2.0.5
 Requires PHP: 5.6
 License: GPLv2 or later
