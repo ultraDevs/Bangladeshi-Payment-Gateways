@@ -6,9 +6,6 @@
  * @package BDPaymentsGateway
  */
 
-/**
- * Swiper Slider
- */
 jQuery(document).ready(
     function ($) {
 

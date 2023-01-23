@@ -41,8 +41,7 @@ class Helper {
 	 */
 	public static function get_option( $key, $default = false ) {
 		// Get Option.
-		$value = get_option( $key, $default );
-		return $value;
+		return get_option( $key, $default );
 	}
 
 	/**

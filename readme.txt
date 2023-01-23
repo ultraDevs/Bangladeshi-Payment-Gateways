@@ -1,10 +1,10 @@
-=== Bangladeshi Payment Gateways ===
+=== Bangladeshi Payment Gateways - Make Payment Using QR Code ===
 Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
-Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code
+Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code, qr code
 Requires at least: 4.4
-Tested up to: 6.0
-Stable tag: 2.0.5
+Tested up to: 6.1.1
+Stable tag: 2.0.6
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -78,6 +78,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 
 == Changelog ==
+
+= 2.0.6 - 24/01/2023 =
+* Updated: Plugin Name
+* Updated: Code Documentation
+* Updated: Some Code
 
 = 2.0.5 - 25/10/2021 =
 * Added: Upay

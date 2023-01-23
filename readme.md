@@ -1,4 +1,4 @@
-# Bangladeshi Payment Gateways for WooCommerce
+# Bangladeshi Payment Gateways - Make Payment Using QR Code
 
 == Description ==
 
@@ -63,6 +63,12 @@ No, You must install and active woocommerce plugin to make this plugin work.
 4. Payment Method Page in Admin Area
 
 == Changelog ==
+
+= 2.0.6 - 24/01/2023 =
+
+* Updated: Plugin Name.
+* Updated: Some Code Documentation
+* Updated: Some Code
 
 = 2.0.5 - 25/10/2021 =
 
