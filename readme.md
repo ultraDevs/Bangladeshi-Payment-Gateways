@@ -64,6 +64,10 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
+= 2.0.7 - 07/04/2023 =
+
+* Updated: Appsero - Security Update
+
 = 2.0.6 - 24/01/2023 =
 
 * Updated: Plugin Name.
