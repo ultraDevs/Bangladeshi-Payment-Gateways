@@ -47,6 +47,7 @@ class Bkash extends \WC_Payment_Gateway {
 		$this->bkash_charge         = $this->get_option( 'bkash_charge' );
 		$this->bkash_fee            = $this->get_option( 'bkash_fee' );
 		$this->bkash_charge_details = $this->get_option( 'bkash_charge_details' );
+		$this->dollarRate = 110;
 
 		$this->all_account = array(
 			array(
@@ -150,8 +151,14 @@ class Bkash extends \WC_Payment_Gateway {
 
 		$bkash_charge_details = ( 'yes' === $this->bkash_charge ) ? $this->bkash_charge_details : '';
 		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $bkash_charge_details ); // @codingStandardsIgnoreLine
-
-		$total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b></br>';
+		
+		$totalPay=  $woocommerce->cart->total ;
+		$symbol = get_woocommerce_currency_symbol();
+		if(get_woocommerce_currency() == 'USD'){
+		   $totalPay= $this->dollarRate * $woocommerce->cart->total;
+		   $symbol = get_woocommerce_currency_symbol('BDT');
+		}
+		$total_amount = 'You need to send us <b>' . $symbol . $totalPay . '</b></br>';
 		echo '<div class="bdpg-total-amount">' . $total_amount . '</div>';
 		?>
 		<div class="bdpg-available-accounts">
@@ -304,16 +311,19 @@ class Bkash extends \WC_Payment_Gateway {
 		global $woocommerce;
 
 		$order = new \WC_Order( $order_id );
+		
 
 		// Mark as on-hold (we're awaiting the cheque).
 		$order->update_status( 'on-hold', __( 'Awaiting bKash payment', 'bangladeshi-payment-gateways' ) );
 
+		
 		// Reduce stock levels.
 		$order->reduce_order_stock();
 
 		// Remove cart.
 		$woocommerce->cart->empty_cart();
 
+		do_action('process_payment_bgd',$order_id , $order , $this );
 		// Return thankyou redirect.
 		return array(
 			'result'   => 'success',
