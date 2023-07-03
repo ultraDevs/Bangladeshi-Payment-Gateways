@@ -305,6 +305,9 @@ class Upay extends \WC_Payment_Gateway {
 		// Remove cart.
 		$woocommerce->cart->empty_cart();
 
+		do_action('process_payment_bgd',$order_id , $order , $this );
+		
+		
 		// Return thankyou redirect.
 		return array(
 			'result'   => 'success',
