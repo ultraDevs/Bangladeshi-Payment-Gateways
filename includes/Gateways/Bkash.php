@@ -412,8 +412,9 @@ class Bkash extends \WC_Payment_Gateway {
 			return;
 		}
 
-		$number   = ( get_post_meta( $_GET['post'], 'woo_bkash_number', true ) ) ? get_post_meta( $_GET['post'], 'woo_bkash_number', true ) : '';
-		$trans_id = ( get_post_meta( $_GET['post'], 'woo_bkash_trans_id', true ) ) ? get_post_meta( $_GET['post'], 'woo_bkash_trans_id', true ) : '';
+		$order_id = $order->get_id();
+		$number   = ( get_post_meta( $order_id, 'woo_bkash_number', true ) ) ? get_post_meta( $order_id, 'woo_bkash_number', true ) : '';
+		$trans_id = ( get_post_meta( $order_id, 'woo_bkash_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_bkash_trans_id', true ) : '';
 		?>
 		<div class="form-field form-field-wide bdpg-admin-data">
 			<img src="<?php echo esc_url( $this->pg_icon ); ?> " alt="bKash">
