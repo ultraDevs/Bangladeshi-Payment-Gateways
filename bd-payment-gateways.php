@@ -70,6 +70,13 @@ final class BDPaymentGateways {
 	public $upay = null;
 
 	/**
+	 * Test.
+	 *
+	 * @var mixed
+	 */
+	public $test = null;
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -116,10 +123,11 @@ final class BDPaymentGateways {
 		}
 
 		// Payment Gateways classes.
-		$this->bkash  = new ultraDevs\BDPG\Gateways\Bkash();
-		$this->rocket = new ultraDevs\BDPG\Gateways\Rocket();
-		$this->nagad  = new ultraDevs\BDPG\Gateways\Nagad();
-		$this->upay   = new ultraDevs\BDPG\Gateways\Upay();
+		// $this->bkash  = new ultraDevs\BDPG\Gateways\Bkash();
+		// $this->rocket = new ultraDevs\BDPG\Gateways\Rocket();
+		// $this->nagad  = new ultraDevs\BDPG\Gateways\Nagad();
+		// $this->upay   = new ultraDevs\BDPG\Gateways\Upay();
+		$this->test   = new ultraDevs\BDPG\Gateways\Test();
 
 		// Helper Class.
 		new ultraDevs\BDPG\Helper();
@@ -185,10 +193,11 @@ final class BDPaymentGateways {
 	 */
 	public function add_payment_gateways( $gateways ) {
 
-		$gateways[] = $this->bkash;
-		$gateways[] = $this->rocket;
-		$gateways[] = $this->nagad;
-		$gateways[] = $this->upay;
+		// $gateways[] = $this->bkash;
+		// $gateways[] = $this->rocket;
+		// $gateways[] = $this->nagad;
+		// $gateways[] = $this->upay;
+		$gateways[] = $this->test;
 
 		return $gateways;
 	}

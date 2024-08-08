@@ -1,92 +1,150 @@
-<?php // @codingStandardsIgnoreLine
+<?php
 /**
- * Bkash Functionality.
+ * BDPG_Gateway Class
  *
  * @package BDPaymentGateways
- * @since   1.0.0
+ * @since 3.0.0
  */
 
-namespace ultraDevs\BDPG\Gateways;
+namespace ultraDevs\BDPG;
+
+use ultraDevs\BDPG\Helper;
 
 /**
- * BKash class.
+ * BDPG_Gateway Class
  *
  * @package BDPaymentGateways
- * @since   1.0.0
+ * @since 3.0.0
  */
-class Bkash extends \WC_Payment_Gateway {
+abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
-	/**
-	 * Payment Gateway Icon.
-	 *
-	 * @var string
-	 */
-	public $pg_icon = null;
+    /**
+     * Gateway
+     *
+     * @var string
+     */
+    public $gateway = '';
 
-	public $instructions = '';
+    /**
+     * Icon
+     *
+     * @var string
+     */
+    public $icon = '';
 
-	/**
-	 * Class constructor
-	 */
-	public function __construct() {
+    /**
+     * Gateway Key
+     *
+     * @var string
+     */
+    public $gateway_key = '';
+    
+    /**
+     * Instructions
+     *
+     * @var string
+     */
+    public $instructions = '';
 
-		$this->pg_icon = apply_filters( 'bdpg_bkash_icon', BD_PAYMENT_GATEWAYS_DIR_URL . '/assets/images/bKash.png' );
+    /**
+     * Gateway Charge
+     *
+     * @var string
+     */
+    public $gateway_charge = '';
 
-		$this->id                 = 'woo_bkash';
-		$this->icon               = $this->pg_icon;
-		$this->has_fields         = true;
-		$this->method_description = __( 'bKash Payment Gateway Settings.', 'bangladeshi-payment-gateways' );
-		$this->method_title       = __( 'bkash', 'bangladeshi-payment-gateways' );
+    /**
+     * Gateway Charge Details
+     *
+     * @var string
+     */
+    public $gateway_charge_details = '';
+
+    /**
+     * Gateway Fee
+     *
+     * @var string
+     */
+    public $gateway_fee = '';
+
+    /**
+     * Dollar Rate
+     *
+     * @var string
+     */
+    public $dollar_rate = '';
+
+    /**
+     * Gateway Accounts
+     *
+     * @var null
+     */
+    public $accounts = null;
+
+
+    /**
+     * Constructor
+     */
+    public function __construct() {
+
+        $this->id = 'woo_' . $this->gateway;
+        $this->has_fields         = true;
+        $this->icon = apply_filters( 'bdpg_' . $this->gateway . '_icon', BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . $this->gateway . '.png' );
+
+        $this->method_description = sprintf( __( '%s Payment Gateway Settings.', 'bangladeshi-payment-gateways' ), $this->gateway );
+		$this->method_title       = sprintf( __( '%s', 'bangladeshi-payment-gateways' ), $this->gateway );
 
 		$this->init_form_fields();
 
 		// Load the Settings.
 		$this->init_settings();
+
 		$this->title                = $this->get_option( 'title' );
 		$this->description          = $this->get_option( 'description' );
 		$this->enabled              = $this->get_option( 'enabled' );
 		$this->instructions         = $this->get_option( 'instructions' );
-		$this->bkash_charge         = $this->get_option( 'bkash_charge' );
-		$this->bkash_fee            = $this->get_option( 'bkash_fee' );
-		$this->bkash_charge_details = $this->get_option( 'bkash_charge_details' );
-		$this->dollarRate = 110;
+		$this->gateway_charge         = $this->get_option( $this->gateway . '_charge' );
+		$this->gateway_fee            = $this->get_option( $this->gateway . '_fee' );
+		$this->gateway_charge_details = $this->get_option( 'gateway_charge_details' );
 
-		$this->all_account = array(
+		$account = array(
 			array(
 				'type'    => $this->get_option( 'type' ),
 				'number'  => $this->get_option( 'number' ),
 				'qr_code' => $this->get_option( 'qr_code' ),
 			),
 		);
-		$this->accounts    = get_option( 'bdpg_bkash_accounts', $this->all_account );
+		$this->accounts    = get_option( 'bdpg_' . $this->gateway . '_accounts', [] );
 
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_accounts' ) );
-		add_action( 'woocommerce_thankyou_woo_bkash', array( $this, 'bdpg_thankyou' ) );
+		add_action( 'woocommerce_thankyou_woo_' . $this->gateway, array( $this, 'bdpg_thankyou' ) );
 		add_action( 'woocommerce_email_before_order_table', array( $this, 'customer_email_instructions' ), 10, 3 );
 
 		add_action( 'woocommerce_checkout_process', array( $this, 'payment_process' ) );
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'fields_update' ) );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'admin_order_data' ) );
 
-		$bkash_settings = get_option( 'woocommerce_woo_bkash_settings' );
-		if ( isset( $bkash_settings['bkash_charge'] ) && 'yes' === $bkash_settings['bkash_charge'] ) {
+		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '_settings' );
+		if ( isset( $settings['gateway_charge'] ) && 'yes' === $settings['gateway_charge'] ) {
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'charge_settings' ), 20, 1 );
 		}
 
 		add_action( 'woocommerce_order_details_after_customer_details', array( $this, 'data_order_review_page' ) );
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'admin_register_column' ) );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'admin_column_value' ), 2 );
-	}
 
-	/**
+    }
+
+
+    /**
 	 * Gateway Fields
 	 */
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'enabled'              => array(
 				'title'       => __( 'Enable/Disable', 'bangladeshi-payment-gateways' ),
-				'label'       => __( 'Enable bKash Gateway', 'bangladeshi-payment-gateways' ),
+				'label'       => sprintf( __( 'Enable %s Gateway', 'bangladeshi-payment-gateways' ), $this->gateway ),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'no',
@@ -94,42 +152,48 @@ class Bkash extends \WC_Payment_Gateway {
 			'title'                => array(
 				'title'       => __( 'Title', 'bangladeshi-payment-gateways' ),
 				'type'        => 'text',
-				'default'     => 'bKash',
+				'default'     => $this->gateway,
 				'description' => __( 'Title', 'bangladeshi-payment-gateways' ),
 				'desc_tip'    => true,
 			),
 			'description'          => array(
 				'title'   => __( 'Description', 'bangladeshi-payment-gateways' ),
-				'default' => __(
-					'
-					01. Go to your bKash app or Dial *247#
-					02. Choose “Send Money”
-					03. Enter below bKash Account Number
-					04. Enter <b>total amount</b>
-					06. Now enter your bKash Account PIN to confirm the transaction
-					07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below',
-					'bangladeshi-payment-gateways'
-				),
+				'default' => bdpg_get_instruction_by_gateway( $this->gateway ),
 				'type'    => 'textarea',
 			),
-			'bkash_charge'         => array(
-				'title'       => __( 'bKash Charge?', 'bangladeshi-payment-gateways' ),
+			$this->gateway . '_charge'         => array(
+				'title'       => sprintf(
+                    __( '%s Charge?', 'bangladeshi-payment-gateways' ),
+                    $this->gateway
+                ),
 				'type'        => 'checkbox',
-				'description' => __( 'Add bKash <b>Send Money</b> charge.', 'bangladeshi-payment-gateways' ),
+				'description' => sprintf(
+                    __( 'Add %s <b>Send Money</b> charge?', 'bangladeshi-payment-gateways' ),
+                    $this->gateway
+                ),
 				'default'     => 'no',
 			),
 
-			'bkash_fee'            => array(
-				'title'       => __( 'bKash Fee? (in %)', 'bangladeshi-payment-gateways' ),
+			$this->gateway . '_fee'            => array(
+				'title'       => sprintf(
+                    __( '%s Fee', 'bangladeshi-payment-gateways' ),
+                    $this->gateway
+                ),
 				'type'        => 'text',
-				'default'     => '1.85',
+				'default'     => '1.8',
 				'description' => __( 'Don\'t add %.', 'bangladeshi-payment-gateways' ),
 			),
 
-			'bkash_charge_details' => array(
-				'title'   => __( 'bKash Charge Details', 'bangladeshi-payment-gateways' ),
+			$this->gateway . '_charge_details' => array(
+				'title'   => sprintf(
+                    __( '%s Charge Details', 'bangladeshi-payment-gateways' ),
+                    $this->gateway
+                ),
 				'type'    => 'textarea',
-				'default' => __( 'bKash "Send Money" fee will be added with net price.' ),
+				'default' => sprintf(
+                    __( '%s "Send Money" fee will be added with net price.', 'bangladeshi-payment-gateways' ),
+                    $this->gateway
+                )
 			),
 
 			'instructions'         => array(
@@ -151,16 +215,10 @@ class Bkash extends \WC_Payment_Gateway {
 	public function payment_fields() {
 		global $woocommerce;
 
-		$bkash_charge_details = ( 'yes' === $this->bkash_charge ) ? $this->bkash_charge_details : '';
-		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $bkash_charge_details ); // @codingStandardsIgnoreLine
-		
-		$totalPay=  $woocommerce->cart->total ;
-		$symbol = get_woocommerce_currency_symbol();
-		if(get_woocommerce_currency() == 'USD'){
-		   $totalPay= $this->dollarRate * $woocommerce->cart->total;
-		   $symbol = get_woocommerce_currency_symbol('BDT');
-		}
-		$total_amount = 'You need to send us <b>' . $symbol . $totalPay . '</b></br>';
+		$gateway_charge_details = ( 'yes' === $this->gateway_charge ) ? $this->gateway_charge_details : '';
+		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $gateway_charge_details );
+
+		$total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b></br>';
 		echo '<div class="bdpg-total-amount">' . $total_amount . '</div>';
 		?>
 		<div class="bdpg-available-accounts">
@@ -187,16 +245,26 @@ class Bkash extends \WC_Payment_Gateway {
 		?>
 			<div class="bdpg-user__acc">
 				<div class="bdpg-user__field">
-					<label for="bKash_acc_no">
-						Your bKash Account Number
+					<label for="<?php echo esc_attr( $this->gateway ); ?>_acc_no">
+						<?php
+                            echo sprintf(
+                                __( 'Your %s Account Number', 'bangladeshi-payment-gateways' ),
+                                ucfirst( $this->gateway )
+                            );
+                        ?>
 					</label>
-					<input type="text" class="widefat" name="bKash_acc_no" placeholder="01XXXXXXXXX">
+					<input type="text" class="widefat" name="<?php echo esc_attr( $this->gateway ); ?>_acc_no" placeholder="01XXXXXXXXX">
 				</div>
 				<div class="bdpg-user__field">
-					<label for="bKash_trans_id">
-						bKash Transaction ID
+					<label for="<?php echo esc_attr( $this->gateway ); ?>_trans_id">
+                        <?php
+                            echo sprintf(
+                                __( 'Your %s Transaction ID', 'bangladeshi-payment-gateways' ),
+                                ucfirst( $this->gateway )
+                            );
+                        ?>
 					</label>
-					<input type="text" class="widefat" name="bKash_trans_id" placeholder="2M7A5">
+					<input type="text" class="widefat" name="<?php echo esc_attr( $this->gateway ); ?>_trans_id" placeholder="2M7A5">
 				</div>
 			</div>
 		</div>
@@ -211,7 +279,7 @@ class Bkash extends \WC_Payment_Gateway {
 		?>
 		<tr valign="top">
 			<th scope="row" class="titledesc"><?php esc_html_e( 'Account Details', 'woocommerce' ); ?>:</th>
-			<td class="forminp" id="bkash_accounts">
+			<td class="forminp" id="gateway_accounts">
 				<table class="widefat wc_input_table sortable" cellspacing="0">
 					<thead>
 						<tr>
@@ -239,8 +307,8 @@ class Bkash extends \WC_Payment_Gateway {
 								$i++;
 								echo '<tr class="account">
 									<td class="sort"></td>
-									<td><input type="text" value="' . esc_attr( $account['type'] ) . '" name="bkash_account_type[' . $i . ']" /></td>
-									<td><input type="text" value="' . esc_attr( $account['number'] ) . '" name="bkash_account_number[' . $i . ']" /></td><td><input type="hidden" value="' . esc_attr( $account['qr_code'] ) . '" name="bkash_account_qr_code[' . $i . ']" id="bdpg_qr_code-' . $i . '" />
+									<td><input type="text" value="' . esc_attr( $account['type'] ) . '" name="' . esc_attr( $this->gateway ) . '_account_type[' . $i . ']" /></td>
+									<td><input type="text" value="' . esc_attr( $account['number'] ) . '" name="' . esc_attr( $this->gateway ) . '_account_number[' . $i . ']" /></td><td><input type="hidden" value="' . esc_attr( $account['qr_code'] ) . '" name="' . esc_attr( $this->gateway ) . '_account_qr_code[' . $i . ']" id="bdpg_qr_code-' . $i . '" />
 									<input type="button" class="button button-primary add_qr_c_img" value="Edit Image" data-target="#bdpg_qr_code-' . $i . '"  data-qr="#bdpg_qr_img-' . $i . '"><div  id="bdpg_qr_img-' . $i . '"><img src="' . esc_attr( $account['qr_code'] ) . '" alt="QR Code" id="qr_code" /></div>
 									</td>
 									</tr>';
@@ -252,17 +320,17 @@ class Bkash extends \WC_Payment_Gateway {
 				<script>
 
 					jQuery(function($) {
-						$('#bkash_accounts').on( 'click', 'a.add', function(){
+						$('#gateway_accounts').on( 'click', 'a.add', function(){
 
-							var size = $('#bkash_accounts').find('tbody .account').length;
+							var size = $('#gateway_accounts').find('tbody .account').length;
 
 							$('<tr class="account">\
 									<td class="sort"></td>\
-									<td><input type="text" name="bkash_account_type[' + size + ']" /></td>\
-									<td><input type="text" name="bkash_account_number[' + size + ']" /></td>\
-									<td><input type="hidden" id="bdpg_qr_code-' + size + '" name="bkash_account_qr_code[' + size + ']" /><input type="button" class="button button-primary add_qr_c_img" value="Add Image" data-target="#bdpg_qr_code-' + size + '" data-qr="#bdpg_qr_img-' + size + '"><div id="bdpg_qr_img-' + size + '"></div>\
+									<td><input type="text" name="<?php echo esc_attr( $this->gateway ); ?>_account_type[' + size + ']" /></td>\
+									<td><input type="text" name="<?php echo esc_attr( $this->gateway ); ?>_account_number[' + size + ']" /></td>\
+									<td><input type="hidden" id="bdpg_qr_code-' + size + '" name="<?php echo esc_attr( $this->gateway ); ?>_account_qr_code[' + size + ']" /><input type="button" class="button button-primary add_qr_c_img" value="Add Image" data-target="#bdpg_qr_code-' + size + '" data-qr="#bdpg_qr_img-' + size + '"><div id="bdpg_qr_img-' + size + '"></div>\
 									</td>\
-								</tr>').appendTo('#bkash_accounts table tbody');
+								</tr>').appendTo('#gateway_accounts table tbody');
 
 							return false;
 						});
@@ -281,12 +349,12 @@ class Bkash extends \WC_Payment_Gateway {
 	 */
 	public function save_accounts() {
 
-		if ( isset( $_POST['bkash_account_type'] ) ) {
+		if ( isset( $_POST[$this->gateway . '_account_type'] ) ) {
 			$accounts = array();
 
-			$type    = array_map( 'wc_clean', $_POST['bkash_account_type'] );
-			$number  = array_map( 'wc_clean', $_POST['bkash_account_number'] );
-			$qr_code = array_map( 'wc_clean', $_POST['bkash_account_qr_code'] );
+			$type    = array_map( 'wc_clean', $_POST[$this->gateway . '_account_type'] );
+			$number  = array_map( 'wc_clean', $_POST[$this->gateway . '_account_number'] );
+			$qr_code = array_map( 'wc_clean', $_POST[$this->gateway . '_account_qr_code'] );
 
 			foreach ( $type as $key => $value ) {
 				if ( ! isset( $type[ $key ] ) ) {
@@ -299,7 +367,7 @@ class Bkash extends \WC_Payment_Gateway {
 					'qr_code' => $qr_code[ $key ],
 				);
 			}
-			update_option( 'bdpg_bkash_accounts', $accounts );
+			update_option( 'bdpg_' . $this->gateway . '_accounts', $accounts );
 		}
 
 	}
@@ -313,12 +381,10 @@ class Bkash extends \WC_Payment_Gateway {
 		global $woocommerce;
 
 		$order = new \WC_Order( $order_id );
-		
 
 		// Mark as on-hold (we're awaiting the cheque).
-		$order->update_status( 'on-hold', __( 'Awaiting bKash payment', 'bangladeshi-payment-gateways' ) );
+		$order->update_status( 'on-hold', sprintf( esc_html__( 'Awaiting %s payment.', 'bangladeshi-payment-gateways' ), $order->get_payment_method_title() ) );
 
-		
 		// Reduce stock levels.
 		$order->reduce_order_stock();
 
@@ -345,7 +411,7 @@ class Bkash extends \WC_Payment_Gateway {
 		if ( $this->id === $order->get_payment_method() ) {
 			echo wpautop( $this->instructions );
 		} else {
-			echo esc_html__( 'Thank you. Your order has been received.', 'woocommerce' );
+			echo esc_html__( 'Thank you. Your order has been received.', 'bangladeshi-payment-gateways' );
 		}
 	}
 
@@ -372,19 +438,19 @@ class Bkash extends \WC_Payment_Gateway {
 	 * Field Validation.
 	 */
 	public function payment_process() {
-		if ( 'woo_bkash' !== $_POST['payment_method'] ) {
+		if ( 'woo_' . $this->gateway !== $_POST['payment_method'] ) {
 			return;
 		}
 
-		$number   = sanitize_text_field( $_POST['bKash_acc_no'] );
-		$trans_id = sanitize_text_field( $_POST['bKash_trans_id'] );
+		$number   = sanitize_text_field( $_POST[$this->gateway . '_acc_no'] );
+		$trans_id = sanitize_text_field( $_POST[$this->gateway . '_trans_id'] );
 
 		if ( '' === $number ) {
-			wc_add_notice( __( 'Please enter your bKash number.', 'bangladeshi-payment-gateways' ), 'error' );
+			wc_add_notice( sprintf( esc_html__( 'Please enter your %s account number.', 'bangladeshi-payment-gateways' ), $this->gateway ), 'error' );
 		}
 
 		if ( '' === $trans_id ) {
-			wc_add_notice( __( 'Please enter your bKash transaction ID.', 'bangladeshi-payment-gateways' ), 'error' );
+			wc_add_notice( sprintf( esc_html__( 'Please enter your %s transaction ID.', 'bangladeshi-payment-gateways' ), $this->gateway ), 'error' );
 		}
 	}
 
@@ -395,37 +461,37 @@ class Bkash extends \WC_Payment_Gateway {
 	 */
 	public function fields_update( $order_id ) {
 
-		if ( 'woo_bkash' !== $_POST['payment_method'] ) {
+		if ( 'woo_' . $this->gateway !== $_POST['payment_method'] ) {
 			return;
 		}
-		$number   = sanitize_text_field( $_POST['bKash_acc_no'] );
-		$trans_id = sanitize_text_field( $_POST['bKash_trans_id'] );
+		$number   = sanitize_text_field( $_POST[$this->gateway . '_acc_no'] );
+		$trans_id = sanitize_text_field( $_POST[$this->gateway . '_trans_id'] );
 
-		update_post_meta( $order_id, 'woo_bkash_number', $number );
-		update_post_meta( $order_id, 'woo_bkash_trans_id', $trans_id );
+		update_post_meta( $order_id, 'woo_' . $this->gateway . '_number', $number );
+		update_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', $trans_id );
 	}
 	/**
-	 * Display bKash data in admin page.
+	 * Display Gateway data in admin page.
 	 *
 	 * @param Object $order Order.
 	 */
 	public function admin_order_data( $order ) {
-		if ( 'woo_bkash' !== $order->get_payment_method() ) {
+		if ( 'woo_' . $this->gateway !== $order->get_payment_method() ) {
 			return;
 		}
 
 		$order_id = $order->get_id();
-		$number   = ( get_post_meta( $order_id, 'woo_bkash_number', true ) ) ? get_post_meta( $order_id, 'woo_bkash_number', true ) : '';
-		$trans_id = ( get_post_meta( $order_id, 'woo_bkash_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_bkash_trans_id', true ) : '';
+		$number   = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) : '';
+		$trans_id = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) : '';
 		?>
 		<div class="form-field form-field-wide bdpg-admin-data">
-			<img src="<?php echo esc_url( $this->pg_icon ); ?> " alt="bKash">
+			<img src="<?php echo esc_url( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
 			<table class="wp-list-table widefat striped posts">
 				<tbody>
 					<tr>
 						<th>
 							<strong>
-								<?php echo __( 'bKash Number', 'bangladeshi-payment-gateways' ); ?>
+								<?php echo sprintf( esc_html__( '%s Account Number', 'bangladeshi-payment-gateways' ), ucfirst( $this->gateway ) ); ?>
 							</strong>
 						</th>
 						<td>
@@ -449,13 +515,13 @@ class Bkash extends \WC_Payment_Gateway {
 	}
 
 	/**
-	 * Check if bKash charge status.
+	 * Check Gateway charge status.
 	 *
 	 * @param Object $cart Cart.
 	 */
 	public function charge_settings( $cart ) {
 		global $woocommerce;
-		$bkash_settings = get_option( 'woocommerce_woo_bkash_settings' );
+		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '__settings' );
 
 		$av_gateways = $woocommerce->payment_gateways->get_available_payment_gateways();
 		if ( ! empty( $av_gateways ) ) {
@@ -466,20 +532,20 @@ class Bkash extends \WC_Payment_Gateway {
 				return;
 			}
 
-			if ( 'woo_bkash' === $payment_method ) {
-				$label  = __( 'bKash Charge', 'bangladeshi-payment-gateways' );
-				$amount = round( $cart->cart_contents_total * ( $bkash_settings['bkash_fee'] / 100 ) );
+			if ( 'woo_' . $this->gateway === $payment_method ) {
+				$label  = sprintf( esc_html__( '%s Charge', 'bangladeshi-payment-gateways' ), ucfirst( $this->gateway ) );
+				$amount = round( $cart->cart_contents_total * ( $settings[ $this->gateway . '_fee'] / 100 ) );
 				$cart->add_fee( $label, $amount, true, 'standard' );
 			}
 		}
 	}
 	/**
-	 * Display bKash data in order review page
+	 * Display Gateway data in order review page
 	 *
 	 * @param Object $order Order.
 	 */
 	public function data_order_review_page( $order ) {
-		if ( 'woo_bkash' !== $order->get_payment_method() ) {
+		if ( 'woo_' . $this->gateway !== $order->get_payment_method() ) {
 			return;
 		}
 		global $wp;
@@ -490,17 +556,17 @@ class Bkash extends \WC_Payment_Gateway {
 			$order_id = (int) $wp->query_vars['view-order'];
 		}
 
-		$number   = ( get_post_meta( $order_id, 'woo_bkash_number', true ) ) ? get_post_meta( $order_id, 'woo_bkash_number', true ) : '';
-		$trans_id = ( get_post_meta( $order_id, 'woo_bkash_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_bkash_trans_id', true ) : '';
+		$number   = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) : '';
+		$trans_id = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) : '';
 		?>
 		<div class="bdpg-g-details">
-			<img src="<?php echo esc_html( $this->pg_icon ); ?> " alt="bKash">
+			<img src="<?php echo esc_html( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
 			<table class="wp-list-table widefat striped posts">
 				<tbody>
 					<tr>
 						<th>
 							<strong>
-								<?php echo esc_html__( 'bKash Number', 'bangladeshi-payment-gateways' ); ?>
+                            <?php echo sprintf( esc_html__( '%s Account Number', 'bangladeshi-payment-gateways' ), ucfirst( $this->gateway ) ); ?>
 							</strong>
 						</th>
 						<td>
@@ -510,7 +576,7 @@ class Bkash extends \WC_Payment_Gateway {
 					<tr>
 						<th>
 							<strong>
-								<?php echo esc_html__( 'Transaction ID', 'bangladeshi-payment-gateways' ); ?>
+                                <?php echo __( 'Transaction ID', 'bangladeshi-payment-gateways' ); ?>
 							</strong>
 						</th>
 						<td>
@@ -547,8 +613,8 @@ class Bkash extends \WC_Payment_Gateway {
 
 		global $post;
 
-		$payment_no = ( get_post_meta( $post->ID, 'woo_bkash_number', true ) ) ? get_post_meta( $post->ID, 'woo_bkash_number', true ) : '';
-		$tran_id    = ( get_post_meta( $post->ID, 'woo_bkash_trans_id', true ) ) ? get_post_meta( $post->ID, 'woo_bkash_trans_id', true ) : '';
+		$payment_no = ( get_post_meta( $post->ID, 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $post->ID, 'woo_' . $this->gateway . '_number', true ) : '';
+		$tran_id    = ( get_post_meta( $post->ID, 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $post->ID, 'woo_' . $this->gateway . '_trans_id', true ) : '';
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );
@@ -558,5 +624,4 @@ class Bkash extends \WC_Payment_Gateway {
 			echo esc_attr( $tran_id );
 		}
 	}
-
 }

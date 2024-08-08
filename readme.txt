@@ -79,6 +79,9 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
+= 3.0.0 - 08/08/2024 =
+* Code Refactor
+
 = 2.0.8 - 03/11/2023 =
 * Fixed: PR: fix admin order data [#7](https://github.com/ultraDevs/Bangladeshi-Payment-Gateways/pull/7). Thanks goes to [shariult](https://github.com/shariult)
 
