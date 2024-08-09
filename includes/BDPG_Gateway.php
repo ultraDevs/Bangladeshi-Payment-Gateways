@@ -131,8 +131,8 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		}
 
 		add_action( 'woocommerce_order_details_after_customer_details', array( $this, 'data_order_review_page' ) );
-		add_filter( 'manage_edit-shop_order_columns', array( $this, 'admin_register_column' ) );
-		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'admin_column_value' ), 2 );
+		add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'admin_register_column' ) );
+		add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'admin_column_value' ), 10, 2 );
 
     }
 
@@ -597,6 +597,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
 		$columns = ( is_array( $columns ) ) ? $columns : array();
 
+		$columns['payment_method'] = esc_html__( 'Payment Method', 'bangladeshi-payment-gateways' );
 		$columns['payment_no'] = esc_html__( 'Payment No', 'bangladeshi-payment-gateways' );
 		$columns['tran_id']    = esc_html__( 'Tran. ID', 'bangladeshi-payment-gateways' );
 
@@ -609,12 +610,20 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	 *
 	 * @param string $column Column name.
 	 */
-	public function admin_column_value( $column ) {
+	public function admin_column_value( $column, $order ) {
 
 		global $post;
 
-		$payment_no = ( get_post_meta( $post->ID, 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $post->ID, 'woo_' . $this->gateway . '_number', true ) : '';
-		$tran_id    = ( get_post_meta( $post->ID, 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $post->ID, 'woo_' . $this->gateway . '_trans_id', true ) : '';
+		// var_dump( $order->get_id() );
+
+		$payment_no = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) : '';
+		$tran_id    = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) : '';
+
+		if ( 'payment_method' === $column ) {
+			// get payment gateway by order id.
+			// $payment_method = ( get_post_meta( $order->get_id(), 'payment_method', true ) ) ? get_post_meta( $order->get_id(), 'payment_method', true ) : '';
+			// echo esc_attr( $payment_method );
+		}
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );
