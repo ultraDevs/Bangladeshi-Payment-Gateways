@@ -8,8 +8,6 @@
 
 namespace ultraDevs\BDPG;
 
-use ultraDevs\BDPG\Traits\Singleton;
-
 /**
  * BDPG_Gateway Class
  *
@@ -17,8 +15,6 @@ use ultraDevs\BDPG\Traits\Singleton;
  * @since 3.0.0
  */
 abstract class BDPG_Gateway extends \WC_Payment_Gateway {
-
-	// use Singleton;
 
     /**
      * Gateway
@@ -74,7 +70,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
      *
      * @var string
      */
-    public $dollar_rate = '';
+    public $dollar_rate = 117.56;
 
     /**
      * Gateway Accounts
@@ -93,8 +89,16 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
         $this->has_fields         = true;
         $this->icon = apply_filters( 'bdpg_' . $this->gateway . '_icon', BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . $this->gateway . '.png' );
 
-        $this->method_description = sprintf( __( '%s Payment Gateway Settings.', 'bangladeshi-payment-gateways' ), $this->gateway );
-		$this->method_title       = sprintf( __( '%s', 'bangladeshi-payment-gateways' ), $this->gateway );
+        $this->method_description = sprintf(
+			/* translators: %s: Payment Gateway. */
+			__( '%s Payment Gateway Settings.', 'bangladeshi-payment-gateways' ),
+			$this->gateway
+		);
+		$this->method_title       = sprintf(
+			/* translators: %s: Payment Gateway. */
+			__( '%s', 'bangladeshi-payment-gateways' ),
+			$this->gateway
+		);
 
 		$this->init_form_fields();
 
@@ -146,7 +150,11 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$this->form_fields = array(
 			'enabled'              => array(
 				'title'       => __( 'Enable/Disable', 'bangladeshi-payment-gateways' ),
-				'label'       => sprintf( __( 'Enable %s Gateway', 'bangladeshi-payment-gateways' ), $this->gateway ),
+				'label'       => sprintf(
+					/* translators: %s: Payment Gateway. */
+					__( 'Enable %s Gateway', 'bangladeshi-payment-gateways' ),
+					$this->gateway
+				),
 				'type'        => 'checkbox',
 				'description' => '',
 				'default'     => 'no',
@@ -165,11 +173,13 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			),
 			$this->gateway . '_charge'         => array(
 				'title'       => sprintf(
+					/* translators: %s: Payment Gateway. */
                     __( '%s Charge?', 'bangladeshi-payment-gateways' ),
                     $this->gateway
                 ),
 				'type'        => 'checkbox',
 				'description' => sprintf(
+					/* translators: %s: Payment Gateway. */
                     __( 'Add %s <b>Send Money</b> charge?', 'bangladeshi-payment-gateways' ),
                     $this->gateway
                 ),
@@ -178,6 +188,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
 			$this->gateway . '_fee'            => array(
 				'title'       => sprintf(
+					/* translators: %s: Payment Gateway. */
                     __( '%s Fee', 'bangladeshi-payment-gateways' ),
                     $this->gateway
                 ),
@@ -188,11 +199,13 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
 			$this->gateway . '_charge_details' => array(
 				'title'   => sprintf(
+					/* translators: %s: Payment Gateway. */
                     __( '%s Charge Details', 'bangladeshi-payment-gateways' ),
                     $this->gateway
                 ),
 				'type'    => 'textarea',
 				'default' => sprintf(
+					/* translators: %s: Payment Gateway. */
                     __( '%s "Send Money" fee will be added with net price.', 'bangladeshi-payment-gateways' ),
                     $this->gateway
                 )
@@ -220,7 +233,18 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$gateway_charge_details = ( 'yes' === $this->gateway_charge ) ? $this->gateway_charge_details : '';
 		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $gateway_charge_details );
 
-		$total_amount = 'You need to send us <b>' . get_woocommerce_currency_symbol() . $woocommerce->cart->total . '</b></br>';
+		$total_payment=  $woocommerce->cart->total ;
+		$symbol = get_woocommerce_currency_symbol();
+		if ( get_woocommerce_currency() === 'USD' ){
+			$total_payment = $this->dollarRate * $woocommerce->cart->total;
+			$symbol        = get_woocommerce_currency_symbol('BDT');
+		}
+
+		$total_amount = sprintf(
+			/* translators: %s: Total Payment. */
+			__( 'You need to send us <b>%s</b>', 'bangladeshi-payment-gateways' ),
+			$symbol . $total_payment
+		) . '</br>';
 		echo '<div class="bdpg-total-amount">' . $total_amount . '</div>';
 		?>
 		<div class="bdpg-available-accounts">
@@ -250,6 +274,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 					<label for="<?php echo esc_attr( $this->gateway ); ?>_acc_no">
 						<?php
                             echo sprintf(
+								/* translators: %s: Payment Gateway. */
                                 __( 'Your %s Account Number', 'bangladeshi-payment-gateways' ),
                                 ucfirst( $this->gateway )
                             );
@@ -261,6 +286,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 					<label for="<?php echo esc_attr( $this->gateway ); ?>_trans_id">
                         <?php
                             echo sprintf(
+								/* translators: %s: Payment Gateway. */
                                 __( 'Your %s Transaction ID', 'bangladeshi-payment-gateways' ),
                                 ucfirst( $this->gateway )
                             );
@@ -385,7 +411,11 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$order = new \WC_Order( $order_id );
 
 		// Mark as on-hold (we're awaiting the cheque).
-		$order->update_status( 'on-hold', sprintf( esc_html__( 'Awaiting %s payment.', 'bangladeshi-payment-gateways' ), $order->get_payment_method_title() ) );
+		$order->update_status( 'on-hold', sprintf(
+			/* translators: %s: Payment Gateway. */
+			esc_html__( 'Awaiting %s payment.', 'bangladeshi-payment-gateways' ),
+			$order->get_payment_method_title() )
+		);
 
 		// Reduce stock levels.
 		$order->reduce_order_stock();
@@ -448,11 +478,19 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$trans_id = sanitize_text_field( $_POST[$this->gateway . '_trans_id'] );
 
 		if ( '' === $number ) {
-			wc_add_notice( sprintf( esc_html__( 'Please enter your %s account number.', 'bangladeshi-payment-gateways' ), $this->gateway ), 'error' );
+			wc_add_notice( sprintf(
+				/* translators: %s: Payment Gateway. */
+				esc_html__( 'Please enter your %s account number.', 'bangladeshi-payment-gateways' ),
+				$this->gateway
+			), 'error' );
 		}
 
 		if ( '' === $trans_id ) {
-			wc_add_notice( sprintf( esc_html__( 'Please enter your %s transaction ID.', 'bangladeshi-payment-gateways' ), $this->gateway ), 'error' );
+			wc_add_notice( sprintf(
+				/* translators: %s: Payment Gateway. */
+				esc_html__( 'Please enter your %s transaction ID.', 'bangladeshi-payment-gateways' ),
+				$this->gateway
+			),'error' );
 		}
 	}
 
@@ -493,7 +531,11 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 					<tr>
 						<th>
 							<strong>
-								<?php echo sprintf( esc_html__( '%s Account Number', 'bangladeshi-payment-gateways' ), ucfirst( $this->gateway ) ); ?>
+								<?php echo sprintf(
+									/* translators: %s: Payment Gateway. */
+									esc_html__( '%s Account Number', 'bangladeshi-payment-gateways' ),
+									ucfirst( $this->gateway
+									) ); ?>
 							</strong>
 						</th>
 						<td>
@@ -535,7 +577,11 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			}
 
 			if ( 'woo_' . $this->gateway === $payment_method ) {
-				$label  = sprintf( esc_html__( '%s Charge', 'bangladeshi-payment-gateways' ), ucfirst( $this->gateway ) );
+				$label  = sprintf(
+					/* translators: %s: Payment Gateway. */
+					esc_html__( '%s Charge', 'bangladeshi-payment-gateways' ),
+					ucfirst( $this->gateway )
+				);
 				$amount = round( $cart->cart_contents_total * ( $settings[ $this->gateway . '_fee'] / 100 ) );
 				$cart->add_fee( $label, $amount, true, 'standard' );
 			}
@@ -568,7 +614,11 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 					<tr>
 						<th>
 							<strong>
-                            <?php echo sprintf( esc_html__( '%s Account Number', 'bangladeshi-payment-gateways' ), ucfirst( $this->gateway ) ); ?>
+                            <?php echo sprintf(
+								/* translators: %s: Payment Gateway. */
+								esc_html__( '%s Account Number', 'bangladeshi-payment-gateways' ),
+								ucfirst( $this->gateway )
+								); ?>
 							</strong>
 						</th>
 						<td>
@@ -599,7 +649,6 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
 		$columns = ( is_array( $columns ) ) ? $columns : array();
 
-		$columns['payment_gateway'] = esc_html__( 'Payment Method', 'bangladeshi-payment-gateways' );
 		$columns['payment_no'] = esc_html__( 'Payment No', 'bangladeshi-payment-gateways' );
 		$columns['tran_id']    = esc_html__( 'Tran. ID', 'bangladeshi-payment-gateways' );
 
@@ -614,16 +663,8 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	 */
 	public function admin_column_value( $column, $order ) {
 
-		global $post;
-
-		// var_dump( $order->get_id() );
-
 		$payment_no = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) : '';
 		$tran_id    = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) : '';
-
-		if ( 'payment_gateway' === $column ) {
-			echo $order->get_payment_method_title();
-		}
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );

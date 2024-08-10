@@ -4,7 +4,7 @@ Donate link: https://ultradevs.com/donate/
 Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code, qr code
 Requires at least: 4.4
 Tested up to: 6.6.1
-Stable tag: 2.0.8
+Stable tag: 3.0.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -79,8 +79,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
-= 3.0.0 - 08/08/2024 =
+= 3.0.0 - 10/08/2024 =
 * Code Refactor
+* Fixed PHP Warnings
+* Update: Set Dollar Rate to 117.56
+* Updated: Translations
 
 = 2.0.8 - 03/11/2023 =
 * Fixed: PR: fix admin order data [#7](https://github.com/ultraDevs/Bangladeshi-Payment-Gateways/pull/7). Thanks goes to [shariult](https://github.com/shariult)

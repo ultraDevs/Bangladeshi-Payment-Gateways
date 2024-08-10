@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Appsero/client.git",
-                "reference": "985363ac0bd17d8cfaa45b0e6780ad68ccfe3ca8"
+                "reference": "a8e02e8a5a862671f04ff00a456e2711d807a598"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Appsero/client/zipball/985363ac0bd17d8cfaa45b0e6780ad68ccfe3ca8",
-                "reference": "985363ac0bd17d8cfaa45b0e6780ad68ccfe3ca8",
+                "url": "https://api.github.com/repos/Appsero/client/zipball/a8e02e8a5a862671f04ff00a456e2711d807a598",
+                "reference": "a8e02e8a5a862671f04ff00a456e2711d807a598",
                 "shasum": ""
             },
             "require": {
@@ -59,7 +59,7 @@
                 "issues": "https://github.com/Appsero/client/issues",
                 "source": "https://github.com/Appsero/client/tree/develop"
             },
-            "time": "2023-03-30T06:42:02+00:00"
+            "time": "2024-01-30T08:15:23+00:00"
         }
     ],
     "packages-dev": [],
@@ -70,5 +70,5 @@
     "prefer-lowest": false,
     "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }
