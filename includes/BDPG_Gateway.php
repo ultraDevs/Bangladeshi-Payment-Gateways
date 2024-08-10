@@ -8,7 +8,7 @@
 
 namespace ultraDevs\BDPG;
 
-use ultraDevs\BDPG\Helper;
+use ultraDevs\BDPG\Traits\Singleton;
 
 /**
  * BDPG_Gateway Class
@@ -17,6 +17,8 @@ use ultraDevs\BDPG\Helper;
  * @since 3.0.0
  */
 abstract class BDPG_Gateway extends \WC_Payment_Gateway {
+
+	// use Singleton;
 
     /**
      * Gateway
@@ -116,23 +118,23 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		);
 		$this->accounts    = get_option( 'bdpg_' . $this->gateway . '_accounts', [] );
 
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
-		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_accounts' ) );
-		add_action( 'woocommerce_thankyou_woo_' . $this->gateway, array( $this, 'bdpg_thankyou' ) );
-		add_action( 'woocommerce_email_before_order_table', array( $this, 'customer_email_instructions' ), 10, 3 );
+		// add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
+		// add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_accounts' ) );
+		// add_action( 'woocommerce_thankyou_woo_' . $this->gateway, array( $this, 'bdpg_thankyou' ) );
+		// add_action( 'woocommerce_email_before_order_table', array( $this, 'customer_email_instructions' ), 10, 3 );
 
-		add_action( 'woocommerce_checkout_process', array( $this, 'payment_process' ) );
-		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'fields_update' ) );
-		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'admin_order_data' ) );
+		// add_action( 'woocommerce_checkout_process', array( $this, 'payment_process' ) );
+		// add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'fields_update' ) );
+		// add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'admin_order_data' ) );
 
-		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '_settings' );
-		if ( isset( $settings['gateway_charge'] ) && 'yes' === $settings['gateway_charge'] ) {
-			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'charge_settings' ), 20, 1 );
-		}
+		// $settings = get_option( 'woocommerce_woo_' . $this->gateway . '_settings' );
+		// if ( isset( $settings['gateway_charge'] ) && 'yes' === $settings['gateway_charge'] ) {
+		// 	add_action( 'woocommerce_cart_calculate_fees', array( $this, 'charge_settings' ), 20, 1 );
+		// }
 
-		add_action( 'woocommerce_order_details_after_customer_details', array( $this, 'data_order_review_page' ) );
-		add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'admin_register_column' ) );
-		add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'admin_column_value' ), 10, 2 );
+		// add_action( 'woocommerce_order_details_after_customer_details', array( $this, 'data_order_review_page' ) );
+		// add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'admin_register_column' ), 20 );
+		// add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'admin_column_value' ), 20, 2 );
 
     }
 
@@ -597,7 +599,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
 		$columns = ( is_array( $columns ) ) ? $columns : array();
 
-		$columns['payment_method'] = esc_html__( 'Payment Method', 'bangladeshi-payment-gateways' );
+		$columns['payment_gateway'] = esc_html__( 'Payment Method', 'bangladeshi-payment-gateways' );
 		$columns['payment_no'] = esc_html__( 'Payment No', 'bangladeshi-payment-gateways' );
 		$columns['tran_id']    = esc_html__( 'Tran. ID', 'bangladeshi-payment-gateways' );
 
@@ -619,10 +621,9 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$payment_no = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) : '';
 		$tran_id    = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) : '';
 
-		if ( 'payment_method' === $column ) {
-			// get payment gateway by order id.
-			// $payment_method = ( get_post_meta( $order->get_id(), 'payment_method', true ) ) ? get_post_meta( $order->get_id(), 'payment_method', true ) : '';
-			// echo esc_attr( $payment_method );
+		if ( 'payment_gateway' === $column ) {
+			// echo esc_attr( $gateway );
+        	echo $order->get_payment_method_title();
 		}
 
 		if ( 'payment_no' === $column ) {
