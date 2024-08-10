@@ -127,8 +127,8 @@ final class BDPaymentGateways {
 		$this->gateways = array(
 			ultraDevs\BDPG\Gateways\Bkash::get_instance(),
 			ultraDevs\BDPG\Gateways\Rocket::get_instance(),
-			// ultraDevs\BDPG\Gateways\Nagad::get_instance(),
-			// ultraDevs\BDPG\Gateways\Upay::get_instance(),
+			ultraDevs\BDPG\Gateways\Nagad::get_instance(),
+			ultraDevs\BDPG\Gateways\Upay::get_instance(),
 		);
 
 		// Assets Manager Class.
