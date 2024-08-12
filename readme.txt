@@ -4,8 +4,8 @@ Donate link: https://ultradevs.com/donate/
 Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code, qr code
 Requires at least: 4.4
 Tested up to: 6.6.1
-Stable tag: 3.0.0
-Requires PHP: 5.6
+Stable tag: 3.0.1
+Requires PHP: 7.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,6 +30,14 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 #### Video
 
 [youtube https://www.youtube.com/watch?v=ArJ-zOW1KBU]
+
+
+### Our Other Plugins.
+[Easy Dropbox Integration For WordPress](https://wordpress.org/plugins/easy-dropbox-integration/)
+[Random Image Block for Block Editor](https://wordpress.org/plugins/random-image-block-for-block-editor/)
+[UltraEmbed – Advanced Iframe Plugin For WordPress with Gutenberg Block Included](https://wordpress.org/plugins/ultraembed-advanced-iframe/)
+[TestimonialX – Testimonial Block For Gutenberg Block Editor with 15+ Stunning Styles](https://wordpress.org/plugins/testimonialx-block/)
+
 
 ### Need Help?
 
@@ -78,6 +86,10 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 
 == Changelog ==
+
+= 3.0.1 - 13/08/2024 =
+*Fix: Gateway Fee Issue
+*Fix: USD to BDT Conversion
 
 = 3.0.0 - 10/08/2024 =
 * Code Refactor

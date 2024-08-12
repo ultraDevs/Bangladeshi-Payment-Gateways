@@ -122,6 +122,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		);
 		$this->accounts    = get_option( 'bdpg_' . $this->gateway . '_accounts', [] );
 
+
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'process_admin_options' ) );
 		add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, array( $this, 'save_accounts' ) );
 		add_action( 'woocommerce_thankyou_woo_' . $this->gateway, array( $this, 'bdpg_thankyou' ) );
@@ -132,7 +133,8 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'admin_order_data' ) );
 
 		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '_settings' );
-		if ( isset( $settings['gateway_charge'] ) && 'yes' === $settings['gateway_charge'] ) {
+
+		if ( isset( $settings[ $this->gateway . '_charge' ] ) && 'yes' === $settings[ $this->gateway . '_charge' ] ) {
 			add_action( 'woocommerce_cart_calculate_fees', array( $this, 'charge_settings' ), 20, 1 );
 		}
 
@@ -236,7 +238,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$total_payment=  $woocommerce->cart->total ;
 		$symbol = get_woocommerce_currency_symbol();
 		if ( get_woocommerce_currency() === 'USD' ){
-			$total_payment = $this->dollarRate * $woocommerce->cart->total;
+			$total_payment = $this->dollar_rate * $woocommerce->cart->total;
 			$symbol        = get_woocommerce_currency_symbol('BDT');
 		}
 
@@ -565,7 +567,8 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	 */
 	public function charge_settings( $cart ) {
 		global $woocommerce;
-		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '__settings' );
+		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '_settings' );
+
 
 		$av_gateways = $woocommerce->payment_gateways->get_available_payment_gateways();
 		if ( ! empty( $av_gateways ) ) {
