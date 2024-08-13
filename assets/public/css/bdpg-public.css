@@ -1,0 +1,54 @@
+.bdpg-total-amount {
+    margin: 10px 0;
+    color: green;
+}
+
+.bdpg-s__acc {
+    overflow: hidden;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.bdpg-acc__qr-code {
+    height: 130px;
+    width: 150px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.bdpg-acc__qr-code img {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: 100% !important;
+    float: none !important;
+}
+
+.bdpg-user__acc {
+    margin: 10px 0;
+}
+
+.bdpg-user__field {
+    margin-bottom: 10px;
+}
+.bdpg-user__field label {
+    display: block;
+
+}
+
+.bdpg-user__field input[type="text"] {
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+    padding: 5px 15px;
+}
+
+.bdpg-g-details img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.wc_payment_methods li label img {
+    height: 30px !important;
+    float: right;
+}

@@ -1,0 +1,232 @@
+# Copyright (C) 2024 ultraDevs
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Bangladeshi-Payment-Gateways\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2024-08-10T05:38:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: bangladeshi-payment-gateways\n"
+
+#. Plugin Name of the plugin
+#: bd-payment-gateways.php
+msgid "Bangladeshi Payment Gateways - Make Payment Using QR Code"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: bd-payment-gateways.php
+msgid "https://ultradevs.com/products/wp-plugin/bangladeshi-payment-gateways/"
+msgstr ""
+
+#. Description of the plugin
+#: bd-payment-gateways.php
+msgid "Bangladeshi Payment Gateways for WooCommerce."
+msgstr ""
+
+#. Author of the plugin
+#: bd-payment-gateways.php
+msgid "ultraDevs"
+msgstr ""
+
+#. Author URI of the plugin
+#: bd-payment-gateways.php
+msgid "https://ultradevs.com"
+msgstr ""
+
+#. translators: %1$s Plugin Name, %2$s wooCommerce.
+#: bd-payment-gateways.php:208
+msgid " %1$s requires %2$s to be installed and activated. Please activate %2$s to continue."
+msgstr ""
+
+#: bd-payment-gateways.php:209
+msgid "Bangladeshi Payment Gateways"
+msgstr ""
+
+#: bd-payment-gateways.php:210
+msgid "WooCommerce"
+msgstr ""
+
+#: bd-payment-gateways.php:226
+msgid "Payment Settings"
+msgstr ""
+
+#: bd-payment-gateways.php:232
+msgid "<b style=\"color: green\">Write a Review</b>"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:94
+msgid "%s Payment Gateway Settings."
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:99
+msgid "%s"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:152
+msgid "Enable/Disable"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:155
+msgid "Enable %s Gateway"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:163
+#: includes/BDPG_Gateway.php:166
+msgid "Title"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:170
+msgid "Description"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:177
+msgid "%s Charge?"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:183
+msgid "Add %s <b>Send Money</b> charge?"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:192
+msgid "%s Fee"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:197
+msgid "Don't add %."
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:203
+msgid "%s Charge Details"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:209
+msgid "%s \"Send Money\" fee will be added with net price."
+msgstr ""
+
+#: includes/BDPG_Gateway.php:215
+#: includes/BDPG_Gateway.php:217
+msgid "Instructions"
+msgstr ""
+
+#. translators: %s: Total Payment.
+#: includes/BDPG_Gateway.php:245
+msgid "You need to send us <b>%s</b>"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:278
+msgid "Your %s Account Number"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:290
+msgid "Your %s Transaction ID"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:416
+msgid "Awaiting %s payment."
+msgstr ""
+
+#: includes/BDPG_Gateway.php:446
+msgid "Thank you. Your order has been received."
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:483
+msgid "Please enter your %s account number."
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:491
+msgid "Please enter your %s transaction ID."
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:536
+#: includes/BDPG_Gateway.php:619
+msgid "%s Account Number"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:548
+#: includes/BDPG_Gateway.php:631
+msgid "Transaction ID"
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:582
+msgid "%s Charge"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:652
+msgid "Payment No"
+msgstr ""
+
+#: includes/BDPG_Gateway.php:653
+msgid "Tran. ID"
+msgstr ""
+
+#: includes/functions.php:11
+#: includes/functions.php:24
+msgid ""
+"\n"
+"                01. Go to your Rocket app or Dial *322#\n"
+"                02. Choose “Send Money”\n"
+"                03. Enter below Rocket Account Number\n"
+"                04. Enter <b>total amount</b>\n"
+"                06. Now enter your Rocket Account PIN to confirm the transaction\n"
+"                07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/functions.php:37
+msgid ""
+"\n"
+"                01. Go to your Nagad app or Dial *167#\n"
+"                02. Choose “Send Money”\n"
+"                03. Enter below Nagad Account Number\n"
+"                04. Enter <b>total amount</b>\n"
+"                06. Now enter your Nagad Account PIN to confirm the transaction\n"
+"                07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/functions.php:50
+msgid ""
+"\n"
+"                01. Go to your Upay app or Dial *268#\n"
+"                02. Choose “Send Money”\n"
+"                03. Enter below Upay Account Number\n"
+"                04. Enter <b>total amount</b>\n"
+"                06. Now enter your Upay Account PIN to confirm the transaction\n"
+"                07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#. translators: %1$s Plugin Name.
+#: includes/Review.php:119
+msgid "Hey, we noticed you have been using %1$s for more than 3 days now - that's awesome! <br> Could you please do us a BIG favor and give it a rating on WordPress.org to help us do more great work and boost our motivation?"
+msgstr ""
+
+#: includes/Review.php:164
+msgid "Yes, you deserve it"
+msgstr ""
+
+#: includes/Review.php:168
+msgid "No, maybe later"
+msgstr ""
+
+#: includes/Review.php:172
+msgid "I already did"
+msgstr ""
