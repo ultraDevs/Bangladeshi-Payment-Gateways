@@ -1,7 +1,7 @@
 === Bangladeshi Payment Gateways - Make Payment Using QR Code ===
 Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
-Tags: mobile payment gateways, bangladeshi mobile banking, payment, gateway, bKash, rocket,nagad,upay qr code, qr code
+Tags: mobile payment gateways, bangladeshi mobile banking, payment gateway, qr code, bKash Rocket Nagad Upay
 Requires at least: 4.4
 Tested up to: 6.6.1
 Stable tag: 3.0.1
