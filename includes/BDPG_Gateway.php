@@ -87,7 +87,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
         $this->id = 'woo_' . $this->gateway;
         $this->has_fields         = true;
-        $this->icon = apply_filters( 'bdpg_' . $this->gateway . '_icon', BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . ( 'bkash' === $this->gateway ? 'bKash' : $this->gateway ) . '.png' );
+        $this->icon = apply_filters( 'bdpg_' . $this->gateway . '_icon', BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . ucfirst( $this->gateway ) . '.png' );
 
         $this->method_description = sprintf(
 			/* translators: %s: Payment Gateway. */
