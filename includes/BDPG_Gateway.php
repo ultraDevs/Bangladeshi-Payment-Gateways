@@ -70,7 +70,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
      *
      * @var string
      */
-    public $dollar_rate = 117.56;
+    public $dollar_rate = 119.58;
 
     /**
      * Gateway Accounts
