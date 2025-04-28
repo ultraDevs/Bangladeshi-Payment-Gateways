@@ -9,7 +9,7 @@
  * Plugin Name:       Bangladeshi Payment Gateways - Make Payment Using QR Code
  * Plugin URI:        https://ultradevs.com/products/wp-plugin/bangladeshi-payment-gateways/
  * Description:       Bangladeshi Payment Gateways for WooCommerce.
- * Version:           3.0.3
+ * Version:           3.0.4
  * Author:            ultraDevs
  * Author URI:        https://ultradevs.com
  * License:           GPL v2 or later
@@ -22,7 +22,7 @@
 defined( 'ABSPATH' ) || exit( 'bYe bYe!' );
 
 // Constant.
-define( 'BD_PAYMENT_GATEWAYS_VERSION', '3.0.3' );
+define( 'BD_PAYMENT_GATEWAYS_VERSION', '3.0.4' );
 define( 'BD_PAYMENT_GATEWAYS_NAME', 'Bangladeshi Payment Gateways' );
 define( 'BD_PAYMENT_GATEWAYS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_DIR_URL', plugin_dir_url( __FILE__ ) );
@@ -80,7 +80,7 @@ final class BDPaymentGateways {
 	/**
 	 * Constructor
 	 */
-	public function __construct() {
+	private function __construct() {
 
 		add_action( 'init', array( $this, 'load_text_domain' ) );
 
@@ -252,7 +252,6 @@ final class BDPaymentGateways {
 
 		// Active insights.
 		$client->insights()->init();
-
 	}
 }
 BDPaymentGateways::run();

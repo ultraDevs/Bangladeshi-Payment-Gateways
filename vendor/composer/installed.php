@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ultradevs/bangladeshi-payment-gateways',
-        'pretty_version' => 'dev-master',
-        'version' => 'dev-master',
-        'reference' => '02a7c09589b067501ed500225e89b297689ea96b',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
+        'reference' => '87d864aa4a71b0ed21996f551d7ae11791b6b547',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -22,9 +22,9 @@
             'dev_requirement' => false,
         ),
         'ultradevs/bangladeshi-payment-gateways' => array(
-            'pretty_version' => 'dev-master',
-            'version' => 'dev-master',
-            'reference' => '02a7c09589b067501ed500225e89b297689ea96b',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
+            'reference' => '87d864aa4a71b0ed21996f551d7ae11791b6b547',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
