@@ -90,6 +90,7 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 = 3.0.4 - 28/04/2025 =
 *Fix:* Fixed wrong payment method name
+*Fix:* Localization issue
 
 = 3.0.3 - 10/12/2024 =
 *Fix:* _load_textdomain_just_in_time was called incorrectly
