@@ -51,4 +51,5 @@
 .wc_payment_methods li label img {
     height: 30px !important;
     float: right;
+    margin-left: 8px;
 }
