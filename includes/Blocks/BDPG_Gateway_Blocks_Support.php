@@ -105,24 +105,30 @@ abstract class BDPG_Gateway_Blocks_Support extends \Automattic\WooCommerce\Block
 			$gateway_charge_details = isset( $this->settings['gateway_charge_details'] ) ? $this->settings['gateway_charge_details'] : '';
 		}
 
-		// Get cart total for USD conversion.
-		// Note: This includes any fees added via woocommerce_cart_calculate_fees.
-		$cart_total = 0;
+		// Get cart subtotal for calculation.
+		$cart_subtotal = 0;
 		if ( function_exists( 'WC' ) ) {
 			$cart = WC()->cart;
 			if ( $cart ) {
-				$cart_total = $cart->total;
+				$cart_subtotal = $cart->cart_contents_total;
 			}
 		}
 
-		// Calculate total payment amount.
-		$total_payment   = $cart_total;
-		$original_amount = $cart_total;
+		// Calculate gateway fee if enabled.
+		$gateway_fee = 0;
+		if ( isset( $this->settings[ $this->gateway . '_charge' ] ) && 'yes' === $this->settings[ $this->gateway . '_charge' ] ) {
+			$fee_percent = isset( $this->settings[ $this->gateway . '_fee' ] ) ? floatval( $this->settings[ $this->gateway . '_fee' ] ) : 0;
+			$gateway_fee = round( $cart_subtotal * ( $fee_percent / 100 ) );
+		}
+
+		// Calculate total payment amount (including gateway fee).
+		$total_payment   = $cart_subtotal + $gateway_fee;
+		$original_amount = $cart_subtotal + $gateway_fee;
 		$show_conversion = false;
 
 		// Check if USD conversion is enabled.
 		if ( \bdpg_is_usd_conversion_enabled() && get_woocommerce_currency() === 'USD' ) {
-			$total_payment   = \bdpg_get_usd_rate() * $cart_total;
+			$total_payment   = \bdpg_get_usd_rate() * ( $cart_subtotal + $gateway_fee );
 			$show_conversion = true;
 		}
 
@@ -159,7 +165,7 @@ abstract class BDPG_Gateway_Blocks_Support extends \Automattic\WooCommerce\Block
 			'store_currency'          => get_woocommerce_currency(),
 			'store_currency_symbol'   => $store_currency_symbol,
 			'bdt_currency_symbol'     => $bdt_currency_symbol,
-			'cart_total'              => $cart_total,
+			'cart_total'              => $cart_subtotal + $gateway_fee,
 			'formatted_total'         => $formatted_total,
 			'original_amount'         => $formatted_original,
 			'converted_amount'        => $show_conversion ? $bdt_currency_symbol . number_format( $total_payment, 2, '.', '' ) : null,
