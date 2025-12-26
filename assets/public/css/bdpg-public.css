@@ -47,8 +47,17 @@
 	height: 50px;
 	margin-bottom: 10px;
 }
-
 .wc_payment_methods li label img {
 	height: 30px !important;
-	float: right;
+}
+
+.payment_method_woo_bkash label,
+.payment_method_woo_nagad label,
+.payment_method_woo_rocket label,
+.payment_method_woo_upay label {
+	display: inline-flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 10px;
+
 }
