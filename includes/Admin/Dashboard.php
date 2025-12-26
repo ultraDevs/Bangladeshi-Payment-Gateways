@@ -46,6 +46,7 @@ class Dashboard {
 		add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_notices', [ $this, 'hide_dashboard_admin_notices' ], 0 );
+		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
 	}
 
 	/**
@@ -96,6 +97,24 @@ class Dashboard {
 			'manage_woocommerce',
 			self::MENU_SLUG . '-settings',
 			[ $this, 'render_settings_page' ]
+		);
+
+		add_submenu_page(
+			self::MENU_SLUG,
+			__( 'Statistics', 'bangladeshi-payment-gateways' ),
+			__( 'Statistics', 'bangladeshi-payment-gateways' ),
+			'manage_woocommerce',
+			self::MENU_SLUG . '-statistics',
+			[ $this, 'render_statistics_page' ]
+		);
+
+		add_submenu_page(
+			self::MENU_SLUG,
+			__( 'Transactions', 'bangladeshi-payment-gateways' ),
+			__( 'Transactions', 'bangladeshi-payment-gateways' ),
+			'manage_woocommerce',
+			self::MENU_SLUG . '-transactions',
+			[ $this, 'render_transactions_page' ]
 		);
 	}
 
@@ -580,6 +599,260 @@ class Dashboard {
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Enqueue admin scripts
+	 *
+	 * @param string $hook Current admin page.
+	 * @return void
+	 */
+	public function enqueue_admin_scripts( $hook ) {
+		// Only load on our pages.
+		if ( strpos( $hook, 'bangladeshi-payment-gateways' ) === false ) {
+			return;
+		}
+
+		// Enqueue admin CSS.
+		wp_enqueue_style(
+			'bdpg-admin',
+			BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/admin/css/admin.css',
+			array(),
+			BD_PAYMENT_GATEWAYS_VERSION
+		);
+
+		// Enqueue admin JS for statistics and transactions pages.
+		if ( in_array( $hook, array( 'toplevel_page_bangladeshi-payment-gateways', 'bd-payment-gateways_page_bangladeshi-payment-gateways-statistics', 'bd-payment-gateways_page_bangladeshi-payment-gateways-transactions' ), true ) ) {
+			wp_enqueue_script(
+				'bdpg-admin',
+				BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/admin/js/admin.js',
+				array( 'jquery' ),
+				BD_PAYMENT_GATEWAYS_VERSION,
+				true
+			);
+
+			wp_localize_script(
+				'bdpg-admin',
+				'bdpgAdmin',
+				array(
+					'ajax_url' => admin_url( 'admin-ajax.php' ),
+					'nonce'    => wp_create_nonce( 'bdpg_admin_nonce' ),
+					'strings'  => array(
+						'loading'   => __( 'Loading...', 'bangladeshi-payment-gateways' ),
+						'no_data'   => __( 'No data found', 'bangladeshi-payment-gateways' ),
+						'exporting' => __( 'Exporting...', 'bangladeshi-payment-gateways' ),
+					),
+				)
+			);
+		}
+	}
+
+	/**
+	 * Render statistics page
+	 *
+	 * @return void
+	 */
+	public function render_statistics_page() {
+		?>
+		<div class="wrap">
+			<div class="bdpg-admin-wrap">
+				<div class="bdpg-content">
+					<div class="bdpg-card">
+						<div class="bdpg-card-header">
+							<h1>
+								<span class="dashicons dashicons-chart-bar"></span>
+								<?php esc_html_e( 'Payment Statistics', 'bangladeshi-payment-gateways' ); ?>
+							</h1>
+						</div>
+						<div class="bdpg-card-body">
+							<!-- Date Filter -->
+							<div class="bdpg-filter-bar">
+								<label for="bdpg-stats-date-from">
+									<?php esc_html_e( 'From:', 'bangladeshi-payment-gateways' ); ?>
+								</label>
+								<input type="date" id="bdpg-stats-date-from" class="bdpg-date-input">
+								<label for="bdpg-stats-date-to">
+									<?php esc_html_e( 'To:', 'bangladeshi-payment-gateways' ); ?>
+								</label>
+								<input type="date" id="bdpg-stats-date-to" class="bdpg-date-input">
+								<button type="button" id="bdpg-stats-filter" class="button button-primary">
+									<span class="dashicons dashicons-filter"></span>
+									<?php esc_html_e( 'Filter', 'bangladeshi-payment-gateways' ); ?>
+								</button>
+								<button type="button" id="bdpg-stats-reset" class="button">
+									<?php esc_html_e( 'Reset', 'bangladeshi-payment-gateways' ); ?>
+								</button>
+							</div>
+
+							<!-- Statistics Cards -->
+							<div class="bdpg-stats-grid" id="bdpg-stats-container">
+								<div class="bdpg-stat-card bdpg-stat-card-bkash">
+									<div class="bdpg-stat-icon">
+										<img src="<?php echo esc_url( BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/Bkash.png' ); ?>" alt="bKash">
+									</div>
+									<div class="bdpg-stat-content">
+										<h3><?php esc_html_e( 'bKash', 'bangladeshi-payment-gateways' ); ?></h3>
+										<p class="bdpg-stat-count" id="bdpg-stat-bkash-count">-</p>
+										<p class="bdpg-stat-amount" id="bdpg-stat-bkash-amount">-</p>
+									</div>
+								</div>
+
+								<div class="bdpg-stat-card bdpg-stat-card-rocket">
+									<div class="bdpg-stat-icon">
+										<img src="<?php echo esc_url( BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/Rocket.png' ); ?>" alt="Rocket">
+									</div>
+									<div class="bdpg-stat-content">
+										<h3><?php esc_html_e( 'Rocket', 'bangladeshi-payment-gateways' ); ?></h3>
+										<p class="bdpg-stat-count" id="bdpg-stat-rocket-count">-</p>
+										<p class="bdpg-stat-amount" id="bdpg-stat-rocket-amount">-</p>
+									</div>
+								</div>
+
+								<div class="bdpg-stat-card bdpg-stat-card-nagad">
+									<div class="bdpg-stat-icon">
+										<img src="<?php echo esc_url( BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/Nagad.png' ); ?>" alt="Nagad">
+									</div>
+									<div class="bdpg-stat-content">
+										<h3><?php esc_html_e( 'Nagad', 'bangladeshi-payment-gateways' ); ?></h3>
+										<p class="bdpg-stat-count" id="bdpg-stat-nagad-count">-</p>
+										<p class="bdpg-stat-amount" id="bdpg-stat-nagad-amount">-</p>
+									</div>
+								</div>
+
+								<div class="bdpg-stat-card bdpg-stat-card-upay">
+									<div class="bdpg-stat-icon">
+										<img src="<?php echo esc_url( BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/Upay.png' ); ?>" alt="Upay">
+									</div>
+									<div class="bdpg-stat-content">
+										<h3><?php esc_html_e( 'Upay', 'bangladeshi-payment-gateways' ); ?></h3>
+										<p class="bdpg-stat-count" id="bdpg-stat-upay-count">-</p>
+										<p class="bdpg-stat-amount" id="bdpg-stat-upay-amount">-</p>
+									</div>
+								</div>
+
+								<div class="bdpg-stat-card bdpg-stat-card-total">
+									<div class="bdpg-stat-icon bdpg-stat-icon-total">
+										<span class="dashicons dashicons-money-alt"></span>
+									</div>
+									<div class="bdpg-stat-content">
+										<h3><?php esc_html_e( 'Total', 'bangladeshi-payment-gateways' ); ?></h3>
+										<p class="bdpg-stat-count" id="bdpg-stat-total-count">-</p>
+										<p class="bdpg-stat-amount" id="bdpg-stat-total-amount">-</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render transactions page
+	 *
+	 * @return void
+	 */
+	public function render_transactions_page() {
+		?>
+		<div class="wrap">
+			<div class="bdpg-admin-wrap">
+				<div class="bdpg-content">
+					<div class="bdpg-card">
+						<div class="bdpg-card-header">
+							<h1>
+								<span class="dashicons dashicons-list-view"></span>
+								<?php esc_html_e( 'Transaction Log', 'bangladeshi-payment-gateways' ); ?>
+							</h1>
+						</div>
+						<div class="bdpg-card-body">
+							<!-- Filter Bar -->
+							<div class="bdpg-filter-bar">
+								<label for="bdpg-trans-date-from">
+									<?php esc_html_e( 'From:', 'bangladeshi-payment-gateways' ); ?>
+								</label>
+								<input type="date" id="bdpg-trans-date-from" class="bdpg-date-input">
+
+								<label for="bdpg-trans-date-to">
+									<?php esc_html_e( 'To:', 'bangladeshi-payment-gateways' ); ?>
+								</label>
+								<input type="date" id="bdpg-trans-date-to" class="bdpg-date-input">
+
+								<label for="bdpg-trans-gateway">
+									<?php esc_html_e( 'Gateway:', 'bangladeshi-payment-gateways' ); ?>
+								</label>
+								<select id="bdpg-trans-gateway" class="bdpg-select-input">
+									<option value=""><?php esc_html_e( 'All Gateways', 'bangladeshi-payment-gateways' ); ?></option>
+									<option value="bkash"><?php esc_html_e( 'bKash', 'bangladeshi-payment-gateways' ); ?></option>
+									<option value="rocket"><?php esc_html_e( 'Rocket', 'bangladeshi-payment-gateways' ); ?></option>
+									<option value="nagad"><?php esc_html_e( 'Nagad', 'bangladeshi-payment-gateways' ); ?></option>
+									<option value="upay"><?php esc_html_e( 'Upay', 'bangladeshi-payment-gateways' ); ?></option>
+								</select>
+
+								<button type="button" id="bdpg-trans-filter" class="button button-primary">
+									<span class="dashicons dashicons-filter"></span>
+									<?php esc_html_e( 'Filter', 'bangladeshi-payment-gateways' ); ?>
+								</button>
+								<button type="button" id="bdpg-trans-reset" class="button">
+									<?php esc_html_e( 'Reset', 'bangladeshi-payment-gateways' ); ?>
+								</button>
+
+								<div class="bdpg-export-buttons">
+									<button type="button" id="bdpg-export-csv" class="button button-secondary">
+										<span class="dashicons dashicons-media-spreadsheet"></span>
+										<?php esc_html_e( 'Export CSV', 'bangladeshi-payment-gateways' ); ?>
+									</button>
+									<button type="button" id="bdpg-export-pdf" class="button button-secondary">
+										<span class="dashicons dashicons-media-document"></span>
+										<?php esc_html_e( 'Export PDF', 'bangladeshi-payment-gateways' ); ?>
+									</button>
+								</div>
+							</div>
+
+							<!-- Transactions Table -->
+							<div class="bdpg-transactions-table-wrapper">
+								<table class="wp-list-table widefat fixed striped">
+									<thead>
+										<tr>
+											<th><?php esc_html_e( 'Order ID', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Date', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Gateway', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Account No', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Transaction ID', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Amount', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Customer', 'bangladeshi-payment-gateways' ); ?></th>
+											<th><?php esc_html_e( 'Status', 'bangladeshi-payment-gateways' ); ?></th>
+										</tr>
+									</thead>
+									<tbody id="bdpg-transactions-body">
+										<tr>
+											<td colspan="8" style="text-align: center;">
+												<?php esc_html_e( 'Loading transactions...', 'bangladeshi-payment-gateways' ); ?>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<!-- Pagination -->
+							<div class="bdpg-pagination" id="bdpg-pagination">
+								<button type="button" id="bdpg-prev-page" class="button" disabled>
+									<span class="dashicons dashicons-arrow-left-alt2"></span>
+									<?php esc_html_e( 'Previous', 'bangladeshi-payment-gateways' ); ?>
+								</button>
+								<span id="bdpg-page-info"></span>
+								<button type="button" id="bdpg-next-page" class="button">
+									<?php esc_html_e( 'Next', 'bangladeshi-payment-gateways' ); ?>
+									<span class="dashicons dashicons-arrow-right-alt2"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<?php

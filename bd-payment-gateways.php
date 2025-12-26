@@ -160,6 +160,9 @@ final class BDPaymentGateways {
 		// Dashboard Class.
 		new ultraDevs\BDPG\Admin\Dashboard();
 
+		// Statistics Class.
+		new ultraDevs\BDPG\Admin\Statistics();
+
 		add_action( 'woocommerce_payment_gateways', array( $this, 'add_payment_gateways' ) );
 
 		// Register block support gateways.
