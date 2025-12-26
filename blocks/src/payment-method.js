@@ -78,7 +78,7 @@ export const Content = ( props, settings ) => {
 		} );
 
 		return () => unsubscribe();
-	}, [ onPaymentSetup, accNo, transId, settings.gateway, emitResponse ] );
+	}, [ onPaymentSetup, accNo, transId, settings.gateway ] );
 
 	return (
 		<div className="bdpg-payment-method">
