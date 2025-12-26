@@ -19,5 +19,8 @@
 		"overrides": {
 			"rtlcss-webpack-plugin": "4.0.7"
 		}
+	},
+	"dependencies": {
+		"@woocommerce/dependency-extraction-webpack-plugin": "^4.0.0"
 	}
 }

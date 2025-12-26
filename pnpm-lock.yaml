@@ -10,6 +10,10 @@ overrides:
 importers:
 
   .:
+    dependencies:
+      '@woocommerce/dependency-extraction-webpack-plugin':
+        specifier: ^4.0.0
+        version: 4.0.0(webpack@5.104.1)
     devDependencies:
       '@babel/runtime':
         specifier: ^7.24.0
@@ -1684,6 +1688,10 @@ packages:
       webpack-dev-server:
         optional: true
 
+  '@woocommerce/dependency-extraction-webpack-plugin@4.0.0':
+    resolution: {integrity: sha512-2vw9c9IsWhGPraEehkbzl8rmx1gArQ2PZQFVXj3LQ8Etgr/mM/hsxF/inG8+2bL7hFXYOtUYgwXuofLD2ozLxA==}
+    engines: {node: ^20.11.1}
+
   '@wordpress/babel-preset-default@8.37.0':
     resolution: {integrity: sha512-tPLa2YFAau+gT2zKovRK5DRiJchsKgNFiuElIWeKYkLytkyws9fQAgjF/AkDFFxRMdDocNfCscpKWhp79+tIFA==}
     engines: {node: '>=18.12.0', npm: '>=8.19.2'}
@@ -1695,6 +1703,12 @@ packages:
   '@wordpress/browserslist-config@6.37.0':
     resolution: {integrity: sha512-L//FRak9bo+sDLAignC4QkhITHgeFVlL0C4lWI/AM+AIHKGrHT4LOdwwNpYWMkkztW9rxHRptGkF/JDxuCakxQ==}
     engines: {node: '>=18.12.0', npm: '>=8.19.2'}
+
+  '@wordpress/dependency-extraction-webpack-plugin@6.36.1-next.8fd3f8831.0':
+    resolution: {integrity: sha512-IA7002QUlXOuvkYyg4ILzK6KtDJZ4vryhoGid9QIBUyrGAXarL2AjmElBv1OprqaBVUN/a8lpLGD0Q0WB/zv+g==}
+    engines: {node: '>=18.12.0', npm: '>=8.19.2'}
+    peerDependencies:
+      webpack: ^5.0.0
 
   '@wordpress/dependency-extraction-webpack-plugin@6.37.0':
     resolution: {integrity: sha512-N9DTLr07AYV9vo/kFVSKYp/+wg2wBHL4ekDldwx2rGNtOHjoSi1oo+iBmStSaKMRtCQX2Xq8xVFH04+53T0yXA==}
@@ -8813,22 +8827,28 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1))(webpack@5.104.1)':
+  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.104.1)':
     dependencies:
       webpack: 5.104.1(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1)
 
-  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1))(webpack@5.104.1)':
+  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.104.1)':
     dependencies:
       webpack: 5.104.1(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1)
 
-  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1))(webpack-dev-server@4.15.2)(webpack@5.104.1)':
+  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack-dev-server@4.15.2)(webpack@5.104.1)':
     dependencies:
       webpack: 5.104.1(webpack-cli@5.1.4)
       webpack-cli: 5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1)
     optionalDependencies:
       webpack-dev-server: 4.15.2(webpack-cli@5.1.4)(webpack@5.104.1)
+
+  '@woocommerce/dependency-extraction-webpack-plugin@4.0.0(webpack@5.104.1)':
+    dependencies:
+      '@wordpress/dependency-extraction-webpack-plugin': 6.36.1-next.8fd3f8831.0(webpack@5.104.1)
+    transitivePeerDependencies:
+      - webpack
 
   '@wordpress/babel-preset-default@8.37.0':
     dependencies:
@@ -8849,6 +8869,11 @@ snapshots:
   '@wordpress/base-styles@6.13.0': {}
 
   '@wordpress/browserslist-config@6.37.0': {}
+
+  '@wordpress/dependency-extraction-webpack-plugin@6.36.1-next.8fd3f8831.0(webpack@5.104.1)':
+    dependencies:
+      json2php: 0.0.7
+      webpack: 5.104.1(webpack-cli@5.1.4)
 
   '@wordpress/dependency-extraction-webpack-plugin@6.37.0(webpack@5.104.1)':
     dependencies:
@@ -13778,9 +13803,9 @@ snapshots:
   webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1))(webpack@5.104.1)
-      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1))(webpack@5.104.1)
-      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4(webpack-bundle-analyzer@4.10.2)(webpack-dev-server@4.15.2)(webpack@5.104.1))(webpack-dev-server@4.15.2)(webpack@5.104.1)
+      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4)(webpack@5.104.1)
+      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4)(webpack@5.104.1)
+      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4)(webpack-dev-server@4.15.2)(webpack@5.104.1)
       colorette: 2.0.20
       commander: 10.0.1
       cross-spawn: 7.0.6

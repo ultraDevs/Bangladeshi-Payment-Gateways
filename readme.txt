@@ -4,7 +4,7 @@ Donate link: https://ultradevs.com/donate/
 Tags: mobile payment, payment gateway, qr code, bkash, woocommerce
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 Requires PHP: 7.0.0
 Requires Plugins: woocommerce
 License: GPLv2 or later
@@ -88,6 +88,9 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 
 == Changelog ==
+
+= 4.0.2 - 26/12/2025 =
+* Fix:* Block issues.
 
 = 4.0.1 - 26/12/2025 =
 * Fix:* dist folder issue.
