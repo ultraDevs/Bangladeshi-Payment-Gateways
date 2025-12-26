@@ -4,8 +4,9 @@
  *
  * @package BDPaymentGateways
  */
-
 function bdpg_get_instruction_by_gateway( $gateway ) {
+
+	error_log( 'Getting instructions for gateway: ' . $gateway );
 	switch ( $gateway ) {
 		case 'bkash':
 			return __(
@@ -62,5 +63,19 @@ function bdpg_get_instruction_by_gateway( $gateway ) {
 		default:
 			return '';
 	}
+}
 
+function bdpg_gateway_name_to_title( $gateway ) {
+	switch ( $gateway ) {
+		case 'bkash':
+			return __( 'bKash', 'bangladeshi-payment-gateways' );
+		case 'rocket':
+			return __( 'Rocket', 'bangladeshi-payment-gateways' );
+		case 'nagad':
+			return __( 'Nagad', 'bangladeshi-payment-gateways' );
+		case 'upay':
+			return __( 'Upay', 'bangladeshi-payment-gateways' );
+		default:
+			return '';
+	}
 }

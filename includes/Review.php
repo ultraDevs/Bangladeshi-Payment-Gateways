@@ -88,12 +88,10 @@ class Review {
 			if ( $maybe_later_days < 3 ) {
 				return;
 			}
-		} else {
-			if ( ! empty( $install_date ) ) {
+		} elseif ( ! empty( $install_date ) ) {
 				$installed_days = Helper::time_to_days( $install_date );
-				if ( $installed_days < 3 ) {
-					return;
-				}
+			if ( $installed_days < 3 ) {
+				return;
 			}
 		}
 

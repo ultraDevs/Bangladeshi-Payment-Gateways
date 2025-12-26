@@ -2,16 +2,16 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 3.0.4\n"
+"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 3.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Bangladeshi-Payment-Gateways\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-28T10:55:42+00:00\n"
+"POT-Creation-Date: 2025-12-26T00:27:06+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: bangladeshi-payment-gateways\n"
 
 #. Plugin Name of the plugin
@@ -61,29 +61,30 @@ msgid "<b style=\"color: green\">Write a Review</b>"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:145
+#: includes/BDPG_Gateway.php:142
 msgid "%s Payment Gateway Settings."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:150
+#: includes/BDPG_Gateway.php:147
 msgid "%s"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:162
+#: includes/BDPG_Gateway.php:160
 msgid "Enable/Disable"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:165
+#: includes/BDPG_Gateway.php:163
 msgid "Enable %s Gateway"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:173
-#: includes/BDPG_Gateway.php:176
+#: includes/BDPG_Gateway.php:171
+#: includes/BDPG_Gateway.php:174
 msgid "Title"
 msgstr ""
 
+#: includes/BDPG_Gateway.php:178
 #: includes/BDPG_Gateway.php:180
 msgid "Description"
 msgstr ""
@@ -123,64 +124,64 @@ msgid "Instructions"
 msgstr ""
 
 #. translators: %s: Total Payment.
-#: includes/BDPG_Gateway.php:255
+#: includes/BDPG_Gateway.php:254
 msgid "You need to send us <b>%s</b>"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:288
+#: includes/BDPG_Gateway.php:287
 msgid "Your %s Account Number"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:300
+#: includes/BDPG_Gateway.php:299
 msgid "Your %s Transaction ID"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:426
+#: includes/BDPG_Gateway.php:429
 msgid "Awaiting %s payment."
 msgstr ""
 
-#: includes/BDPG_Gateway.php:456
+#: includes/BDPG_Gateway.php:460
 msgid "Thank you. Your order has been received."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:493
+#: includes/BDPG_Gateway.php:498
 msgid "Please enter your %s account number."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:501
+#: includes/BDPG_Gateway.php:509
 msgid "Please enter your %s transaction ID."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:546
-#: includes/BDPG_Gateway.php:630
+#: includes/BDPG_Gateway.php:557
+#: includes/BDPG_Gateway.php:642
 msgid "%s Account Number"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:558
-#: includes/BDPG_Gateway.php:642
+#: includes/BDPG_Gateway.php:570
+#: includes/BDPG_Gateway.php:655
 msgid "Transaction ID"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:593
+#: includes/BDPG_Gateway.php:604
 msgid "%s Charge"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:663
+#: includes/BDPG_Gateway.php:676
 msgid "Payment No"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:664
+#: includes/BDPG_Gateway.php:677
 msgid "Tran. ID"
 msgstr ""
 
-#: includes/functions.php:11
+#: includes/functions.php:12
 msgid ""
 "\n"
 "\t\t\t\t01. Go to your bKash app or Dial *247#\n"
@@ -191,7 +192,7 @@ msgid ""
 "\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:24
+#: includes/functions.php:25
 msgid ""
 "\n"
 "\t\t\t\t01. Go to your Rocket app or Dial *322#\n"
@@ -202,7 +203,7 @@ msgid ""
 "\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:37
+#: includes/functions.php:38
 msgid ""
 "\n"
 "\t\t\t\t01. Go to your Nagad app or Dial *167#\n"
@@ -213,7 +214,7 @@ msgid ""
 "\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:50
+#: includes/functions.php:51
 msgid ""
 "\n"
 "\t\t\t\t01. Go to your Upay app or Dial *268#\n"
@@ -224,19 +225,35 @@ msgid ""
 "\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
+#: includes/functions.php:71
+msgid "bKash"
+msgstr ""
+
+#: includes/functions.php:73
+msgid "Rocket"
+msgstr ""
+
+#: includes/functions.php:75
+msgid "Nagad"
+msgstr ""
+
+#: includes/functions.php:77
+msgid "Upay"
+msgstr ""
+
 #. translators: %1$s Plugin Name.
-#: includes/Review.php:119
+#: includes/Review.php:117
 msgid "Hey, we noticed you have been using %1$s for more than 3 days now - that's awesome! <br> Could you please do us a BIG favor and give it a rating on WordPress.org to help us do more great work and boost our motivation?"
 msgstr ""
 
-#: includes/Review.php:164
+#: includes/Review.php:162
 msgid "Yes, you deserve it"
 msgstr ""
 
-#: includes/Review.php:168
+#: includes/Review.php:166
 msgid "No, maybe later"
 msgstr ""
 
-#: includes/Review.php:172
+#: includes/Review.php:170
 msgid "I already did"
 msgstr ""

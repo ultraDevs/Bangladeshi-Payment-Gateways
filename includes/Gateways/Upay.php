@@ -18,12 +18,11 @@ use ultraDevs\BDPG\Traits\Singleton;
  * @since 3.0.0
  */
 class Upay extends BDPG_Gateway {
-    use Singleton;
+	use Singleton;
 
-    public function __construct() {
-        $this->gateway = 'upay';
+	public function __construct() {
+		$this->gateway = 'upay';
 
-        parent::__construct();
-    }
-
+		parent::__construct();
+	}
 }

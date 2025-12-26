@@ -18,12 +18,11 @@ use ultraDevs\BDPG\Traits\Singleton;
  * @since 3.0.0
  */
 class Rocket extends BDPG_Gateway {
-    use Singleton;
+	use Singleton;
 
-    public function __construct() {
-        $this->gateway = 'rocket';
+	public function __construct() {
+		$this->gateway = 'rocket';
 
-        parent::__construct();
-    }
-
+		parent::__construct();
+	}
 }

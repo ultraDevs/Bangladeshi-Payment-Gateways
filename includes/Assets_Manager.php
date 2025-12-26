@@ -33,7 +33,6 @@ class Assets_Manager {
 		if ( ! did_action( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
 		}
-
 	}
 
 	/**
@@ -45,6 +44,5 @@ class Assets_Manager {
 
 		wp_enqueue_style( 'bdpg-frontend', BD_PAYMENT_GATEWAYS_ASSETS . 'public/css/bdpg-public.css', '', BD_PAYMENT_GATEWAYS_VERSION );
 		wp_enqueue_script( 'bdpg-frontend', BD_PAYMENT_GATEWAYS_ASSETS . 'public/js/bdpg-public.js', array( 'jquery' ), BD_PAYMENT_GATEWAYS_VERSION, false );
-
 	}
 }

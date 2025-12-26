@@ -27,7 +27,6 @@ class Activate {
 		Helper::add_option( 'bdpg_do_activation_redirect', true );
 
 		$this->plugin_data();
-
 	}
 
 	/**

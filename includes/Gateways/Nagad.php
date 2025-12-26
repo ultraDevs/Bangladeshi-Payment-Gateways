@@ -18,12 +18,11 @@ use ultraDevs\BDPG\Traits\Singleton;
  * @since 3.0.0
  */
 class Nagad extends BDPG_Gateway {
-    use Singleton;
-    
-    public function __construct() {
-        $this->gateway = 'nagad';
+	use Singleton;
 
-        parent::__construct();
-    }
+	public function __construct() {
+		$this->gateway = 'nagad';
 
+		parent::__construct();
+	}
 }
