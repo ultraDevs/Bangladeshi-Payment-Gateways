@@ -21,6 +21,8 @@
 	height: 100% !important;
 	max-height: 100% !important;
 	float: none !important;
+	margin: 0 !important;
+	border: none !important;
 }
 
 .bdpg-user__acc {

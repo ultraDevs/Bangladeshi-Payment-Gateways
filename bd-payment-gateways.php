@@ -9,7 +9,7 @@
  * Plugin Name:       Bangladeshi Payment Gateways - Make Payment Using QR Code
  * Plugin URI:        https://ultradevs.com/products/wp-plugin/bangladeshi-payment-gateways/
  * Description:       Bangladeshi Payment Gateways for WooCommerce.
- * Version:           3.0.5
+ * Version:           4.0.0
  * Author:            ultraDevs
  * Author URI:        https://ultradevs.com
  * License:           GPL v2 or later
@@ -22,7 +22,7 @@
 defined( 'ABSPATH' ) || exit( 'bYe bYe!' );
 
 // Constant.
-define( 'BD_PAYMENT_GATEWAYS_VERSION', '3.0.5' );
+define( 'BD_PAYMENT_GATEWAYS_VERSION', '4.0.0' );
 define( 'BD_PAYMENT_GATEWAYS_NAME', 'Bangladeshi Payment Gateways' );
 define( 'BD_PAYMENT_GATEWAYS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_DIR_URL', plugin_dir_url( __FILE__ ) );
@@ -96,7 +96,7 @@ final class BDPaymentGateways {
 		 */
 		add_action(
 			'before_woocommerce_init',
-			function() {
+			function () {
 				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
 						'cart_checkout_blocks',
@@ -156,6 +156,9 @@ final class BDPaymentGateways {
 
 		// Review Class.
 		$review = new ultraDevs\BDPG\Review();
+
+		// Dashboard Class.
+		new ultraDevs\BDPG\Admin\Dashboard();
 
 		add_action( 'woocommerce_payment_gateways', array( $this, 'add_payment_gateways' ) );
 
@@ -240,7 +243,7 @@ final class BDPaymentGateways {
 		foreach ( $block_gateways as $block_gateway ) {
 			add_action(
 				'woocommerce_blocks_payment_method_type_registration',
-				function( $payment_method_registry ) use ( $block_gateway ) {
+				function ( $payment_method_registry ) use ( $block_gateway ) {
 					$payment_method_registry->register( $block_gateway );
 				}
 			);

@@ -105,14 +105,64 @@ abstract class BDPG_Gateway_Blocks_Support extends \Automattic\WooCommerce\Block
 			$gateway_charge_details = isset( $this->settings['gateway_charge_details'] ) ? $this->settings['gateway_charge_details'] : '';
 		}
 
+		// Get cart total for USD conversion.
+		// Note: This includes any fees added via woocommerce_cart_calculate_fees.
+		$cart_total = 0;
+		if ( function_exists( 'WC' ) ) {
+			$cart = WC()->cart;
+			if ( $cart ) {
+				$cart_total = $cart->total;
+			}
+		}
+
+		// Calculate total payment amount.
+		$total_payment   = $cart_total;
+		$original_amount = $cart_total;
+		$show_conversion = false;
+
+		// Check if USD conversion is enabled.
+		if ( \bdpg_is_usd_conversion_enabled() && get_woocommerce_currency() === 'USD' ) {
+			$total_payment   = \bdpg_get_usd_rate() * $cart_total;
+			$show_conversion = true;
+		}
+
+		// Get currency symbols and decode HTML entities.
+		$store_currency_symbol = html_entity_decode( get_woocommerce_currency_symbol() );
+		$bdt_currency_symbol   = html_entity_decode( get_woocommerce_currency_symbol( 'BDT' ) );
+		$original_symbol       = $store_currency_symbol;
+
+		// Format display total.
+		if ( $show_conversion ) {
+			$formatted_total = $bdt_currency_symbol . number_format( $total_payment, 2, '.', '' );
+		} else {
+			$formatted_total = $store_currency_symbol . number_format( $total_payment, 2, '.', '' );
+		}
+
+		// Format original amount for conversion info.
+		$formatted_original = $original_symbol . number_format( $original_amount, 2, '.', '' );
+
+		// Get description and convert newlines to <br> tags for block display.
+		$description = isset( $this->settings['description'] ) ? $this->settings['description'] : \bdpg_get_instruction_by_gateway( $this->gateway );
+		$description = nl2br( $description );
+
 		return array(
-			'title'                  => isset( $this->settings['title'] ) ? $this->settings['title'] : \bdpg_gateway_name_to_title( $this->gateway ),
-			'description'            => isset( $this->settings['description'] ) ? $this->settings['description'] : \bdpg_get_instruction_by_gateway( $this->gateway ),
-			'gateway_charge_details' => $gateway_charge_details,
-			'gateway'                => $this->gateway,
-			'accounts'               => $this->accounts,
-			'icon'                   => BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . ucfirst( $this->gateway ) . '.png',
-			'supports'               => array( 'products' ),
+			'title'                   => isset( $this->settings['title'] ) ? $this->settings['title'] : \bdpg_gateway_name_to_title( $this->gateway ),
+			'description'             => $description,
+			'gateway_charge_details'  => $gateway_charge_details,
+			'gateway'                 => $this->gateway,
+			'accounts'                => $this->accounts,
+			'icon'                    => BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . ucfirst( $this->gateway ) . '.png',
+			'supports'                => array( 'products' ),
+			'usd_conversion_enabled'  => \bdpg_is_usd_conversion_enabled(),
+			'show_conversion_details' => \bdpg_show_conversion_details(),
+			'usd_rate'                => \bdpg_get_usd_rate(),
+			'store_currency'          => get_woocommerce_currency(),
+			'store_currency_symbol'   => $store_currency_symbol,
+			'bdt_currency_symbol'     => $bdt_currency_symbol,
+			'cart_total'              => $cart_total,
+			'formatted_total'         => $formatted_total,
+			'original_amount'         => $formatted_original,
+			'converted_amount'        => $show_conversion ? $bdt_currency_symbol . number_format( $total_payment, 2, '.', '' ) : null,
 		);
 	}
 }

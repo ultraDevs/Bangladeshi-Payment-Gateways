@@ -49,7 +49,7 @@ class Activate {
 		if ( get_option( 'bdpg_do_activation_redirect', false ) ) {
 
 			delete_option( 'bdpg_do_activation_redirect' );
-			wp_safe_redirect( admin_url( 'admin.php?page=wc-settings&tab=checkout' ) );
+			wp_safe_redirect( admin_url( 'admin.php?page=' . BD_PAYMENT_GATEWAYS_MENU_SLUG ) );
 			exit();
 		}
 	}

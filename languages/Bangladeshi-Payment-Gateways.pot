@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 3.0.5\n"
+"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 4.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Bangladeshi-Payment-Gateways\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-12-26T00:27:06+00:00\n"
+"POT-Creation-Date: 2025-12-26T05:08:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.10.0\n"
 "X-Domain: bangladeshi-payment-gateways\n"
@@ -40,204 +40,424 @@ msgid "https://ultradevs.com"
 msgstr ""
 
 #. translators: %1$s Plugin Name, %2$s wooCommerce.
-#: bd-payment-gateways.php:209
+#: bd-payment-gateways.php:259
 msgid " %1$s requires %2$s to be installed and activated. Please activate %2$s to continue."
 msgstr ""
 
-#: bd-payment-gateways.php:210
+#: bd-payment-gateways.php:260
+#: includes/Admin/Dashboard.php:74
+#: includes/Admin/Dashboard.php:160
 msgid "Bangladeshi Payment Gateways"
 msgstr ""
 
-#: bd-payment-gateways.php:211
+#: bd-payment-gateways.php:261
 msgid "WooCommerce"
 msgstr ""
 
-#: bd-payment-gateways.php:227
+#: bd-payment-gateways.php:277
 msgid "Payment Settings"
 msgstr ""
 
-#: bd-payment-gateways.php:233
+#: bd-payment-gateways.php:283
 msgid "<b style=\"color: green\">Write a Review</b>"
 msgstr ""
 
+#: includes/Admin/Dashboard.php:75
+msgid "BD Payment"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:85
+#: includes/Admin/Dashboard.php:86
+msgid "Dashboard"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:94
+#: includes/Admin/Dashboard.php:95
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:167
+msgid "Thank you for using Bangladeshi Payment Gateways. This plugin allows you to accept payments through bKash, Rocket, Nagad, and Upay using QR codes in your WooCommerce store."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:172
+msgid "Configure Payment Gateways"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:176
+msgid "Plugin Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:201
+msgid "Features"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:211
+msgid "WooCommerce Checkout Block Support"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:212
+msgid "Full compatibility with the modern WooCommerce Checkout Block. Your customers get a seamless, modern checkout experience."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:220
+msgid "QR Code Payments"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:221
+msgid "Display QR codes for all supported gateways (bKash, Rocket, Nagad, Upay) making payments quick and easy."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:229
+msgid "Automatic Currency Conversion"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:230
+msgid "Convert USD to BDT automatically at your set exchange rate when store currency is USD."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:238
+msgid "Gateway Fee Support"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:239
+msgid "Add custom gateway fees and automatically calculate total payment amount including fees."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:258
+msgid "More Plugins by ultraDevs"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:259
+msgid "Check out our other WordPress plugins to enhance your website:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:292
+msgid "Active"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:294
+msgid "Installed"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:315
+msgid "Install Now"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:331
+msgid "Activate"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:335
+msgid "View Details"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:382
+msgid "Easy Dropbox Integration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:383
+msgid "Integrate Dropbox with your WordPress site for easy file management and backups."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:387
+msgid "Sticky List"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:388
+msgid "Keep important posts and pages at the top of your lists with sticky functionality."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:392
+msgid "PB Star Rating Block"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:393
+msgid "Add beautiful star rating blocks to your posts and pages with the block editor."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:397
+msgid "TestimonialX Block"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:398
+msgid "Display customer testimonials with style using the Gutenberg block editor."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:402
+msgid "Random Image Block"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:403
+msgid "Display random images from your media library with this handy block editor plugin."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:429
+msgid "Bangladeshi Payment Gateways Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:439
+msgid "Currency Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:445
+msgid "Enable USD Conversion"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:457
+#: includes/Admin/Dashboard.php:490
+msgid "Yes"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:467
+#: includes/Admin/Dashboard.php:500
+msgid "No"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:471
+msgid "When enabled, if your store currency is set to USD, the payment amount will be automatically converted to BDT using the exchange rate below."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:478
+msgid "Show Conversion Details"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:504
+msgid "Show the conversion details (original amount, exchange rate) to customers on the checkout page."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:511
+msgid "USD to BDT Exchange Rate"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:524
+msgid "Enter the current exchange rate from USD to Bangladeshi Taka (BDT). For example, if 1 USD = 123 BDT, enter 123."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:530
+msgid "Save Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:534
+msgid "Payment Gateway Settings"
+msgstr ""
+
+#. translators: %s: WooCommerce settings link
+#: includes/Admin/Dashboard.php:539
+msgid "To configure individual payment gateway settings (bKash, Rocket, Nagad, Upay), please visit the %s."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:543
+msgid "WooCommerce Payment Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:550
+msgid "Go to Payment Gateway Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:558
+msgid "Support Development"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:560
+msgid "Enjoying this plugin? Your support helps us continue development and keep this plugin free for everyone."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:564
+msgid "Donate Us"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:570
+msgid "Support Forums"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:574
+msgid "Plugin Documentation"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:578
+msgid "Leave a Review"
+msgstr ""
+
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:142
+#: includes/BDPG_Gateway.php:138
 msgid "%s Payment Gateway Settings."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:147
+#: includes/BDPG_Gateway.php:143
 msgid "%s"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:160
+#: includes/BDPG_Gateway.php:156
 msgid "Enable/Disable"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:163
+#: includes/BDPG_Gateway.php:159
 msgid "Enable %s Gateway"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:171
-#: includes/BDPG_Gateway.php:174
+#: includes/BDPG_Gateway.php:167
+#: includes/BDPG_Gateway.php:170
 msgid "Title"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:178
-#: includes/BDPG_Gateway.php:180
+#: includes/BDPG_Gateway.php:174
+#: includes/BDPG_Gateway.php:176
 msgid "Description"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:187
+#: includes/BDPG_Gateway.php:183
 msgid "%s Charge?"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:193
+#: includes/BDPG_Gateway.php:189
 msgid "Add %s <b>Send Money</b> charge?"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:202
+#: includes/BDPG_Gateway.php:198
 msgid "%s Fee"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:207
+#: includes/BDPG_Gateway.php:203
 msgid "Don't add %."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:213
+#: includes/BDPG_Gateway.php:209
 msgid "%s Charge Details"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:219
+#: includes/BDPG_Gateway.php:215
 msgid "%s \"Send Money\" fee will be added with net price."
 msgstr ""
 
-#: includes/BDPG_Gateway.php:225
-#: includes/BDPG_Gateway.php:227
+#: includes/BDPG_Gateway.php:221
+#: includes/BDPG_Gateway.php:223
 msgid "Instructions"
 msgstr ""
 
 #. translators: %s: Total Payment.
-#: includes/BDPG_Gateway.php:254
+#: includes/BDPG_Gateway.php:256
 msgid "You need to send us <b>%s</b>"
 msgstr ""
 
+#. translators: 1: Original amount, 2: Exchange rate.
+#: includes/BDPG_Gateway.php:265
+msgid "Converted from %1$s at 1 USD = %2$s BDT"
+msgstr ""
+
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:287
+#: includes/BDPG_Gateway.php:303
 msgid "Your %s Account Number"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:299
+#: includes/BDPG_Gateway.php:315
 msgid "Your %s Transaction ID"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:429
+#: includes/BDPG_Gateway.php:445
 msgid "Awaiting %s payment."
 msgstr ""
 
-#: includes/BDPG_Gateway.php:460
+#: includes/BDPG_Gateway.php:476
 msgid "Thank you. Your order has been received."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:498
+#: includes/BDPG_Gateway.php:514
 msgid "Please enter your %s account number."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:509
+#: includes/BDPG_Gateway.php:525
 msgid "Please enter your %s transaction ID."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:557
-#: includes/BDPG_Gateway.php:642
+#: includes/BDPG_Gateway.php:607
+#: includes/BDPG_Gateway.php:692
 msgid "%s Account Number"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:570
-#: includes/BDPG_Gateway.php:655
+#: includes/BDPG_Gateway.php:620
+#: includes/BDPG_Gateway.php:705
 msgid "Transaction ID"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:604
+#: includes/BDPG_Gateway.php:654
 msgid "%s Charge"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:676
+#: includes/BDPG_Gateway.php:726
 msgid "Payment No"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:677
+#: includes/BDPG_Gateway.php:727
 msgid "Tran. ID"
 msgstr ""
 
-#: includes/functions.php:12
+#: includes/functions.php:10
 msgid ""
-"\n"
-"\t\t\t\t01. Go to your bKash app or Dial *247#\n"
-"\t\t\t\t02. Choose “Send Money”\n"
-"\t\t\t\t03. Enter below bKash Account Number\n"
-"\t\t\t\t04. Enter <b>total amount</b>\n"
-"\t\t\t\t06. Now enter your bKash Account PIN to confirm the transaction\n"
-"\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Go to your bKash app or Dial *247#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below bKash Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your bKash Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:25
+#: includes/functions.php:19
 msgid ""
-"\n"
-"\t\t\t\t01. Go to your Rocket app or Dial *322#\n"
-"\t\t\t\t02. Choose “Send Money”\n"
-"\t\t\t\t03. Enter below Rocket Account Number\n"
-"\t\t\t\t04. Enter <b>total amount</b>\n"
-"\t\t\t\t06. Now enter your Rocket Account PIN to confirm the transaction\n"
-"\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Go to your Rocket app or Dial *322#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below Rocket Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your Rocket Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:38
+#: includes/functions.php:28
 msgid ""
-"\n"
-"\t\t\t\t01. Go to your Nagad app or Dial *167#\n"
-"\t\t\t\t02. Choose “Send Money”\n"
-"\t\t\t\t03. Enter below Nagad Account Number\n"
-"\t\t\t\t04. Enter <b>total amount</b>\n"
-"\t\t\t\t06. Now enter your Nagad Account PIN to confirm the transaction\n"
-"\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Go to your Nagad app or Dial *167#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below Nagad Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your Nagad Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:51
+#: includes/functions.php:37
 msgid ""
-"\n"
-"\t\t\t\t01. Go to your Upay app or Dial *268#\n"
-"\t\t\t\t02. Choose “Send Money”\n"
-"\t\t\t\t03. Enter below Upay Account Number\n"
-"\t\t\t\t04. Enter <b>total amount</b>\n"
-"\t\t\t\t06. Now enter your Upay Account PIN to confirm the transaction\n"
-"\t\t\t\t07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Go to your Upay app or Dial *268#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below Upay Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your Upay Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:71
+#: includes/functions.php:54
 msgid "bKash"
 msgstr ""
 
-#: includes/functions.php:73
+#: includes/functions.php:56
 msgid "Rocket"
 msgstr ""
 
-#: includes/functions.php:75
+#: includes/functions.php:58
 msgid "Nagad"
 msgstr ""
 
-#: includes/functions.php:77
+#: includes/functions.php:60
 msgid "Upay"
 msgstr ""
 
@@ -256,4 +476,39 @@ msgstr ""
 
 #: includes/Review.php:170
 msgid "I already did"
+msgstr ""
+
+#: blocks/src/payment-method.js:49
+#: dist/bdpg-blocks.js:1
+msgid "Please enter your account number."
+msgstr ""
+
+#: blocks/src/payment-method.js:60
+#: dist/bdpg-blocks.js:1
+msgid "Please enter your transaction ID."
+msgstr ""
+
+#: blocks/src/payment-method.js:114
+#: dist/bdpg-blocks.js:1
+msgid "You need to send us"
+msgstr ""
+
+#: blocks/src/payment-method.js:128
+#: dist/bdpg-blocks.js:1
+msgid "Converted from "
+msgstr ""
+
+#: blocks/src/payment-method.js:133
+#: dist/bdpg-blocks.js:1
+msgid " at 1 USD = "
+msgstr ""
+
+#: blocks/src/payment-method.js:162
+#: dist/bdpg-blocks.js:1
+msgid "Account Type:"
+msgstr ""
+
+#: blocks/src/payment-method.js:171
+#: dist/bdpg-blocks.js:1
+msgid "Account Number:"
 msgstr ""

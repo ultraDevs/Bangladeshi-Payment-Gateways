@@ -14,10 +14,10 @@ import { decodeEntities } from '@wordpress/html-entities';
  * @param {Object} settings Gateway settings.
  * @return {JSX.Element}
  */
-export const Label = ( props, settings ) => {
+export const Label                      = ( props, settings ) => {
 	const { PaymentMethodLabel: Label } = props.components;
 
 	return (
-		<Label text={ decodeEntities( settings.title || settings.gateway ) } />
+		< Label text = { decodeEntities( settings.title || settings.gateway ) } / >
 	);
 };

@@ -20,6 +20,25 @@ export const Content = ( props, settings ) => {
 	const [accNo, setAccNo] = useState( '' );
 	const [transId, setTransId] = useState( '' );
 
+	// Calculate converted amount if USD conversion is enabled
+	// Use formatted values from PHP for consistent display
+	const getConversionInfo = () => {
+		if (
+			settings.usd_conversion_enabled &&
+			settings.store_currency === 'USD' &&
+			settings.converted_amount
+		) {
+			return {
+				original: settings.original_amount,
+				converted: settings.converted_amount,
+				rate: settings.usd_rate,
+			};
+		}
+		return null;
+	};
+
+	const conversionInfo = getConversionInfo();
+
 	// Handle payment processing
 	useEffect( () => {
 		const unsubscribe = onPaymentSetup( async () => {
@@ -63,6 +82,13 @@ export const Content = ( props, settings ) => {
 
 	return (
 		<div className="bdpg-payment-method">
+			{/* Gateway Icon */}
+			{ settings.icon && (
+				<div className="bdpg-gateway-icon">
+					<img src={ settings.icon } alt={ settings.title || settings.gateway } />
+				</div>
+			) }
+
 			{/* Description */}
 			{ settings.description && (
 				<div
@@ -79,6 +105,39 @@ export const Content = ( props, settings ) => {
 						__html: settings.gateway_charge_details,
 					} }
 				/>
+			) }
+
+			{/* Total Amount */}
+			<div className="bdpg-total-amount">
+				<p>
+					<strong>
+						{ __(
+							'You need to send us',
+							'bangladeshi-payment-gateways'
+						) }
+						{ ' ' }
+					</strong>
+					{ settings.formatted_total }
+				</p>
+			</div>
+
+			{/* USD Conversion Info */}
+			{ conversionInfo && settings.show_conversion_details && (
+				<div className="bdpg-conversion-info">
+					<small>
+						{ __(
+							'Converted from ',
+							'bangladeshi-payment-gateways'
+						) }
+						{ conversionInfo.original }
+						{ __(
+							' at 1 USD = ',
+							'bangladeshi-payment-gateways'
+						) }
+						{ conversionInfo.rate }
+						{ ' BDT' }
+					</small>
+				</div>
 			) }
 
 			{/* Available merchant accounts */}

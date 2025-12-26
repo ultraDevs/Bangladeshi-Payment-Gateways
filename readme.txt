@@ -4,7 +4,7 @@ Donate link: https://ultradevs.com/donate/
 Tags: mobile payment, payment gateway, qr code, bkash, rocket, nagad, upay, woocommerce
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 3.0.5
+Stable tag: 4.0.0
 Requires PHP: 7.0.0
 Requires Plugins: woocommerce
 License: GPLv2 or later
@@ -20,7 +20,8 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 
 * Pay with QR Code
 * Fee for each gateway
-* And many more...
+* Block Based Checkout Page Support
+* USD to BDT Conversion Support
 
 ### Supported Gateways
 * bKash
@@ -87,6 +88,11 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 
 == Changelog ==
+
+= 4.0.0 - 26/12/2025 =
+* Feature: Block Based Checkout Page Support
+* Feature: USD to BDT Conversion Support
+* Feature: Dashboard Page Added
 
 = 3.0.5 - 26/12/2025 =
 *Fix:* Fixed wrong payment method name.

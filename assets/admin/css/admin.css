@@ -10,3 +10,368 @@
 .bdpg-admin-data img {
 	width: 70px;
 }
+
+/* Dashboard Styles */
+.bdpg-admin-wrap {
+	margin-top: 20px;
+}
+
+.bdpg-content {
+	display: grid;
+	gap: 20px;
+}
+
+/* Main Welcome Card */
+.bdpg-card {
+	background: #fff;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.04);
+	overflow: hidden;
+}
+
+.bdpg-card-header {
+	padding: 20px 25px 15px;
+	border-bottom: 1px solid #eee;
+}
+
+.bdpg-title-section {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+}
+
+.bdpg-title-section h1 {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	font-size: 1.5em;
+}
+
+.bdpg-title-section .dashicons {
+	font-size: 32px;
+	width: 32px;
+	height: 32px;
+	color: #2271b1;
+}
+
+.bdpg-version {
+	color: #646970;
+	font-size: 14px;
+	background: #f0f0f1;
+	padding: 4px 10px;
+	border-radius: 3px;
+}
+
+.bdpg-card-body {
+	padding: 25px;
+}
+
+.bdpg-card-body > p:first-child {
+	margin-top: 0;
+}
+
+.bdpg-quick-links {
+	display: flex;
+	gap: 10px;
+	margin-top: 20px;
+	flex-wrap: wrap;
+}
+
+.bdpg-quick-links .button {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+}
+
+/* Plugins Section Card */
+.bdpg-card h2 {
+	margin-top: 0;
+	font-size: 1.5em;
+	padding-bottom: 10px;
+	/* border-bottom: 1px solid #eee; */
+	margin-bottom: 0;
+}
+
+.bdpg-card-body > h2:first-child {
+	margin-top: 0;
+}
+
+.bdpg-card .bdpg-plugins-grid {
+	margin-top: 0;
+}
+
+/* Plugin Cards Grid */
+.bdpg-plugins-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	gap: 20px;
+	margin-top: 20px;
+}
+
+.bdpg-plugin-card {
+	background: #f6f7f7;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	transition: all 0.2s ease;
+}
+
+.bdpg-plugin-card:hover {
+	border-color: #2271b1;
+	box-shadow: 0 4px 8px rgba(0,0,0,.1);
+	transform: translateY(-2px);
+}
+
+.bdpg-plugin-header h3 {
+	margin: 0;
+	font-size: 1.2em;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.bdpg-badge {
+	display: inline-block;
+	color: #fff;
+	padding: 4px 10px;
+	border-radius: 3px;
+	font-size: 11px;
+	font-weight: 500;
+	vertical-align: middle;
+}
+
+.bdpg-badge-active {
+	background: #00a32a;
+}
+
+.bdpg-badge-installed {
+	background: #646970;
+}
+
+.bdpg-plugin-body {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.bdpg-plugin-body p {
+	color: #646970;
+	font-size: 14px;
+	margin: 0;
+	flex: 1;
+}
+
+.bdpg-plugin-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+}
+
+.bdpg-plugin-actions .button {
+	flex: 1;
+	text-align: center;
+	min-width: 120px;
+}
+
+/* Settings Page Styles */
+.bdpg-settings-wrapper {
+	max-width: 800px;
+	margin-top: 20px;
+}
+
+.bdpg-settings-card {
+	background: #fff;
+	padding: 20px;
+	margin-bottom: 20px;
+	border: 1px solid #c3c4c7;
+	border-radius: 4px;
+	box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.bdpg-settings-card h2 {
+	margin-top: 0;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #eee;
+}
+
+.bdpg-settings-card ul {
+	list-style: none;
+	padding-left: 20px;
+}
+
+.bdpg-settings-card ul li {
+	margin-bottom: 8px;
+}
+
+/* Donation Card Styles */
+.bdpg-donation-card {
+	background: linear-gradient(135deg, #f0f6ff 0%, #ffffff 100%);
+	border: 1px solid #72aee6;
+}
+
+.bdpg-donation-card h2 {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.bdpg-donation-card h2 .dashicons-heart {
+	color: #e74c3c;
+}
+
+.bdpg-donation-actions {
+	text-align: center;
+	margin: 20px 0;
+}
+
+.bdpg-donate-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 12px 28px;
+	font-size: 15px;
+	font-weight: 600;
+	background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+	border: none;
+	box-shadow: 0 2px 8px rgba(34, 113, 177, 0.25);
+	transition: all 0.2s ease;
+}
+
+.bdpg-donate-button:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(34, 113, 177, 0.35);
+	background: linear-gradient(135deg, #135e96 0%, #0d4a7a 100%);
+}
+
+.bdpg-donate-button .dashicons-star-filled {
+	color: #f1c40f;
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.bdpg-support-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	padding-top: 20px;
+	border-top: 1px solid rgba(114, 174, 230, 0.3);
+}
+
+.bdpg-support-links a {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 8px 14px;
+	background: #ffffff;
+	border: 1px solid #d9dae1;
+	border-radius: 4px;
+	text-decoration: none;
+	color: #50575e;
+	font-size: 13px;
+	transition: all 0.2s ease;
+}
+
+.bdpg-support-links a:hover {
+	border-color: #2271b1;
+	background: #f0f6fc;
+	color: #2271b1;
+}
+
+.bdpg-support-links .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+}
+
+/* Features Section Styles */
+.bdpg-features-card {
+	border-color: #2271b1;
+}
+
+.bdpg-features-card .bdpg-card-header h2 {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-top: 0;
+}
+
+.bdpg-features-card .bdpg-card-header .dashicons-superhero {
+	color: #2271b1;
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+}
+
+.bdpg-features-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 20px;
+	margin-top: 15px;
+}
+
+.bdpg-feature-item {
+	display: flex;
+	gap: 15px;
+	padding: 20px;
+	background: linear-gradient(135deg, #f6f7f8 0%, #ffffff 100%);
+	border: 1px solid #e0e0e0;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+}
+
+.bdpg-feature-item:hover {
+	border-color: #2271b1;
+	box-shadow: 0 4px 12px rgba(34, 113, 177, 0.15);
+	transform: translateY(-2px);
+}
+
+.bdpg-feature-icon {
+	flex-shrink: 0;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: linear-gradient(135deg, #2271b1 0%, #135e96 100%);
+	border-radius: 8px;
+}
+
+.bdpg-feature-icon .dashicons {
+	font-size: 28px;
+	width: 28px;
+	height: 28px;
+	color: #fff;
+}
+
+.bdpg-feature-content {
+	flex: 1;
+}
+
+.bdpg-feature-content h3 {
+	margin: 0 0 8px 0;
+	font-size: 16px;
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.bdpg-feature-content p {
+	margin: 0;
+	font-size: 14px;
+	color: #646970;
+	line-height: 1.5;
+}
+
+/* Mobile responsive for features */
+@media (max-width: 782px) {
+	.bdpg-features-grid {
+		grid-template-columns: 1fr;
+	}
+}

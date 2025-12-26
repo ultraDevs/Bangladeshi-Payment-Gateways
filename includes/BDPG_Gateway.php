@@ -66,13 +66,6 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	public $gateway_fee = '';
 
 	/**
-	 * Dollar Rate
-	 *
-	 * @var string
-	 */
-	public $dollar_rate = 121.38;
-
-	/**
 	 * Gateway Accounts
 	 *
 	 * @var null
@@ -245,18 +238,38 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$gateway_charge_details = ( 'yes' === $this->gateway_charge ) ? $this->gateway_charge_details : '';
 		echo wpautop( wptexturize( __( $this->description, 'bangladeshi-payment-gateways' ) ) . ' ' . $gateway_charge_details );
 
-		$total_payment = $woocommerce->cart->total;
-		$symbol        = get_woocommerce_currency_symbol();
-		if ( get_woocommerce_currency() === 'USD' ) {
-			$total_payment = $this->dollar_rate * $woocommerce->cart->total;
-			$symbol        = get_woocommerce_currency_symbol( 'BDT' );
+		$total_payment   = $woocommerce->cart->total;
+		$symbol          = get_woocommerce_currency_symbol();
+		$original_amount = $woocommerce->cart->total;
+		$original_symbol = get_woocommerce_currency_symbol();
+		$show_conversion = false;
+
+		if ( bdpg_is_usd_conversion_enabled() && get_woocommerce_currency() === 'USD' ) {
+			$total_payment   = bdpg_get_usd_rate() * $woocommerce->cart->total;
+			$symbol          = html_entity_decode( get_woocommerce_currency_symbol( 'BDT' ) );
+			$original_symbol = html_entity_decode( $original_symbol );
+			$show_conversion = true;
 		}
 
 		$total_amount = sprintf(
 			/* translators: %s: Total Payment. */
 			__( 'You need to send us <b>%s</b>', 'bangladeshi-payment-gateways' ),
 			$symbol . $total_payment
-		) . '</br>';
+		);
+
+		// Add conversion details if enabled.
+		if ( $show_conversion && bdpg_show_conversion_details() ) {
+			$usd_rate      = bdpg_get_usd_rate();
+			$total_amount .= '</br><small>' . sprintf(
+				/* translators: 1: Original amount, 2: Exchange rate. */
+				__( 'Converted from %1$s at 1 USD = %2$s BDT', 'bangladeshi-payment-gateways' ),
+				$original_symbol . $original_amount,
+				$usd_rate
+			) . '</small>';
+		} else {
+			$total_amount .= '</br>';
+		}
+
 		echo '<div class="bdpg-total-amount">' . $total_amount . '</div>';
 		?>
 		<div class="bdpg-available-accounts">
