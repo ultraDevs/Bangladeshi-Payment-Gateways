@@ -7,11 +7,15 @@
 .bdpg-payment-method {
 	padding: 12px 0;
 }
+#radio-control-wc-payment-method-options-woo_bkash__label,
+#radio-control-wc-payment-method-options-woo_nagad__label,
+#radio-control-wc-payment-method-options-woo_rocket__label,
+#radio-control-wc-payment-method-options-woo_upay__label {
+	gap: 15px;
+}
 
 /* Gateway Icon */
 .bdpg-gateway-icon {
-	margin-bottom: 16px;
-
 	img {
 		height: 32px;
 		width: auto;

@@ -18,6 +18,13 @@ export const Label                      = ( props, settings ) => {
 	const { PaymentMethodLabel: Label } = props.components;
 
 	return (
-		< Label text = { decodeEntities( settings.title || settings.gateway ) } / >
+		<>
+			<Label text = { decodeEntities( settings.title || settings.gateway ) } />
+			{ settings.icon && (
+				<span className="bdpg-gateway-icon">
+					<img src={ settings.icon } alt={ settings.title || settings.gateway } />
+				</span>
+			) }
+		</>
 	);
 };

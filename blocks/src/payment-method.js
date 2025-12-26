@@ -82,16 +82,10 @@ export const Content = ( props, settings ) => {
 
 	return (
 		<div className="bdpg-payment-method">
-			{/* Gateway Icon */}
-			{ settings.icon && (
-				<div className="bdpg-gateway-icon">
-					<img src={ settings.icon } alt={ settings.title || settings.gateway } />
-				</div>
-			) }
 
 			{/* Description */}
 			{ settings.description && (
-				<div
+				<p
 					dangerouslySetInnerHTML={ {
 						__html: settings.description,
 					} }
