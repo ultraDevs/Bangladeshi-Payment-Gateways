@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Bangladeshi Payment Gateways Plugin" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
+
+	<description>A custom set of rules to check for a WPized WordPress project</description>
+
+	<!-- Exclude WP Core folders and files from being checked. -->
+	<exclude-pattern>/docroot/wp-admin/*</exclude-pattern>
+
+	<!-- Exclude the Composer Vendor directory. -->
+	<exclude-pattern>/vendor/*</exclude-pattern>
+
+	<!-- Exclude the Node Modules directory. -->
+	<exclude-pattern>/node_modules/*</exclude-pattern>
+
+	<!-- Exclude minified Javascript files. -->
+	<exclude-pattern>*.min.js</exclude-pattern>
+
+	<!-- Include the WordPress-Extra standard. -->
+
+	<rule ref="~/.composer/vendor/wp-coding-standards/wpcs/WordPress-Core"/>
+    <rule ref="~/.composer/vendor/wp-coding-standards/wpcs/WordPress-Docs"/>
+    <rule ref="~/.composer/vendor/wp-coding-standards/wpcs/WordPress-Extra">
+        <!-- Prevent duplicate messages + deprecation notice from deprecated sniff. -->
+        <exclude name="WordPress.WP.TimezoneChange.timezone_change_date_default_timezone_set"/>
+        <exclude name="WordPress.WP.TimezoneChange.DeprecatedSniff"/>
+		<exclude name="WordPress.Arrays.ArrayDeclarationSpacing" />
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax" />
+		<!-- Disable Space Indent, use Tab -->
+		<exclude name="Generic.WhiteSpace.DisallowTabIndent.DisallowTabIndent" />
+
+		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase" />
+		<exclude name="WordPress.Files.FileName.InvalidClassFileName" />
+    </rule>
+
+	<!-- Let's also check that everything is properly documented. -->
+	<rule ref="WordPress-Docs"/>
+
+	<!-- Add in some extra rules from other standards. -->
+	<rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/>
+	<rule ref="Generic.Commenting.Todo"/>
+	
+
+	<config name="minimum_supported_wp_version" value="4.9"/>
+
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="bangladeshi-payment-gateways"/>
+			</property>
+		</properties>
+	</rule>
+	
+	<arg name="tab-width" value="4"/>
+	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
+	<rule ref="Generic.WhiteSpace.ScopeIndent">
+		<properties>
+			<property name="indent" value="4"/>
+			<property name="tabIndent" value="true"/>
+		</properties>
+	</rule>
+
+</ruleset>
