@@ -30,7 +30,7 @@ node_modules/
 
 
 /assets/**/*.map
-*.asset.php
+node_modules/**/*.asset.php
 
 .map
 *.zip
