@@ -1,0 +1,23 @@
+{
+	"name": "bangladeshi-payment-gateways",
+	"version": "3.0.5",
+	"description": "Bangladeshi Payment Gateways for WooCommerce",
+	"author": "ultraDevs",
+	"license": "GPL-2.0-or-later",
+	"scripts": {
+		"build": "wp-scripts build",
+		"start": "wp-scripts start",
+		"format": "wp-scripts format",
+		"lint:js": "wp-scripts lint-js",
+		"lint:js:fix": "wp-scripts lint-js --fix"
+	},
+	"devDependencies": {
+		"@babel/runtime": "^7.24.0",
+		"@wordpress/scripts": "^29.0.0"
+	},
+	"pnpm": {
+		"overrides": {
+			"rtlcss-webpack-plugin": "4.0.7"
+		}
+	}
+}

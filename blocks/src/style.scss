@@ -1,0 +1,105 @@
+/**
+ * Bangladeshi Payment Gateways - Block Styles
+ *
+ * @package BDPaymentGateways
+ */
+
+.bdpg-payment-method {
+	padding: 12px 0;
+}
+
+.bdpg-total-amount {
+	margin: 16px 0;
+	padding: 12px;
+	background-color: #f6f7f8;
+	border-radius: 4px;
+
+	p {
+		margin: 0;
+		font-size: 16px;
+	}
+}
+
+.bdpg-available-accounts {
+	margin-top: 16px;
+
+	.bdpg-s__acc {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 16px;
+		margin-bottom: 16px;
+		padding: 12px;
+		background-color: #f9f9f9;
+		border-radius: 4px;
+		border: 1px solid #e0e0e0;
+	}
+}
+
+.bdpg-acc__qr-code {
+	flex-shrink: 0;
+
+	img {
+		width: 150px;
+		height: 150px;
+		object-fit: contain;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background-color: #fff;
+	}
+}
+
+.bdpg-acc_d {
+	flex: 1;
+	min-width: 200px;
+
+	p {
+		margin: 8px 0;
+		font-size: 14px;
+	}
+}
+
+.bdpg-user__acc {
+	width: 100%;
+	margin-top: 16px;
+
+	.bdpg-user__field {
+		margin-bottom: 16px;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 8px;
+		font-weight: 600;
+		font-size: 14px;
+	}
+
+	input.wc-block-components-text-input {
+		width: 100%;
+		padding: 10px 12px;
+		font-size: 16px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		transition: border-color 0.2s;
+
+		&:focus {
+			outline: none;
+			border-color: #000;
+		}
+	}
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+	.bdpg-s__acc {
+		flex-direction: column;
+	}
+
+	.bdpg-acc__qr-code {
+		text-align: center;
+
+		img {
+			width: 120px;
+			height: 120px;
+		}
+	}
+}

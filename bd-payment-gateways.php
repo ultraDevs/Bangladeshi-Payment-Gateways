@@ -90,6 +90,22 @@ final class BDPaymentGateways {
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
 		do_action( 'bd_payment_gateways_loaded' );
+
+		/**
+		 * Declare WooCommerce Blocks Compatibility
+		 */
+		add_action(
+			'before_woocommerce_init',
+			function() {
+				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+						'cart_checkout_blocks',
+						__FILE__,
+						true
+					);
+				}
+			}
+		);
 	}
 
 	/**
@@ -142,6 +158,9 @@ final class BDPaymentGateways {
 		$review = new ultraDevs\BDPG\Review();
 
 		add_action( 'woocommerce_payment_gateways', array( $this, 'add_payment_gateways' ) );
+
+		// Register block support gateways.
+		add_action( 'woocommerce_blocks_loaded', array( $this, 'init_block_gateways' ) );
 
 		if ( is_admin() ) {
 
@@ -198,6 +217,34 @@ final class BDPaymentGateways {
 		}
 
 		return $gateways;
+	}
+
+	/**
+	 * Initialize Block Support Gateways.
+	 *
+	 * @return void
+	 */
+	public function init_block_gateways() {
+		if ( ! class_exists( 'Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType' ) ) {
+			return;
+		}
+
+		// Block gateways.
+		$block_gateways = array(
+			ultraDevs\BDPG\Blocks\Gateways\Bkash_Blocks::get_instance(),
+			ultraDevs\BDPG\Blocks\Gateways\Rocket_Blocks::get_instance(),
+			ultraDevs\BDPG\Blocks\Gateways\Nagad_Blocks::get_instance(),
+			ultraDevs\BDPG\Blocks\Gateways\Upay_Blocks::get_instance(),
+		);
+
+		foreach ( $block_gateways as $block_gateway ) {
+			add_action(
+				'woocommerce_blocks_payment_method_type_registration',
+				function( $payment_method_registry ) use ( $block_gateway ) {
+					$payment_method_registry->register( $block_gateway );
+				}
+			);
+		}
 	}
 
 	/**

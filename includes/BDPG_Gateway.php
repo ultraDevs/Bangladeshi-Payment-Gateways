@@ -122,6 +122,9 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'fields_update' ) );
 		add_action( 'woocommerce_admin_order_data_after_billing_address', array( $this, 'admin_order_data' ) );
 
+		// Checkout Block support.
+		add_action( 'woocommerce_rest_checkout_process_payment_with_context', array( $this, 'block_payment_process' ), 10, 2 );
+
 		$settings = get_option( 'woocommerce_woo_' . $this->gateway . '_settings' );
 
 		if ( isset( $settings[ $this->gateway . '_charge' ] ) && 'yes' === $settings[ $this->gateway . '_charge' ] ) {
@@ -432,7 +435,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		);
 
 		// Reduce stock levels.
-		$order->reduce_order_stock();
+		wc_reduce_stock_levels( $order_id );
 
 		// Remove cart.
 		$woocommerce->cart->empty_cart();
@@ -530,6 +533,40 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		update_post_meta( $order_id, 'woo_' . $this->gateway . '_number', $number );
 		update_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', $trans_id );
 	}
+
+	/**
+	 * Block Payment Process.
+	 *
+	 * Handle payment data from WooCommerce Checkout Block.
+	 *
+	 * @param object $context Payment context.
+	 * @param object $result Payment result.
+	 * @return void
+	 */
+	public function block_payment_process( $context, &$result ) {
+		if ( 'woo_' . $this->gateway !== $context->payment_method ) {
+			return;
+		}
+
+		$payment_data = $context->payment_data;
+
+		// Get account number and transaction ID from payment_data.
+		// payment_data is an associative array with field names as keys.
+		$number   = isset( $payment_data[ $this->gateway . '_acc_no' ] )
+			? sanitize_text_field( $payment_data[ $this->gateway . '_acc_no' ] )
+			: '';
+		$trans_id = isset( $payment_data[ $this->gateway . '_trans_id' ] )
+			? sanitize_text_field( $payment_data[ $this->gateway . '_trans_id' ] )
+			: '';
+
+		// Save to order meta - order is created at this point.
+		$order    = $context->order;
+		$order_id = $order->get_id();
+
+		update_post_meta( $order_id, 'woo_' . $this->gateway . '_number', $number );
+		update_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', $trans_id );
+	}
+
 	/**
 	 * Display Gateway data in admin page.
 	 *

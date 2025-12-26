@@ -6,7 +6,6 @@
  */
 function bdpg_get_instruction_by_gateway( $gateway ) {
 
-	error_log( 'Getting instructions for gateway: ' . $gateway );
 	switch ( $gateway ) {
 		case 'bkash':
 			return __(
