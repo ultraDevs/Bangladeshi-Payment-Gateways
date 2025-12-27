@@ -3,7 +3,7 @@
         'name' => 'ultradevs/bangladeshi-payment-gateways',
         'pretty_version' => 'dev-develop',
         'version' => 'dev-develop',
-        'reference' => '51df281c4d84721fc010258644a051bf1db2eace',
+        'reference' => '5d29dbcffe87321ee9477ff5899f9eba5a7270e3',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -100,7 +100,7 @@
         'ultradevs/bangladeshi-payment-gateways' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '51df281c4d84721fc010258644a051bf1db2eace',
+            'reference' => '5d29dbcffe87321ee9477ff5899f9eba5a7270e3',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
