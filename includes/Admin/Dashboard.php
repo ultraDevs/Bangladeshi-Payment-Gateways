@@ -625,7 +625,8 @@ class Dashboard {
 		);
 
 		// Enqueue admin JS for statistics and transactions pages.
-		if ( in_array( $hook, array( 'toplevel_page_bangladeshi-payment-gateways', 'bd-payment-gateways_page_bangladeshi-payment-gateways-statistics', 'bd-payment-gateways_page_bangladeshi-payment-gateways-transactions' ), true ) ) {
+		// Match any bangladeshi-payment-gateways page (including statistics and transactions).
+		if ( strpos( $hook, 'bangladeshi-payment-gateways' ) !== false ) {
 			wp_enqueue_script(
 				'bdpg-admin',
 				BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/admin/js/admin.js',

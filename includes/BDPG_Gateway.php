@@ -74,6 +74,13 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 
 
 	/**
+	 * Supported features for HPOS compatibility
+	 *
+	 * @var array
+	 */
+	public $supports = array( 'products' );
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -543,8 +550,13 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$number   = sanitize_text_field( $_POST[ $this->gateway . '_acc_no' ] );
 		$trans_id = sanitize_text_field( $_POST[ $this->gateway . '_trans_id' ] );
 
-		update_post_meta( $order_id, 'woo_' . $this->gateway . '_number', $number );
-		update_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', $trans_id );
+		// Use WC_Order CRUD methods for HPOS compatibility.
+		$order = wc_get_order( $order_id );
+		if ( $order ) {
+			$order->update_meta_data( 'woo_' . $this->gateway . '_number', $number );
+			$order->update_meta_data( 'woo_' . $this->gateway . '_trans_id', $trans_id );
+			$order->save();
+		}
 	}
 
 	/**
@@ -572,12 +584,11 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			? sanitize_text_field( $payment_data[ $this->gateway . '_trans_id' ] )
 			: '';
 
-		// Save to order meta - order is created at this point.
-		$order    = $context->order;
-		$order_id = $order->get_id();
-
-		update_post_meta( $order_id, 'woo_' . $this->gateway . '_number', $number );
-		update_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', $trans_id );
+		// Save to order meta using CRUD methods for HPOS compatibility.
+		$order = $context->order;
+		$order->update_meta_data( 'woo_' . $this->gateway . '_number', $number );
+		$order->update_meta_data( 'woo_' . $this->gateway . '_trans_id', $trans_id );
+		$order->save();
 	}
 
 	/**
@@ -590,9 +601,9 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			return;
 		}
 
-		$order_id = $order->get_id();
-		$number   = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) : '';
-		$trans_id = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) : '';
+		// Use WC_Order CRUD methods for HPOS compatibility.
+		$number   = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
+		$trans_id = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
 		?>
 		<div class="form-field form-field-wide bdpg-admin-data">
 			<img src="<?php echo esc_url( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
@@ -668,16 +679,10 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		if ( 'woo_' . $this->gateway !== $order->get_payment_method() ) {
 			return;
 		}
-		global $wp;
 
-		if ( isset( $wp->query_vars['order-received'] ) ) {
-			$order_id = (int) $wp->query_vars['order-received'];
-		} else {
-			$order_id = (int) $wp->query_vars['view-order'];
-		}
-
-		$number   = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true ) : '';
-		$trans_id = ( get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true ) : '';
+		// Use WC_Order CRUD methods for HPOS compatibility.
+		$number   = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
+		$trans_id = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
 		?>
 		<div class="bdpg-g-details">
 			<img src="<?php echo esc_html( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
@@ -736,8 +741,9 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	 */
 	public function admin_column_value( $column, $order ) {
 
-		$payment_no = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_number', true ) : '';
-		$tran_id    = ( get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) ) ? get_post_meta( $order->get_id(), 'woo_' . $this->gateway . '_trans_id', true ) : '';
+		// Use WC_Order CRUD methods for HPOS compatibility.
+		$payment_no = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
+		$tran_id    = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );

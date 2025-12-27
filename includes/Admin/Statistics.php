@@ -86,11 +86,23 @@ class Statistics {
 
 		$orders = wc_get_orders( $args );
 
+		// Debug: Log order count.
+		if ( \defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( 'BDPG: Found ' . count( $orders ) . ' completed orders for gateway ' . $gateway ); // @codingStandardsIgnoreLine
+		}
+
 		$count        = 0;
 		$total_amount = 0;
 
 		foreach ( $orders as $order ) {
-			if ( 'woo_' . $gateway === $order->get_payment_method() ) {
+			$payment_method = $order->get_payment_method();
+
+			// Debug: Log payment methods found.
+			if ( \defined( 'WP_DEBUG' ) && WP_DEBUG && $count < 5 ) {
+				error_log( 'BDPG: Order ' . $order->get_id() . ' payment method: ' . $payment_method ); // @codingStandardsIgnoreLine
+			}
+
+			if ( 'woo_' . $gateway === $payment_method ) {
 				++$count;
 				$total_amount += $order->get_total();
 			}
@@ -148,8 +160,9 @@ class Statistics {
 			++$total_count;
 
 			$gateway_key = str_replace( 'woo_', '', $payment_method );
-			$acc_no      = get_post_meta( $order->get_id(), 'woo_' . $gateway_key . '_number', true );
-			$trans_id    = get_post_meta( $order->get_id(), 'woo_' . $gateway_key . '_trans_id', true );
+			// Use WC_Order CRUD methods for HPOS compatibility.
+			$acc_no      = $order->get_meta( 'woo_' . $gateway_key . '_number', true );
+			$trans_id    = $order->get_meta( 'woo_' . $gateway_key . '_trans_id', true );
 
 			$transactions[] = array(
 				'order_id'       => $order->get_id(),
@@ -206,6 +219,11 @@ class Statistics {
 		$date_to   = isset( $_POST['date_to'] ) ? sanitize_text_field( wp_unslash( $_POST['date_to'] ) ) : '';
 
 		$stats = $this->get_statistics( $date_from, $date_to );
+
+		// Log debug info if WP_DEBUG is enabled.
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+			error_log( 'BDPG Stats: ' . print_r( $stats, true ) ); // @codingStandardsIgnoreLine
+		}
 
 		wp_send_json_success( $stats );
 	}
