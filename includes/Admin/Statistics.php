@@ -73,7 +73,7 @@ class Statistics {
 		$args = array(
 			'limit'  => -1,
 			'type'   => 'shop_order',
-			'status' => array( 'wc-completed', 'wc-processing', 'wc-on-hold' ),
+			'status' => array( 'wc-completed' ),
 		);
 
 		// Add date filter if provided.
@@ -117,7 +117,7 @@ class Statistics {
 			'limit'  => $per_page,
 			'offset' => $offset,
 			'type'   => 'shop_order',
-			'status' => array( 'wc-completed', 'wc-processing', 'wc-on-hold' ),
+			'status' => array( 'wc-completed' ),
 		);
 
 		// Add date filter if provided.
