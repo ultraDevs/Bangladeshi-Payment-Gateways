@@ -195,7 +195,7 @@ class Statistics {
 				'order_id'       => $order->get_id(),
 				'order_number'   => $order->get_order_number(),
 				'date'           => $order->get_date_created()->date_i18n( 'Y-m-d H:i:s' ),
-				'gateway'        => $this->get_gateway_title( $gateway_key ),
+				'gateway'        => bdpg_gateway_name_to_title( $gateway_key ),
 				'gateway_raw'    => $gateway_key,
 				'account_no'     => $acc_no ? $acc_no : '-',
 				'transaction_id' => $trans_id ? $trans_id : '-',
@@ -211,23 +211,6 @@ class Statistics {
 			'transactions' => $transactions,
 			'total_count'  => $total_count,
 		);
-	}
-
-	/**
-	 * Get gateway title
-	 *
-	 * @param string $gateway Gateway name.
-	 * @return string
-	 */
-	private function get_gateway_title( $gateway ) {
-		$titles = array(
-			'bkash'  => __( 'bKash', 'bangladeshi-payment-gateways' ),
-			'rocket' => __( 'Rocket', 'bangladeshi-payment-gateways' ),
-			'nagad'  => __( 'Nagad', 'bangladeshi-payment-gateways' ),
-			'upay'   => __( 'Upay', 'bangladeshi-payment-gateways' ),
-		);
-
-		return isset( $titles[ $gateway ] ) ? $titles[ $gateway ] : ucfirst( $gateway );
 	}
 
 	/**
@@ -350,14 +333,40 @@ class Statistics {
 	}
 
 	/**
-	 * Export transactions to PDF (simple HTML-based PDF)
+	 * Export transactions to PDF
 	 *
 	 * @param array $transactions Transactions data.
 	 * @return void
 	 */
 	private function export_pdf( $transactions ) {
-		header( 'Content-Type: application/pdf' );
-		header( 'Content-Disposition: attachment; filename="bdpg-transactions-' . date( 'Y-m-d' ) . '.pdf"' );
+		// Use mPDF library.
+		if ( class_exists( '\Mpdf\Mpdf' ) ) {
+			$mpdf = new \Mpdf\Mpdf();
+			$html = $this->get_pdf_html( $transactions );
+			$mpdf->WriteHTML( $html );
+			$mpdf->Output( 'bdpg-transactions-' . date( 'Y-m-d' ) . '.pdf', 'D' );
+		} else {
+			// Fallback: Output as HTML with print instructions.
+			header( 'Content-Type: text/html; charset=UTF-8' );
+			header( 'Content-Disposition: inline; filename="bdpg-transactions-' . date( 'Y-m-d' ) . '.html"' );
+			echo $this->get_pdf_html( $transactions, true );
+		}
+	}
+
+	/**
+	 * Get HTML for PDF export
+	 *
+	 * @param array $transactions Transactions data.
+	 * @param bool  $add_print_js  Whether to add print JavaScript.
+	 * @return string
+	 */
+	private function get_pdf_html( $transactions, $add_print_js = false ) {
+		$script = $add_print_js ? '
+    <script>
+        window.onload = function() {
+            window.print();
+        };
+    </script>' : '';
 
 		$html = '<!DOCTYPE html>
 <html>
@@ -365,48 +374,103 @@ class Statistics {
     <meta charset="UTF-8">
     <title>' . __( 'Transactions Report', 'bangladeshi-payment-gateways' ) . '</title>
     <style>
-        body { font-family: Arial, sans-serif; font-size: 12px; }
-        h1 { color: #2271b1; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { background: #2271b1; color: white; padding: 10px; text-align: left; }
-        td { border: 1px solid #ddd; padding: 8px; }
-        tr:nth-child(even) { background: #f9f9f9; }
+        @page {
+            margin: 20mm;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #2271b1;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .subtitle {
+            color: #646970;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 10px;
+        }
+        th {
+            background: #2271b1;
+            color: white;
+            padding: 8px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            border: 1px solid #ddd;
+            padding: 6px;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        @media print {
+            body {
+                padding: 0;
+            }
+            .no-print {
+                display: none;
+            }
+        }
     </style>
+    ' . $script . '
 </head>
 <body>
-    <h1>' . __( 'Bangladeshi Payment Gateways - Transactions', 'bangladeshi-payment-gateways' ) . '</h1>
-    <p>' . __( 'Generated on:', 'bangladeshi-payment-gateways' ) . ' ' . date( 'Y-m-d H:i:s' ) . '</p>
-    <table>
-        <tr>
-            <th>' . __( 'Order ID', 'bangladeshi-payment-gateways' ) . '</th>
-            <th>' . __( 'Date', 'bangladeshi-payment-gateways' ) . '</th>
-            <th>' . __( 'Gateway', 'bangladeshi-payment-gateways' ) . '</th>
-            <th>' . __( 'Account No', 'bangladeshi-payment-gateways' ) . '</th>
-            <th>' . __( 'Transaction ID', 'bangladeshi-payment-gateways' ) . '</th>
-            <th>' . __( 'Amount', 'bangladeshi-payment-gateways' ) . '</th>
-            <th>' . __( 'Customer', 'bangladeshi-payment-gateways' ) . '</th>
-        </tr>';
+    <h1>' . __( 'Bangladeshi Payment Gateways - Transactions Report', 'bangladeshi-payment-gateways' ) . '</h1>
+    <p class="subtitle">' . __( 'Generated on:', 'bangladeshi-payment-gateways' ) . ' ' . date( 'Y-m-d H:i:s' ) . '</p>
+    <p class="subtitle">' . __( 'Total Transactions:', 'bangladeshi-payment-gateways' ) . ' ' . count( $transactions ) . '</p>';
 
-		foreach ( $transactions as $transaction ) {
+		if ( $add_print_js ) {
 			$html .= '
-        <tr>
-            <td>' . esc_html( $transaction['order_number'] ) . '</td>
-            <td>' . esc_html( $transaction['date'] ) . '</td>
-            <td>' . esc_html( $transaction['gateway'] ) . '</td>
-            <td>' . esc_html( $transaction['account_no'] ) . '</td>
-            <td>' . esc_html( $transaction['transaction_id'] ) . '</td>
-            <td>' . esc_html( $transaction['amount'] . ' ' . $transaction['currency'] ) . '</td>
-            <td>' . esc_html( $transaction['customer_name'] ) . '</td>
-        </tr>';
+    <p class="no-print" style="background: #fff3cd; padding: 10px; border: 1px solid #ffc107; border-radius: 4px; margin-bottom: 20px;">
+        <strong>' . __( 'PDF Library Not Found', 'bangladeshi-payment-gateways' ) . '</strong><br>
+        ' . __( 'mPDF library is not available. Use your browser\'s print dialog (Ctrl+P / Cmd+P) and select "Save as PDF" as the destination.', 'bangladeshi-payment-gateways' ) . '
+    </p>';
 		}
 
 		$html .= '
+    <table>
+        <thead>
+            <tr>
+                <th>' . __( 'Order', 'bangladeshi-payment-gateways' ) . '</th>
+                <th>' . __( 'Date', 'bangladeshi-payment-gateways' ) . '</th>
+                <th>' . __( 'Gateway', 'bangladeshi-payment-gateways' ) . '</th>
+                <th>' . __( 'Account No', 'bangladeshi-payment-gateways' ) . '</th>
+                <th>' . __( 'Transaction ID', 'bangladeshi-payment-gateways' ) . '</th>
+                <th>' . __( 'Amount', 'bangladeshi-payment-gateways' ) . '</th>
+                <th>' . __( 'Customer', 'bangladeshi-payment-gateways' ) . '</th>
+            </tr>
+        </thead>
+        <tbody>';
+
+		foreach ( $transactions as $transaction ) {
+			$html .= '
+            <tr>
+                <td>' . esc_html( $transaction['order_number'] ) . '</td>
+                <td>' . esc_html( $transaction['date'] ) . '</td>
+                <td>' . esc_html( $transaction['gateway'] ) . '</td>
+                <td>' . esc_html( $transaction['account_no'] ) . '</td>
+                <td>' . esc_html( $transaction['transaction_id'] ) . '</td>
+                <td>' . esc_html( number_format( $transaction['amount'], 2 ) . ' ' . $transaction['currency'] ) . '</td>
+                <td>' . esc_html( $transaction['customer_name'] ) . '</td>
+            </tr>';
+		}
+
+		$html .= '
+        </tbody>
     </table>
 </body>
 </html>';
 
-		// For simple PDF generation, you might want to use a library like DOMPDF or TCPDF.
-		// For now, we'll output as HTML which browsers can print to PDF.
-		echo $html;
+		return $html;
 	}
 }

@@ -7,5 +7,12 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'ultraDevs\\BDPG\\' => array($baseDir . '/includes'),
+    'setasign\\Fpdi\\' => array($vendorDir . '/setasign/fpdi/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Mpdf\\PsrLogAwareTrait\\' => array($vendorDir . '/mpdf/psr-log-aware-trait/src'),
+    'Mpdf\\PsrHttpMessageShim\\' => array($vendorDir . '/mpdf/psr-http-message-shim/src'),
+    'Mpdf\\' => array($vendorDir . '/mpdf/mpdf/src'),
+    'DeepCopy\\' => array($vendorDir . '/myclabs/deep-copy/src/DeepCopy'),
     'Appsero\\' => array($vendorDir . '/appsero/client/src'),
 );

@@ -17,6 +17,7 @@
 		]
 	},
 	"require": {
-		"appsero/client": "dev-develop"
+		"appsero/client": "dev-develop",
+		"mpdf/mpdf": "^8.0"
 	}
 }
