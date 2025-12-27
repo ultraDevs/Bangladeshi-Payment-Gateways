@@ -160,9 +160,20 @@ class Statistics {
 			++$total_count;
 
 			$gateway_key = str_replace( 'woo_', '', $payment_method );
+			$order_id    = $order->get_id();
+
 			// Use WC_Order CRUD methods for HPOS compatibility.
-			$acc_no      = $order->get_meta( 'woo_' . $gateway_key . '_number', true );
-			$trans_id    = $order->get_meta( 'woo_' . $gateway_key . '_trans_id', true );
+			// Falls back to post meta if not found in order meta.
+			$acc_no   = $order->get_meta( 'woo_' . $gateway_key . '_number', true );
+			$trans_id = $order->get_meta( 'woo_' . $gateway_key . '_trans_id', true );
+
+			// Fallback to post meta for backward compatibility with pre-HPOS orders.
+			if ( empty( $acc_no ) ) {
+				$acc_no = get_post_meta( $order_id, 'woo_' . $gateway_key . '_number', true );
+			}
+			if ( empty( $trans_id ) ) {
+				$trans_id = get_post_meta( $order_id, 'woo_' . $gateway_key . '_trans_id', true );
+			}
 
 			$transactions[] = array(
 				'order_id'       => $order->get_id(),

@@ -601,9 +601,20 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			return;
 		}
 
+		$order_id = $order->get_id();
+
 		// Use WC_Order CRUD methods for HPOS compatibility.
+		// Falls back to post meta if not found in order meta.
 		$number   = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
 		$trans_id = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
+
+		// Fallback to post meta for backward compatibility with pre-HPOS orders.
+		if ( empty( $number ) ) {
+			$number = get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true );
+		}
+		if ( empty( $trans_id ) ) {
+			$trans_id = get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true );
+		}
 		?>
 		<div class="form-field form-field-wide bdpg-admin-data">
 			<img src="<?php echo esc_url( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
@@ -680,9 +691,20 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			return;
 		}
 
+		$order_id = $order->get_id();
+
 		// Use WC_Order CRUD methods for HPOS compatibility.
+		// Falls back to post meta if not found in order meta.
 		$number   = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
 		$trans_id = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
+
+		// Fallback to post meta for backward compatibility with pre-HPOS orders.
+		if ( empty( $number ) ) {
+			$number = get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true );
+		}
+		if ( empty( $trans_id ) ) {
+			$trans_id = get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true );
+		}
 		?>
 		<div class="bdpg-g-details">
 			<img src="<?php echo esc_html( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
@@ -740,10 +762,20 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	 * @param string $column Column name.
 	 */
 	public function admin_column_value( $column, $order ) {
+		$order_id = $order->get_id();
 
 		// Use WC_Order CRUD methods for HPOS compatibility.
+		// Falls back to post meta if not found in order meta.
 		$payment_no = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
 		$tran_id    = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
+
+		// Fallback to post meta for backward compatibility with pre-HPOS orders.
+		if ( empty( $payment_no ) ) {
+			$payment_no = get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true );
+		}
+		if ( empty( $tran_id ) ) {
+			$tran_id = get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true );
+		}
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );
