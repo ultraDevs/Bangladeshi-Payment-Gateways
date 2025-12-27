@@ -54,6 +54,18 @@ export const Content = ( props, settings ) => {
 				};
 			}
 
+			// Validate account number - must be numeric only.
+			if ( accNo && !/^[0-9]+$/.test( accNo ) ) {
+				return {
+					type: emitResponse.responseTypes.ERROR,
+					message: __(
+						'Please enter a valid account number (numbers only).',
+						'bangladeshi-payment-gateways'
+					),
+					messageContext: emitResponse.noticeContexts.PAYMENTS,
+				};
+			}
+
 			if ( ! transId ) {
 				return {
 					type: emitResponse.responseTypes.ERROR,

@@ -36,6 +36,7 @@ jQuery(document).ready(
         var page = window.location.href;
         var isStatsPage = page.indexOf('bangladeshi-payment-gateways-statistics') > -1;
         var isTransPage = page.indexOf('bangladeshi-payment-gateways-transactions') > -1;
+        var isMigrationPage = page.indexOf('bangladeshi-payment-gateways-hpos-migration') > -1;
 
         /**
          * Statistics Page
@@ -308,6 +309,187 @@ jQuery(document).ready(
                 form.submit();
                 form.remove();
             }
+        }
+
+        /**
+         * HPOS Migration Page
+         */
+        if (isMigrationPage && typeof bdpgAdmin !== 'undefined') {
+            var migrationInterval = null;
+
+            // Load migration status on page load
+            loadMigrationStatus();
+
+            // Start migration button
+            $('#bdpg-start-migration').on('click', function() {
+                var $btn = $(this);
+                $btn.prop('disabled', true).html('<span class="dashicons dashicons-update-alt bdpg-spin"></span> Starting...');
+
+                $.ajax({
+                    url: bdpgAdmin.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'bdpg_start_migration',
+                        nonce: bdpgAdmin.nonce
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            // Start polling for updates
+                            startMigrationPolling();
+                            loadMigrationStatus();
+                        } else {
+                            alert(response.data.message || 'Failed to start migration');
+                            $btn.prop('disabled', false).html('<span class="dashicons dashicons-download"></span> Start Migration');
+                        }
+                    },
+                    error: function() {
+                        alert('Failed to start migration');
+                        $btn.prop('disabled', false).html('<span class="dashicons dashicons-download"></span> Start Migration');
+                    }
+                });
+            });
+
+            // Reset migration button
+            $('#bdpg-reset-migration').on('click', function() {
+                if (!confirm('Are you sure you want to reset the migration? This will clear all migration progress.')) {
+                    return;
+                }
+
+                var $btn = $(this);
+                $btn.prop('disabled', true);
+
+                $.ajax({
+                    url: bdpgAdmin.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'bdpg_reset_migration',
+                        nonce: bdpgAdmin.nonce
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            stopMigrationPolling();
+                            loadMigrationStatus();
+                            alert(response.data.message || 'Migration reset successfully');
+                        } else {
+                            alert(response.data.message || 'Failed to reset migration');
+                        }
+                        $btn.prop('disabled', false);
+                    },
+                    error: function() {
+                        alert('Failed to reset migration');
+                        $btn.prop('disabled', false);
+                    }
+                });
+            });
+
+            /**
+             * Load migration status via AJAX
+             */
+            function loadMigrationStatus() {
+                $.ajax({
+                    url: bdpgAdmin.ajax_url,
+                    type: 'POST',
+                    data: {
+                        action: 'bdpg_get_migration_status',
+                        nonce: bdpgAdmin.nonce
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            updateMigrationStatus(response.data);
+                        }
+                    }
+                });
+            }
+
+            /**
+             * Update migration status display
+             */
+            function updateMigrationStatus(data) {
+                // Hide loading, show content
+                $('#bdpg-status-loading').hide();
+                $('#bdpg-status-content').show();
+
+                // Update status text
+                var statusText = 'Not Started';
+                var statusClass = 'bdpg-status-pending';
+
+                switch(data.status) {
+                    case 'pending':
+                        statusText = 'Pending';
+                        statusClass = 'bdpg-status-pending';
+                        break;
+                    case 'running':
+                        statusText = 'Running';
+                        statusClass = 'bdpg-status-running';
+                        break;
+                    case 'completed':
+                        statusText = 'Completed';
+                        statusClass = 'bdpg-status-completed';
+                        break;
+                }
+
+                $('#bdpg-status-text')
+                    .text(statusText)
+                    .removeClass()
+                    .addClass('bdpg-status-value ' + statusClass);
+
+                // Update progress
+                $('#bdpg-status-count').text(data.processed + ' / ' + data.total);
+                $('#bdpg-status-percent').text(data.percentage + '%');
+                $('#bdpg-progress-fill').css('width', data.percentage + '%');
+
+                // Update gateway name
+                var gatewayNames = {
+                    'bkash': 'bKash',
+                    'rocket': 'Rocket',
+                    'nagad': 'Nagad',
+                    'upay': 'Upay',
+                    '': '-'
+                };
+                $('#bdpg-status-gateway').text(gatewayNames[data.current_gateway] || data.current_gateway);
+
+                // Update times
+                $('#bdpg-status-start').text(data.start_time);
+                $('#bdpg-status-end').text(data.end_time);
+
+                // Update start button state
+                var $startBtn = $('#bdpg-start-migration');
+                if (data.is_running || data.is_scheduled) {
+                    $startBtn.prop('disabled', true).html('<span class="dashicons dashicons-update-alt bdpg-spin"></span> Migration in Progress...');
+                    startMigrationPolling();
+                } else if (data.status === 'completed') {
+                    $startBtn.prop('disabled', false).html('<span class="dashicons dashicons-yes-alt"></span> Migration Complete');
+                    stopMigrationPolling();
+                } else {
+                    $startBtn.prop('disabled', false).html('<span class="dashicons dashicons-download"></span> Start Migration');
+                    stopMigrationPolling();
+                }
+            }
+
+            /**
+             * Start polling for migration updates
+             */
+            function startMigrationPolling() {
+                if (migrationInterval) {
+                    return;
+                }
+                migrationInterval = setInterval(loadMigrationStatus, 3000); // Poll every 3 seconds
+            }
+
+            /**
+             * Stop polling for migration updates
+             */
+            function stopMigrationPolling() {
+                if (migrationInterval) {
+                    clearInterval(migrationInterval);
+                    migrationInterval = null;
+                }
+            }
+
+            // Clean up interval when leaving page
+            $(window).on('beforeunload', function() {
+                stopMigrationPolling();
+            });
         }
 
         /**

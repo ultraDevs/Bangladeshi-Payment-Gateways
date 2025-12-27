@@ -81,6 +81,69 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	public $supports = array( 'products' );
 
 	/**
+	 * Check if HPOS is enabled using the WooCommerce option
+	 *
+	 * @return bool True if HPOS is enabled, false otherwise.
+	 */
+	protected function is_hpos_enabled() {
+		return 'yes' === get_option( 'woocommerce_custom_orders_table_enabled', 'no' );
+	}
+
+	/**
+	 * Get order meta with HPOS compatibility.
+	 * Always checks both sources to ensure data is found regardless of storage mode.
+	 *
+	 * @param object|int $order   Order object or order ID.
+	 * @param string     $meta_key Meta key.
+	 * @param bool       $single   Return single value.
+	 * @return mixed Meta value.
+	 */
+	protected function bdpg_get_order_meta( $order, $meta_key, $single = true ) {
+		// Get order ID if we received an object.
+		$order_id = is_object( $order ) ? $order->get_id() : $order;
+
+		// If HPOS is enabled and we have an order object, try order meta first.
+		if ( $this->is_hpos_enabled() && is_object( $order ) && method_exists( $order, 'get_meta' ) ) {
+			$value = $order->get_meta( $meta_key, $single );
+
+			// If empty, also check post meta for backward compatibility.
+			if ( empty( $value ) ) {
+				$post_meta_value = get_post_meta( $order_id, $meta_key, $single );
+				if ( ! empty( $post_meta_value ) ) {
+					$value = $post_meta_value;
+				}
+			}
+
+			return $value;
+		}
+
+		// HPOS is not enabled or we only have order ID, use post meta.
+		return get_post_meta( $order_id, $meta_key, $single );
+	}
+
+	/**
+	 * Update order meta with HPOS compatibility.
+	 * Always updates to both sources when HPOS is enabled to ensure data is preserved.
+	 *
+	 * @param object $order    Order object.
+	 * @param string $meta_key Meta key.
+	 * @param mixed  $value    Meta value.
+	 * @return void
+	 */
+	protected function bdpg_update_order_meta( $order, $meta_key, $value ) {
+		if ( $this->is_hpos_enabled() && is_object( $order ) && method_exists( $order, 'update_meta_data' ) ) {
+			// HPOS or compatibility mode is enabled, update both sources.
+			// This ensures data is available regardless of how WooCommerce stores it.
+			update_post_meta( $order->get_id(), $meta_key, $value );
+			$order->update_meta_data( $meta_key, $value );
+			$order->save_meta_data();
+		} else {
+			// HPOS is not enabled, only post meta is needed.
+			update_post_meta( is_object( $order ) ? $order->get_id() : $order, $meta_key, $value );
+		}
+	}
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -132,8 +195,14 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		}
 
 		add_action( 'woocommerce_order_details_after_customer_details', array( $this, 'data_order_review_page' ) );
+
+		// HPOS orders page (new WooCommerce admin orders page).
 		add_filter( 'manage_woocommerce_page_wc-orders_columns', array( $this, 'admin_register_column' ), 20 );
 		add_action( 'manage_woocommerce_page_wc-orders_custom_column', array( $this, 'admin_column_value' ), 20, 2 );
+
+		// Traditional post-based orders (for backward compatibility and when HPOS is disabled).
+		add_filter( 'manage_edit-shop_order_columns', array( $this, 'admin_register_column' ), 20 );
+		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'admin_column_value' ), 20, 2 );
 	}
 
 	/**
@@ -525,6 +594,18 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			);
 		}
 
+		// Validate account number - must be numeric only.
+		if ( '' !== $number && ! preg_match( '/^[0-9]+$/', $number ) ) {
+			wc_add_notice(
+				sprintf(
+				/* translators: %s: Payment Gateway. */
+					esc_html__( 'Please enter a valid %s account number (numbers only).', 'bangladeshi-payment-gateways' ),
+					bdpg_gateway_name_to_title( $this->gateway )
+				),
+				'error'
+			);
+		}
+
 		if ( '' === $trans_id ) {
 			wc_add_notice(
 				sprintf(
@@ -550,12 +631,16 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		$number   = sanitize_text_field( $_POST[ $this->gateway . '_acc_no' ] );
 		$trans_id = sanitize_text_field( $_POST[ $this->gateway . '_trans_id' ] );
 
-		// Use WC_Order CRUD methods for HPOS compatibility.
+		// Use helper method for HPOS compatibility.
 		$order = wc_get_order( $order_id );
 		if ( $order ) {
-			$order->update_meta_data( 'woo_' . $this->gateway . '_number', $number );
-			$order->update_meta_data( 'woo_' . $this->gateway . '_trans_id', $trans_id );
-			$order->save();
+			$this->bdpg_update_order_meta( $order, 'woo_' . $this->gateway . '_number', $number );
+			$this->bdpg_update_order_meta( $order, 'woo_' . $this->gateway . '_trans_id', $trans_id );
+
+			// Only save the order if not using HPOS (HPOS is handled by the helper).
+			if ( ! $this->is_hpos_enabled() ) {
+				$order->save();
+			}
 		}
 	}
 
@@ -584,11 +669,15 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			? sanitize_text_field( $payment_data[ $this->gateway . '_trans_id' ] )
 			: '';
 
-		// Save to order meta using CRUD methods for HPOS compatibility.
+		// Save to order meta using helper method for HPOS compatibility.
 		$order = $context->order;
-		$order->update_meta_data( 'woo_' . $this->gateway . '_number', $number );
-		$order->update_meta_data( 'woo_' . $this->gateway . '_trans_id', $trans_id );
-		$order->save();
+		$this->bdpg_update_order_meta( $order, 'woo_' . $this->gateway . '_number', $number );
+		$this->bdpg_update_order_meta( $order, 'woo_' . $this->gateway . '_trans_id', $trans_id );
+
+		// Only save the order if not using HPOS (HPOS is handled by the helper).
+		if ( ! $this->is_hpos_enabled() ) {
+			$order->save();
+		}
 	}
 
 	/**
@@ -601,20 +690,9 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			return;
 		}
 
-		$order_id = $order->get_id();
-
-		// Use WC_Order CRUD methods for HPOS compatibility.
-		// Falls back to post meta if not found in order meta.
-		$number   = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
-		$trans_id = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
-
-		// Fallback to post meta for backward compatibility with pre-HPOS orders.
-		if ( empty( $number ) ) {
-			$number = get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true );
-		}
-		if ( empty( $trans_id ) ) {
-			$trans_id = get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true );
-		}
+		// Use helper method for HPOS compatibility - checks both order meta and post meta.
+		$number   = $this->bdpg_get_order_meta( $order, 'woo_' . $this->gateway . '_number', true );
+		$trans_id = $this->bdpg_get_order_meta( $order, 'woo_' . $this->gateway . '_trans_id', true );
 		?>
 		<div class="form-field form-field-wide bdpg-admin-data">
 			<img src="<?php echo esc_url( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
@@ -691,20 +769,9 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 			return;
 		}
 
-		$order_id = $order->get_id();
-
-		// Use WC_Order CRUD methods for HPOS compatibility.
-		// Falls back to post meta if not found in order meta.
-		$number   = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
-		$trans_id = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
-
-		// Fallback to post meta for backward compatibility with pre-HPOS orders.
-		if ( empty( $number ) ) {
-			$number = get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true );
-		}
-		if ( empty( $trans_id ) ) {
-			$trans_id = get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true );
-		}
+		// Use helper method for HPOS compatibility - checks both order meta and post meta.
+		$number   = $this->bdpg_get_order_meta( $order, 'woo_' . $this->gateway . '_number', true );
+		$trans_id = $this->bdpg_get_order_meta( $order, 'woo_' . $this->gateway . '_trans_id', true );
 		?>
 		<div class="bdpg-g-details">
 			<img src="<?php echo esc_html( $this->icon ); ?> " alt="<?php echo esc_attr( $this->gateway ); ?>">
@@ -741,6 +808,7 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 		</div>
 		<?php
 	}
+
 	/**
 	 * Register New Column For Payment Info
 	 *
@@ -762,20 +830,10 @@ abstract class BDPG_Gateway extends \WC_Payment_Gateway {
 	 * @param string $column Column name.
 	 */
 	public function admin_column_value( $column, $order ) {
-		$order_id = $order->get_id();
 
-		// Use WC_Order CRUD methods for HPOS compatibility.
-		// Falls back to post meta if not found in order meta.
-		$payment_no = $order->get_meta( 'woo_' . $this->gateway . '_number', true );
-		$tran_id    = $order->get_meta( 'woo_' . $this->gateway . '_trans_id', true );
-
-		// Fallback to post meta for backward compatibility with pre-HPOS orders.
-		if ( empty( $payment_no ) ) {
-			$payment_no = get_post_meta( $order_id, 'woo_' . $this->gateway . '_number', true );
-		}
-		if ( empty( $tran_id ) ) {
-			$tran_id = get_post_meta( $order_id, 'woo_' . $this->gateway . '_trans_id', true );
-		}
+		// Use helper method for HPOS compatibility - checks both order meta and post meta.
+		$payment_no = $this->bdpg_get_order_meta( $order, 'woo_' . $this->gateway . '_number', true );
+		$tran_id    = $this->bdpg_get_order_meta( $order, 'woo_' . $this->gateway . '_trans_id', true );
 
 		if ( 'payment_no' === $column ) {
 			echo esc_attr( $payment_no );

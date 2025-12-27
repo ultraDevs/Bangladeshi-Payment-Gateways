@@ -46,7 +46,13 @@ class Dashboard {
 		add_action( 'admin_menu', [ $this, 'register_admin_menu' ] );
 		add_action( 'admin_init', [ $this, 'register_settings' ] );
 		add_action( 'admin_notices', [ $this, 'hide_dashboard_admin_notices' ], 0 );
+		add_action( 'admin_notices', [ $this, 'hpos_migration_notice' ] );
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_scripts' ] );
+
+		// AJAX handlers for HPOS migration.
+		add_action( 'wp_ajax_bdpg_get_migration_status', [ $this, 'ajax_get_migration_status' ] );
+		add_action( 'wp_ajax_bdpg_start_migration', [ $this, 'ajax_start_migration' ] );
+		add_action( 'wp_ajax_bdpg_reset_migration', [ $this, 'ajax_reset_migration' ] );
 	}
 
 	/**
@@ -63,6 +69,115 @@ class Dashboard {
 		if ( 'toplevel_page_' . self::MENU_SLUG === $screen->id ) {
 			remove_all_actions( 'admin_notices' );
 		}
+	}
+
+	/**
+	 * Display HPOS migration notice on WooCommerce HPOS settings page
+	 *
+	 * @return void
+	 */
+	public function hpos_migration_notice() {
+		$screen = get_current_screen();
+		if ( ! $screen ) {
+			return;
+		}
+
+		// Only show on WooCommerce settings > Advanced page.
+		if ( 'woocommerce_page_wc-settings' !== $screen->id ) {
+			return;
+		}
+
+		// Check if we're on the Advanced tab.
+		if ( ! isset( $_GET['tab'] ) || 'advanced' !== $_GET['tab'] ) {
+			return;
+		}
+
+		// Show on both the main Advanced tab and the features section.
+		// The URL is: admin.php?page=wc-settings&tab=advanced&section=features
+		$is_features_section = isset( $_GET['section'] ) && 'features' === $_GET['section'];
+		$is_no_section = ! isset( $_GET['section'] ) || empty( $_GET['section'] );
+
+		if ( ! $is_features_section && ! $is_no_section ) {
+			return;
+		}
+
+		// Check if user has dismissed this notice.
+		if ( get_option( 'bdpg_hpos_notice_dismissed' ) ) {
+			return;
+		}
+
+		// Get migration status to show appropriate message.
+		$activate = new \ultraDevs\BDPG\Activate();
+		$progress = $activate->get_migration_progress();
+		$migration_url = admin_url( 'admin.php?page=' . self::MENU_SLUG . '-hpos-migration' );
+
+		?>
+		<div class="notice notice-warning is-dismissible bdpg-hpos-notice" data-dismissible="bdpg_hpos_notice_dismissed">
+			<div class="bdpg-notice-content">
+				<p>
+					<strong><span class="dashicons dashicons-warning" style="color: #d63638;"></span>
+					<?php esc_html_e( 'IMPORTANT: Run HPOS Migration BEFORE Enabling Compatibility Mode or Order Sync', 'bangladeshi-payment-gateways' ); ?></strong>
+				</p>
+				<p>
+					<strong><?php esc_html_e( 'Before enabling Compatibility mode or Order sync, you must run the HPOS migration tool first.', 'bangladeshi-payment-gateways' ); ?></strong>
+				</p>
+				<p>
+					<?php esc_html_e( 'When you enable Compatibility mode or Order sync, WooCommerce may clear post meta data during synchronization. Running the migration first ensures your payment data (account numbers and transaction IDs) is safely copied to the HPOS order meta tables and will not be lost.', 'bangladeshi-payment-gateways' ); ?>
+				</p>
+				<?php if ( 'completed' === $progress['status'] ) : ?>
+					<p>
+						<span class="dashicons dashicons-yes-alt" style="color: #00a32a;"></span>
+						<strong><?php esc_html_e( 'Migration completed. Your payment data is safe and you can now enable Compatibility mode or Order sync.', 'bangladeshi-payment-gateways' ); ?></strong>
+					</p>
+				<?php elseif ( 'running' === $progress['status'] || $progress['is_scheduled'] ) : ?>
+					<p>
+						<span class="dashicons dashicons-update-alt bdpg-spin"></span>
+						<strong><?php
+							printf(
+								/* translators: %s: percentage complete */
+								esc_html__( 'Migration in progress (%1$d%% complete). Please wait before enabling Compatibility mode or Order sync.', 'bangladeshi-payment-gateways' ),
+								intval( $progress['percentage'] )
+								);
+						?></strong>
+					</p>
+				<?php else : ?>
+					<p>
+						<a href="<?php echo esc_url( $migration_url ); ?>" class="button button-primary">
+							<span class="dashicons dashicons-download"></span>
+							<?php esc_html_e( 'Run HPOS Migration Now', 'bangladeshi-payment-gateways' ); ?>
+						</a>
+					</p>
+				<?php endif; ?>
+				<p>
+					<a href="<?php echo esc_url( $migration_url ); ?>">
+						<?php esc_html_e( 'View Migration Status →', 'bangladeshi-payment-gateways' ); ?>
+					</a>
+				</p>
+			</div>
+		</div>
+		<style>
+			.bdpg-hpos-notice .bdpg-notice-content {
+				display: flex;
+				flex-direction: column;
+				gap: 8px;
+			}
+			.bdpg-hpos-notice p {
+				margin: 0;
+			}
+			.bdpg-hpos-notice .dashicons {
+				vertical-align: middle;
+				width: 18px;
+				height: 18px;
+			}
+			.bdpg-hpos-notice .bdpg-spin {
+				animation: spin 1s linear infinite;
+			}
+			@keyframes spin {
+				0% { transform: rotate(0deg); }
+				100% { transform: rotate(360deg); }
+			}
+		</style>
+		<?php
 	}
 
 	/**
@@ -115,6 +230,15 @@ class Dashboard {
 			'manage_woocommerce',
 			self::MENU_SLUG . '-transactions',
 			[ $this, 'render_transactions_page' ]
+		);
+
+		add_submenu_page(
+			self::MENU_SLUG,
+			__( 'HPOS Migration', 'bangladeshi-payment-gateways' ),
+			__( 'HPOS Migration', 'bangladeshi-payment-gateways' ),
+			'manage_woocommerce',
+			self::MENU_SLUG . '-hpos-migration',
+			[ $this, 'render_migration_page' ]
 		);
 	}
 
@@ -857,5 +981,177 @@ class Dashboard {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Render HPOS migration page
+	 *
+	 * @return void
+	 */
+	public function render_migration_page() {
+		// Check if HPOS is enabled.
+		$hpos_enabled = 'yes' === get_option( 'woocommerce_custom_orders_table_enabled', 'no' );
+		?>
+		<div class="wrap">
+			<div class="bdpg-admin-wrap">
+				<div class="bdpg-content">
+					<div class="bdpg-card">
+						<div class="bdpg-card-header">
+							<h1>
+								<span class="dashicons dashicons-database-import"></span>
+								<?php esc_html_e( 'HPOS Data Migration', 'bangladeshi-payment-gateways' ); ?>
+							</h1>
+						</div>
+						<div class="bdpg-card-body">
+							<?php if ( ! $hpos_enabled ) : ?>
+								<div class="notice notice-warning inline">
+									<p>
+										<strong><?php esc_html_e( 'HPOS is not enabled', 'bangladeshi-payment-gateways' ); ?></strong><br>
+										<?php esc_html_e( 'High-Performance Order Storage (HPOS) is currently disabled. Migration is only needed when you enable HPOS or Compatibility mode.', 'bangladeshi-payment-gateways' ); ?>
+									</p>
+									<p>
+										<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=advanced&section=custom_data_tables' ) ); ?>" class="button button-primary">
+											<?php esc_html_e( 'Go to HPOS Settings', 'bangladeshi-payment-gateways' ); ?>
+										</a>
+									</p>
+								</div>
+							<?php endif; ?>
+
+							<div class="bdpg-migration-info">
+								<h2><?php esc_html_e( 'About HPOS Migration', 'bangladeshi-payment-gateways' ); ?></h2>
+								<p><?php esc_html_e( 'This tool migrates payment data (account numbers and transaction IDs) from WordPress post meta to WooCommerce HPOS order meta tables. This ensures your payment data remains available when using HPOS or Compatibility mode.', 'bangladeshi-payment-gateways' ); ?></p>
+
+								<h3><?php esc_html_e( 'When to use this tool:', 'bangladeshi-payment-gateways' ); ?></h3>
+								<ul>
+									<li><?php esc_html_e( 'After enabling HPOS (High-Performance Order Storage)', 'bangladeshi-payment-gateways' ); ?></li>
+									<li><?php esc_html_e( 'After enabling Compatibility mode', 'bangladeshi-payment-gateways' ); ?></li>
+									<li><?php esc_html_e( 'If you notice account numbers or transaction IDs missing from order details', 'bangladeshi-payment-gateways' ); ?></li>
+								</ul>
+
+								<h3><?php esc_html_e( 'What this tool does:', 'bangladeshi-payment-gateways' ); ?></h3>
+								<ul>
+									<li><?php esc_html_e( 'Copies payment data from post meta to HPOS order meta tables', 'bangladeshi-payment-gateways' ); ?></li>
+									<li><?php esc_html_e( 'Processes orders in batches in the background (Action Scheduler)', 'bangladeshi-payment-gateways' ); ?></li>
+									<li><?php esc_html_e( 'Migrates data for bKash, Rocket, Nagad, and Upay gateways', 'bangladeshi-payment-gateways' ); ?></li>
+									<li><?php esc_html_e( 'Safe to run multiple times - will not create duplicates', 'bangladeshi-payment-gateways' ); ?></li>
+								</ul>
+							</div>
+
+							<div class="bdpg-migration-status-card" id="bdpg-migration-status">
+								<h2><?php esc_html_e( 'Migration Status', 'bangladeshi-payment-gateways' ); ?></h2>
+
+								<div class="bdpg-migration-status-info" id="bdpg-status-loading">
+									<p><span class="dashicons dashicons-update-alt bdpg-spin"></span> <?php esc_html_e( 'Loading migration status...', 'bangladeshi-payment-gateways' ); ?></p>
+								</div>
+
+								<div class="bdpg-migration-status-content" id="bdpg-status-content" style="display: none;">
+									<div class="bdpg-status-row">
+										<span class="bdpg-status-label"><?php esc_html_e( 'Status:', 'bangladeshi-payment-gateways' ); ?></span>
+										<span class="bdpg-status-value" id="bdpg-status-text">-</span>
+									</div>
+									<div class="bdpg-status-row">
+										<span class="bdpg-status-label"><?php esc_html_e( 'Progress:', 'bangladeshi-payment-gateways' ); ?></span>
+										<span class="bdpg-status-value">
+											<span id="bdpg-status-count">0 / 0</span> (<span id="bdpg-status-percent">0%</span>)
+										</span>
+									</div>
+									<div class="bdpg-status-row">
+										<span class="bdpg-status-label"><?php esc_html_e( 'Current Gateway:', 'bangladeshi-payment-gateways' ); ?></span>
+										<span class="bdpg-status-value" id="bdpg-status-gateway">-</span>
+									</div>
+									<div class="bdpg-status-row">
+										<span class="bdpg-status-label"><?php esc_html_e( 'Started:', 'bangladeshi-payment-gateways' ); ?></span>
+										<span class="bdpg-status-value" id="bdpg-status-start">-</span>
+									</div>
+									<div class="bdpg-status-row">
+										<span class="bdpg-status-label"><?php esc_html_e( 'Completed:', 'bangladeshi-payment-gateways' ); ?></span>
+										<span class="bdpg-status-value" id="bdpg-status-end">-</span>
+									</div>
+
+									<div class="bdpg-progress-bar">
+										<div class="bdpg-progress-fill" id="bdpg-progress-fill" style="width: 0%;"></div>
+									</div>
+								</div>
+
+								<div class="bdpg-migration-actions" id="bdpg-migration-actions">
+									<?php if ( $hpos_enabled ) : ?>
+										<button type="button" id="bdpg-start-migration" class="button button-primary">
+											<span class="dashicons dashicons-download"></span>
+											<?php esc_html_e( 'Start Migration', 'bangladeshi-payment-gateways' ); ?>
+										</button>
+									<?php endif; ?>
+									<button type="button" id="bdpg-reset-migration" class="button button-secondary">
+										<span class="dashicons dashicons-dismiss"></span>
+										<?php esc_html_e( 'Reset Migration', 'bangladeshi-payment-gateways' ); ?>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * AJAX handler for getting migration status
+	 *
+	 * @return void
+	 */
+	public function ajax_get_migration_status() {
+		check_ajax_referer( 'bdpg_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Permission denied', 'bangladeshi-payment-gateways' ) ) );
+		}
+
+		$activate = new \ultraDevs\BDPG\Activate();
+		$progress = $activate->get_migration_progress();
+
+		wp_send_json_success( $progress );
+	}
+
+	/**
+	 * AJAX handler for starting migration
+	 *
+	 * @return void
+	 */
+	public function ajax_start_migration() {
+		check_ajax_referer( 'bdpg_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Permission denied', 'bangladeshi-payment-gateways' ) ) );
+		}
+
+		$activate = new \ultraDevs\BDPG\Activate();
+
+		// Check if migration is already running or scheduled.
+		if ( $activate->is_migration_scheduled() || $activate->is_migration_running() ) {
+			wp_send_json_error( array( 'message' => __( 'Migration is already running or scheduled', 'bangladeshi-payment-gateways' ) ) );
+		}
+
+		// Start the migration.
+		$activate->schedule_migration();
+
+		wp_send_json_success( array( 'message' => __( 'Migration started successfully', 'bangladeshi-payment-gateways' ) ) );
+	}
+
+	/**
+	 * AJAX handler for resetting migration
+	 *
+	 * @return void
+	 */
+	public function ajax_reset_migration() {
+		check_ajax_referer( 'bdpg_admin_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'manage_woocommerce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Permission denied', 'bangladeshi-payment-gateways' ) ) );
+		}
+
+		$activate = new \ultraDevs\BDPG\Activate();
+		$activate->reset_migration();
+
+		wp_send_json_success( array( 'message' => __( 'Migration reset successfully', 'bangladeshi-payment-gateways' ) ) );
 	}
 }

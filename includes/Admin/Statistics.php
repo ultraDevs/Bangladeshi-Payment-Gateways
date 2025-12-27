@@ -24,6 +24,32 @@ class Statistics {
 	private const GATEWAYS = array( 'bkash', 'rocket', 'nagad', 'upay' );
 
 	/**
+	 * Get order meta with HPOS compatibility.
+	 * Always checks both sources to ensure data is found regardless of storage mode.
+	 *
+	 * @param object $order    Order object.
+	 * @param string $meta_key Meta key.
+	 * @param bool   $single   Return single value.
+	 * @return mixed Meta value.
+	 */
+	private function get_order_meta( $order, $meta_key, $single = true ) {
+		// Try order meta first (works for both HPOS and compatibility mode).
+		$value = $order->get_meta( $meta_key, $single );
+
+		// If empty, also check post meta for backward compatibility.
+		// This handles cases where data was moved to wc_orders_meta but still exists in postmeta,
+		// or vice versa during compatibility mode synchronization.
+		if ( empty( $value ) ) {
+			$post_meta_value = get_post_meta( $order->get_id(), $meta_key, $single );
+			if ( ! empty( $post_meta_value ) ) {
+				$value = $post_meta_value;
+			}
+		}
+
+		return $value;
+	}
+
+	/**
 	 * Constructor
 	 */
 	public function __construct() {
@@ -160,20 +186,10 @@ class Statistics {
 			++$total_count;
 
 			$gateway_key = str_replace( 'woo_', '', $payment_method );
-			$order_id    = $order->get_id();
 
-			// Use WC_Order CRUD methods for HPOS compatibility.
-			// Falls back to post meta if not found in order meta.
-			$acc_no   = $order->get_meta( 'woo_' . $gateway_key . '_number', true );
-			$trans_id = $order->get_meta( 'woo_' . $gateway_key . '_trans_id', true );
-
-			// Fallback to post meta for backward compatibility with pre-HPOS orders.
-			if ( empty( $acc_no ) ) {
-				$acc_no = get_post_meta( $order_id, 'woo_' . $gateway_key . '_number', true );
-			}
-			if ( empty( $trans_id ) ) {
-				$trans_id = get_post_meta( $order_id, 'woo_' . $gateway_key . '_trans_id', true );
-			}
+			// Use helper method for HPOS compatibility - checks both order meta and post meta.
+			$acc_no   = $this->get_order_meta( $order, 'woo_' . $gateway_key . '_number', true );
+			$trans_id = $this->get_order_meta( $order, 'woo_' . $gateway_key . '_trans_id', true );
 
 			$transactions[] = array(
 				'order_id'       => $order->get_id(),

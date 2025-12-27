@@ -36,6 +36,7 @@ define( 'BD_PAYMENT_GATEWAYS_MENU_SLUG', 'bangladeshi-payment-gateways' );
  */
 require_once BD_PAYMENT_GATEWAYS_DIR_PATH . 'vendor/autoload.php';
 
+
 /**
  * Bangladeshi Payment Gateways class
  */
@@ -92,7 +93,7 @@ final class BDPaymentGateways {
 		do_action( 'bd_payment_gateways_loaded' );
 
 		/**
-		 * Declare WooCommerce Blocks Compatibility
+		 * Declare WooCommerce Compatibility
 		 */
 		add_action(
 			'before_woocommerce_init',
@@ -100,6 +101,12 @@ final class BDPaymentGateways {
 				if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
 					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
 						'cart_checkout_blocks',
+						__FILE__,
+						true
+					);
+
+					\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility(
+						'custom_order_tables',
 						__FILE__,
 						true
 					);
@@ -153,6 +160,7 @@ final class BDPaymentGateways {
 
 		// Activate.
 		$activate = new ultraDevs\BDPG\Activate();
+		$activate->register_migration_hook();
 
 		// Review Class.
 		$review = new ultraDevs\BDPG\Review();

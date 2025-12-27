@@ -8,7 +8,7 @@
 .editorconfig
 .jshintrc
 
-/src
+/blocks
 
 yarn.lock
 
@@ -17,3 +17,7 @@ package.json
 package-lock.json
 readme.md
 composer.lock
+appsero.json
+phpcs.xml
+webpack.config.js
+pnpm-lock.yaml

@@ -694,3 +694,191 @@
 		min-width: 800px;
 	}
 }
+
+/* ============================================
+ * HPOS Migration Page Styles
+ * ============================================ */
+
+/* Migration Info Section */
+.bdpg-migration-info {
+	background: #f6f7f7;
+	padding: 20px;
+	border-radius: 8px;
+	margin-bottom: 25px;
+}
+
+.bdpg-migration-info h2 {
+	margin-top: 0;
+	font-size: 18px;
+	color: #1d2327;
+}
+
+.bdpg-migration-info h3 {
+	font-size: 16px;
+	color: #1d2327;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.bdpg-migration-info p {
+	color: #646970;
+	line-height: 1.6;
+}
+
+.bdpg-migration-info ul {
+	padding-left: 25px;
+	margin: 0;
+}
+
+.bdpg-migration-info ul li {
+	color: #646970;
+	line-height: 1.8;
+}
+
+/* Migration Status Card */
+.bdpg-migration-status-card {
+	background: #fff;
+	border: 2px solid #2271b1;
+	border-radius: 8px;
+	padding: 25px;
+	margin-top: 25px;
+}
+
+.bdpg-migration-status-card h2 {
+	margin-top: 0;
+	font-size: 18px;
+	color: #1d2327;
+}
+
+/* Migration Status Loading */
+.bdpg-migration-status-info {
+	text-align: center;
+	padding: 40px 20px;
+	color: #646970;
+}
+
+.bdpg-migration-status-info .bdpg-spin {
+	animation: bdpg-spin 1s linear infinite;
+	font-size: 24px;
+	width: 24px;
+	height: 24px;
+	color: #2271b1;
+}
+
+/* Migration Status Content */
+.bdpg-migration-status-content {
+	margin-top: 20px;
+}
+
+.bdpg-status-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 12px 0;
+	border-bottom: 1px solid #eee;
+}
+
+.bdpg-status-row:last-child {
+	border-bottom: none;
+}
+
+.bdpg-status-label {
+	font-weight: 600;
+	color: #1d2327;
+}
+
+.bdpg-status-value {
+	color: #646970;
+}
+
+.bdpg-status-pending {
+	color: #997600;
+}
+
+.bdpg-status-running {
+	color: #2271b1;
+}
+
+.bdpg-status-completed {
+	color: #00a32a;
+}
+
+/* Progress Bar */
+.bdpg-progress-bar {
+	height: 24px;
+	background: #f0f0f1;
+	border-radius: 12px;
+	overflow: hidden;
+	margin-top: 20px;
+	box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.bdpg-progress-fill {
+	height: 100%;
+	background: linear-gradient(90deg, #2271b1 0%, #135e96 100%);
+	transition: width 0.5s ease;
+	position: relative;
+}
+
+.bdpg-progress-fill::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255,255,255,0.3),
+		transparent
+	);
+	animation: bdpg-progress-shine 2s infinite;
+}
+
+@keyframes bdpg-progress-shine {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+/* Migration Actions */
+.bdpg-migration-actions {
+	display: flex;
+	gap: 15px;
+	margin-top: 25px;
+	padding-top: 20px;
+	border-top: 1px solid #eee;
+}
+
+.bdpg-migration-actions .button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+/* Spinning dashicon */
+.bdpg-spin {
+	animation: bdpg-spin 1s linear infinite;
+}
+
+/* Responsive for migration page */
+@media (max-width: 782px) {
+	.bdpg-migration-actions {
+		flex-direction: column;
+	}
+
+	.bdpg-migration-actions .button {
+		width: 100%;
+		justify-content: center;
+	}
+
+	.bdpg-status-row {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 5px;
+	}
+}
