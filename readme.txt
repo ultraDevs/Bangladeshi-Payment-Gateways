@@ -4,7 +4,7 @@ Donate link: https://ultradevs.com/donate/
 Tags: mobile payment, payment gateway, qr code, bkash, woocommerce
 Requires at least: 4.4
 Tested up to: 6.9
-Stable tag: 4.0.3
+Stable tag: 4.0.4
 Requires PHP: 7.0.0
 Requires Plugins: woocommerce
 License: GPLv2 or later
@@ -22,6 +22,7 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 * Fee for each gateway
 * Block Based Checkout Page Support
 * USD to BDT Conversion Support
+* Statistics, Transactions.
 
 ### Supported Gateways
 * bKash
@@ -89,19 +90,24 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 == Changelog ==
 
+= 4.0.4 - 28/12/2025 =
+*Feature:* HPOS Compatibility.
+*Fix:* CSS issue.
+*Feature:* Statistics, Transactions Page Added. Easy to export Transactions Data to CSV, PDF.
+
 = 4.0.3 - 26/12/2025 =
-* Fix:* Block Based Payment Gateway Icon added.
+*Fix:* Block Based Payment Gateway Icon added.
 
 = 4.0.2 - 26/12/2025 =
-* Fix:* Block issues.
+*Fix:* Block issues.
 
 = 4.0.1 - 26/12/2025 =
-* Fix:* dist folder issue.
+*Fix:* dist folder issue.
 
 = 4.0.0 - 26/12/2025 =
-* Feature:* Block Based Checkout Page Support
-* Feature:* USD to BDT Conversion Support
-* Feature:* Dashboard Page Added
+*Feature:* Block Based Checkout Page Support
+*Feature:* USD to BDT Conversion Support
+*Feature:* Dashboard Page Added
 
 = 3.0.5 - 26/12/2025 =
 *Fix:* Fixed wrong payment method name.

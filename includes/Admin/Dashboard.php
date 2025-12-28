@@ -382,6 +382,15 @@ class Dashboard {
 							<p><?php esc_html_e( 'Add custom gateway fees and automatically calculate total payment amount including fees.', 'bangladeshi-payment-gateways' ); ?></p>
 						</div>
 					</div>
+					<div class="bdpg-feature-item">
+						<div class="bdpg-feature-icon">
+							<span class="dashicons dashicons-database"></span>
+						</div>
+						<div class="bdpg-feature-content">
+							<h3><?php esc_html_e( 'HPOS Compatible', 'bangladeshi-payment-gateways' ); ?></h3>
+							<p><?php esc_html_e( 'Full compatibility with WooCommerce High-Performance Order Storage (HPOS) for faster, more efficient order management.', 'bangladeshi-payment-gateways' ); ?></p>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
