@@ -15,6 +15,8 @@
 * bKash
 * Rocket
 * Nagad
+* Upay
+* Bangla QR
 
 #### Video
 
@@ -63,6 +65,37 @@ No, You must install and active woocommerce plugin to make this plugin work.
 4. Payment Method Page in Admin Area
 
 == Changelog ==
+
+= 4.0.5 - 08/10/2026 =
+
+* Added: Bangla QR payment gateway support.
+* Added: Bangla QR support for WooCommerce Checkout Blocks.
+* Added: Bangla QR to Statistics and Transactions reports.
+* Fixed: Improved HPOS migration safety check during activation.
+
+= 4.0.4 - 28/12/2025 =
+
+* Feature: HPOS Compatibility.
+* Fix: CSS issue.
+* Feature: Statistics, Transactions Page Added. Easy to export Transactions Data to CSV, PDF.
+
+= 4.0.3 - 26/12/2025 =
+
+* Fix: Block Based Payment Gateway Icon added.
+
+= 4.0.2 - 26/12/2025 =
+
+* Fix: Block issues.
+
+= 4.0.1 - 26/12/2025 =
+
+* Fix: dist folder issue.
+
+= 4.0.0 - 26/12/2025 =
+
+* Feature: Block Based Checkout Page Support
+* Feature: USD to BDT Conversion Support
+* Feature: Dashboard Page Added
 
 = 2.0.8 - 03/11/2023 =
 

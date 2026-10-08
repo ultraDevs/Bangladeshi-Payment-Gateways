@@ -9,7 +9,7 @@
  * Plugin Name:       Bangladeshi Payment Gateways - Make Payment Using QR Code
  * Plugin URI:        https://ultradevs.com/products/wp-plugin/bangladeshi-payment-gateways/
  * Description:       Bangladeshi Payment Gateways for WooCommerce.
- * Version:           4.0.4
+ * Version:           4.1.0
  * Author:            ultraDevs
  * Author URI:        https://ultradevs.com
  * License:           GPL v2 or later
@@ -22,7 +22,7 @@
 defined( 'ABSPATH' ) || exit( 'bYe bYe!' );
 
 // Constant.
-define( 'BD_PAYMENT_GATEWAYS_VERSION', '4.0.4' );
+define( 'BD_PAYMENT_GATEWAYS_VERSION', '4.1.0' );
 define( 'BD_PAYMENT_GATEWAYS_NAME', 'Bangladeshi Payment Gateways' );
 define( 'BD_PAYMENT_GATEWAYS_DIR_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BD_PAYMENT_GATEWAYS_DIR_URL', plugin_dir_url( __FILE__ ) );
@@ -69,6 +69,13 @@ final class BDPaymentGateways {
 	 * @var mixed
 	 */
 	public $upay = null;
+
+	/**
+	 * Bangla QR.
+	 *
+	 * @var mixed
+	 */
+	public $bangla_qr = null;
 
 	/**
 	 * Gateways.
@@ -153,6 +160,7 @@ final class BDPaymentGateways {
 			ultraDevs\BDPG\Gateways\Rocket::get_instance(),
 			ultraDevs\BDPG\Gateways\Nagad::get_instance(),
 			ultraDevs\BDPG\Gateways\Upay::get_instance(),
+			ultraDevs\BDPG\Gateways\Bangla_QR::get_instance(),
 		);
 
 		// Assets Manager Class.
@@ -249,6 +257,7 @@ final class BDPaymentGateways {
 			ultraDevs\BDPG\Blocks\Gateways\Rocket_Blocks::get_instance(),
 			ultraDevs\BDPG\Blocks\Gateways\Nagad_Blocks::get_instance(),
 			ultraDevs\BDPG\Blocks\Gateways\Upay_Blocks::get_instance(),
+			ultraDevs\BDPG\Blocks\Gateways\Bangla_QR_Blocks::get_instance(),
 		);
 
 		foreach ( $block_gateways as $block_gateway ) {

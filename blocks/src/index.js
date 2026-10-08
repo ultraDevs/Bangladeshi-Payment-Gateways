@@ -15,7 +15,7 @@ import { Label } from './label';
 import './style.scss';
 
 // Gateway IDs for all supported payment methods
-const GATEWAY_IDS = [ 'woo_bkash', 'woo_rocket', 'woo_nagad', 'woo_upay' ];
+const GATEWAY_IDS = [ 'woo_bkash', 'woo_rocket', 'woo_nagad', 'woo_upay', 'woo_bangla_qr' ];
 
 // Register each payment method
 GATEWAY_IDS.forEach( ( gatewayId ) => {

@@ -64,6 +64,10 @@ class Activate {
 	 * @return void
 	 */
 	public function maybe_migrate_hpos_data() {
+		if ( ! function_exists( 'wc_get_orders' ) ) {
+			return;
+		}
+
 		$migration_version = get_option( self::HPOS_MIGRATION_VERSION, '0' );
 
 		if ( version_compare( $migration_version, self::CURRENT_HPOS_MIGRATION_VERSION, '<' ) ) {
@@ -79,6 +83,10 @@ class Activate {
 	 * @return void
 	 */
 	public function migrate_hpos_data() {
+		if ( ! function_exists( 'wc_get_orders' ) ) {
+			return;
+		}
+
 		// Use Action Scheduler for background migration if available.
 		if ( function_exists( 'as_schedule_single_action' ) ) {
 			$this->schedule_migration();
@@ -100,19 +108,32 @@ class Activate {
 		}
 
 		// Initialize migration progress.
-		$this->initialize_migration_progress();
+		$total_orders = $this->initialize_migration_progress();
+
+		if ( 0 === $total_orders ) {
+			$this->complete_migration();
+			return;
+		}
 
 		// Schedule the migration to run in the background.
-		as_schedule_single_action( time() + 10, 'bdpg_hpos_migration_batch', array(), 'bdpg_hpos_migration' );
+		if ( function_exists( 'as_schedule_single_action' ) ) {
+			as_schedule_single_action( time() + 5, 'bdpg_hpos_migration_batch', array(), 'bdpg_hpos_migration' );
+		} else {
+			$this->process_migration_batch();
+		}
 	}
 
 	/**
 	 * Initialize migration progress tracking.
 	 *
-	 * @return void
+	 * @return int Total orders to migrate.
 	 */
 	private function initialize_migration_progress() {
-		$gateways = array( 'bkash', 'rocket', 'nagad', 'upay' );
+		if ( ! function_exists( 'wc_get_orders' ) || ! function_exists( 'wc_get_order' ) ) {
+			return 0;
+		}
+
+		$gateways = array( 'bkash', 'rocket', 'nagad', 'upay', 'bangla_qr' );
 		$total_orders = 0;
 
 		// Calculate total orders to process (only count orders with data to migrate).
@@ -124,9 +145,9 @@ class Activate {
 				'return' => 'ids',
 			);
 
-			$order_ids = wc_get_orders( $args );
+			$order_ids = \wc_get_orders( $args );
 			foreach ( $order_ids as $order_id ) {
-				$order = wc_get_order( $order_id );
+				$order = \wc_get_order( $order_id );
 				if ( $order && 'woo_' . $gateway === $order->get_payment_method() ) {
 					// Only count if there's data to migrate.
 					$number = get_post_meta( $order_id, 'woo_' . $gateway . '_number', true );
@@ -138,6 +159,17 @@ class Activate {
 			}
 		}
 
+		if ( 0 === $total_orders ) {
+			update_option( 'bdpg_hpos_migration_status', 'completed' );
+			update_option( 'bdpg_hpos_migration_total', 0 );
+			update_option( 'bdpg_hpos_migration_processed', 0 );
+			update_option( 'bdpg_hpos_migration_gateway', '' );
+			update_option( 'bdpg_hpos_migration_last_offset', 0 );
+			update_option( 'bdpg_hpos_migration_start_time', current_time( 'timestamp' ) );
+			update_option( 'bdpg_hpos_migration_end_time', current_time( 'timestamp' ) );
+			return 0;
+		}
+
 		// Initialize migration status options.
 		update_option( 'bdpg_hpos_migration_status', 'pending' );
 		update_option( 'bdpg_hpos_migration_total', $total_orders );
@@ -145,6 +177,8 @@ class Activate {
 		update_option( 'bdpg_hpos_migration_gateway', '' );
 		update_option( 'bdpg_hpos_migration_last_offset', 0 );
 		update_option( 'bdpg_hpos_migration_start_time', current_time( 'timestamp' ) );
+
+		return $total_orders;
 	}
 
 	/**
@@ -154,10 +188,20 @@ class Activate {
 	 * @return void
 	 */
 	public function process_migration_batch() {
+		if ( ! function_exists( 'wc_get_orders' ) || ! function_exists( 'wc_get_order' ) ) {
+			return;
+		}
+
+		$total = intval( get_option( 'bdpg_hpos_migration_total', 0 ) );
+		if ( 0 === $total ) {
+			$this->complete_migration();
+			return;
+		}
+
 		// Mark migration as running.
 		update_option( 'bdpg_hpos_migration_status', 'running' );
 
-		$gateways = array( 'bkash', 'rocket', 'nagad', 'upay' );
+		$gateways = array( 'bkash', 'rocket', 'nagad', 'upay', 'bangla_qr' );
 		$batch_size = 50;
 		$processed_in_batch = 0;
 		$found_gateway_orders = false;
@@ -183,10 +227,10 @@ class Activate {
 			'return' => 'ids',
 		);
 
-		$order_ids = wc_get_orders( $args );
+		$order_ids = \wc_get_orders( $args );
 
 		foreach ( $order_ids as $order_id ) {
-			$order = wc_get_order( $order_id );
+			$order = \wc_get_order( $order_id );
 
 			if ( ! $order ) {
 				continue;
@@ -238,14 +282,18 @@ class Activate {
 				update_option( 'bdpg_hpos_migration_gateway', $gateways[ $gateway_index + 1 ] );
 				update_option( 'bdpg_hpos_migration_last_offset', 0 );
 				// Schedule next batch.
-				as_schedule_single_action( time() + 5, 'bdpg_hpos_migration_batch', array(), 'bdpg_hpos_migration' );
+				if ( function_exists( 'as_schedule_single_action' ) ) {
+					as_schedule_single_action( time() + 5, 'bdpg_hpos_migration_batch', array(), 'bdpg_hpos_migration' );
+				}
 			} else {
 				// Migration complete.
 				$this->complete_migration();
 			}
 		} else {
 			// Schedule next batch.
-			as_schedule_single_action( time() + 5, 'bdpg_hpos_migration_batch', array(), 'bdpg_hpos_migration' );
+			if ( function_exists( 'as_schedule_single_action' ) ) {
+				as_schedule_single_action( time() + 5, 'bdpg_hpos_migration_batch', array(), 'bdpg_hpos_migration' );
+			}
 		}
 	}
 
@@ -256,6 +304,7 @@ class Activate {
 	 */
 	private function complete_migration() {
 		update_option( 'bdpg_hpos_migration_status', 'completed' );
+		update_option( 'bdpg_hpos_migration_gateway', '' );
 		update_option( 'bdpg_hpos_migration_end_time', current_time( 'timestamp' ) );
 
 		// Clear Action Scheduler group.
@@ -284,7 +333,17 @@ class Activate {
 	 */
 	public function is_migration_running() {
 		$status = get_option( 'bdpg_hpos_migration_status', '' );
-		return 'running' === $status;
+		$total  = intval( get_option( 'bdpg_hpos_migration_total', 0 ) );
+
+		if ( 0 === $total || 'completed' === $status ) {
+			return false;
+		}
+
+		if ( 'running' === $status ) {
+			return $this->is_migration_scheduled();
+		}
+
+		return false;
 	}
 
 	/**
@@ -293,23 +352,36 @@ class Activate {
 	 * @return array Migration progress data.
 	 */
 	public function get_migration_progress() {
-		$total = intval( get_option( 'bdpg_hpos_migration_total', 0 ) );
-		$processed = intval( get_option( 'bdpg_hpos_migration_processed', 0 ) );
-		$status = get_option( 'bdpg_hpos_migration_status', '' );
+		$total           = intval( get_option( 'bdpg_hpos_migration_total', 0 ) );
+		$processed       = intval( get_option( 'bdpg_hpos_migration_processed', 0 ) );
+		$status          = get_option( 'bdpg_hpos_migration_status', '' );
 		$current_gateway = get_option( 'bdpg_hpos_migration_gateway', '' );
-		$start_time = get_option( 'bdpg_hpos_migration_start_time', 0 );
-		$end_time = get_option( 'bdpg_hpos_migration_end_time', 0 );
+		$start_time      = get_option( 'bdpg_hpos_migration_start_time', 0 );
+		$end_time        = get_option( 'bdpg_hpos_migration_end_time', 0 );
 
-		$percentage = $total > 0 ? round( ( $processed / $total ) * 100, 2 ) : 0;
+		$is_scheduled = $this->is_migration_scheduled();
+
+		// Auto-resolve stuck or zero-order state.
+		if ( ( 'running' === $status || 'pending' === $status ) && ( 0 === $total || ! $is_scheduled ) ) {
+			$status = 'completed';
+			update_option( 'bdpg_hpos_migration_status', 'completed' );
+			if ( ! $end_time ) {
+				$end_time = current_time( 'timestamp' );
+				update_option( 'bdpg_hpos_migration_end_time', $end_time );
+			}
+		}
+
+		$is_running = ( 'running' === $status && $is_scheduled );
+		$percentage = $total > 0 ? round( ( $processed / $total ) * 100, 2 ) : ( 'completed' === $status ? 100 : 0 );
 
 		return array(
-			'status'          => $status,
+			'status'          => $status ? $status : 'completed',
 			'total'           => $total,
 			'processed'       => $processed,
 			'percentage'      => $percentage,
-			'current_gateway' => $current_gateway,
-			'is_scheduled'    => $this->is_migration_scheduled(),
-			'is_running'      => $this->is_migration_running(),
+			'current_gateway' => ( 'completed' === $status || empty( $current_gateway ) ) ? '-' : $current_gateway,
+			'is_scheduled'    => $is_scheduled,
+			'is_running'      => $is_running,
 			'start_time'      => $start_time ? date_i18n( 'Y-m-d H:i:s', $start_time ) : '-',
 			'end_time'        => $end_time ? date_i18n( 'Y-m-d H:i:s', $end_time ) : '-',
 		);

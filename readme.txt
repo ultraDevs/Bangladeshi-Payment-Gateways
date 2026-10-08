@@ -3,8 +3,8 @@ Contributors: ultradevs, mhimon
 Donate link: https://ultradevs.com/donate/
 Tags: mobile payment, payment gateway, qr code, bkash, woocommerce
 Requires at least: 4.4
-Tested up to: 6.9
-Stable tag: 4.0.4
+Tested up to: 7.1
+Stable tag: 4.1.0
 Requires PHP: 7.0.0
 Requires Plugins: woocommerce
 License: GPLv2 or later
@@ -29,6 +29,7 @@ Bangladeshi Payment Gateways for WooCommerce. It has some advanced features that
 * Rocket
 * Nagad
 * Upay
+* Bangla QR
 
 #### Video
 
@@ -89,6 +90,12 @@ No, You must install and active woocommerce plugin to make this plugin work.
 
 
 == Changelog ==
+
+= 4.1.0 - 08/10/2026 =
+*Feature:* Added Bangla QR payment gateway support.
+*Feature:* Added Bangla QR support for WooCommerce Checkout Blocks.
+*Feature:* Added Bangla QR to Statistics and Transactions reports.
+*Fix:* Improved HPOS migration safety check during activation.
 
 = 4.0.4 - 28/12/2025 =
 *Feature:* HPOS Compatibility.

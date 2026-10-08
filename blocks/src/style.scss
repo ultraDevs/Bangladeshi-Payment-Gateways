@@ -10,7 +10,8 @@
 #radio-control-wc-payment-method-options-woo_bkash__label,
 #radio-control-wc-payment-method-options-woo_nagad__label,
 #radio-control-wc-payment-method-options-woo_rocket__label,
-#radio-control-wc-payment-method-options-woo_upay__label {
+#radio-control-wc-payment-method-options-woo_upay__label,
+#radio-control-wc-payment-method-options-woo_bangla_qr__label {
 	gap: 15px;
 }
 
@@ -70,8 +71,8 @@
 	flex-shrink: 0;
 
 	img {
-		width: 150px;
-		height: 150px;
+		width: 400px;
+		// height: 150px;
 		object-fit: contain;
 		border: 1px solid #ddd;
 		border-radius: 4px;

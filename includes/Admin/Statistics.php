@@ -21,7 +21,7 @@ class Statistics {
 	 *
 	 * @var array
 	 */
-	private const GATEWAYS = array( 'bkash', 'rocket', 'nagad', 'upay' );
+	private const GATEWAYS = array( 'bkash', 'rocket', 'nagad', 'upay', 'bangla_qr' );
 
 	/**
 	 * Get order meta with HPOS compatibility.

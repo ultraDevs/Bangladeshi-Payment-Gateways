@@ -12,8 +12,9 @@ jQuery(document).ready(
         // QR Code Image Upload
         $(document).on(
             'click', '.add_qr_c_img', function (e) {
-                var id = $(this).data('target');
-                var qr = $(this).data('qr');
+                var $btn = $(this);
+                var id = $btn.data('target');
+                var qr = $btn.data('qr');
                 var image = wp.media(
                     {
                         title: 'Upload Image',
@@ -24,11 +25,35 @@ jQuery(document).ready(
                         var uploaded_img = image.state().get('selection').first();
                         var img_url = uploaded_img.toJSON().url;
                         $(id).val(img_url);
-                        $(qr).html('<img src="' + img_url + '" alt="QR Code" />');
-                        $('.add_qr_c_img').val('Edit Image');
+                        $(qr).html('<img src="' + img_url + '" alt="QR Code" style="max-width: 160px; height: auto; border: 1px solid #ccd0d4; padding: 6px; border-radius: 6px; background: #fff; display: block;" />');
+                        if ($btn.is('input')) {
+                            $btn.val('Edit Image');
+                        } else {
+                            $btn.text('Change QR Code');
+                        }
+                        $btn.siblings('.bdpg-remove-qr-btn').show();
                     }
                 );
 
+            }
+        );
+
+        // QR Code Image Remove
+        $(document).on(
+            'click', '.bdpg-remove-qr-btn', function (e) {
+                e.preventDefault();
+                var $btn = $(this);
+                var id = $btn.data('target');
+                var qr = $btn.data('qr');
+                $(id).val('');
+                $(qr).empty();
+                $btn.hide();
+                var $uploadBtn = $btn.siblings('.add_qr_c_img');
+                if ($uploadBtn.is('input')) {
+                    $uploadBtn.val('Add Image');
+                } else {
+                    $uploadBtn.text('Upload QR Code');
+                }
             }
         );
 
@@ -96,7 +121,7 @@ jQuery(document).ready(
              * Update statistics cards
              */
             function updateStatsCards(stats) {
-                var gateways = ['bkash', 'rocket', 'nagad', 'upay'];
+                var gateways = ['bkash', 'rocket', 'nagad', 'upay', 'bangla_qr'];
 
                 // Update individual gateway cards
                 gateways.forEach(function(gateway) {
@@ -444,6 +469,7 @@ jQuery(document).ready(
                     'rocket': 'Rocket',
                     'nagad': 'Nagad',
                     'upay': 'Upay',
+                    'bangla_qr': 'Bangla QR',
                     '': '-'
                 };
                 $('#bdpg-status-gateway').text(gatewayNames[data.current_gateway] || data.current_gateway);

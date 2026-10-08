@@ -307,7 +307,7 @@ class Dashboard {
 						</div>
 
 						<div class="bdpg-card-body">
-							<p><?php esc_html_e( 'Thank you for using Bangladeshi Payment Gateways. This plugin allows you to accept payments through bKash, Rocket, Nagad, and Upay using QR codes in your WooCommerce store.', 'bangladeshi-payment-gateways' ); ?></p>
+							<p><?php esc_html_e( 'Thank you for using Bangladeshi Payment Gateways. This plugin allows you to accept payments through bKash, Rocket, Nagad, Upay, and Bangla QR using QR codes in your WooCommerce store.', 'bangladeshi-payment-gateways' ); ?></p>
 
 							<div class="bdpg-quick-links">
 								<a href="<?php echo esc_url( admin_url( 'admin.php?page=wc-settings&tab=checkout' ) ); ?>" class="button button-primary">
@@ -361,7 +361,7 @@ class Dashboard {
 						</div>
 						<div class="bdpg-feature-content">
 							<h3><?php esc_html_e( 'QR Code Payments', 'bangladeshi-payment-gateways' ); ?></h3>
-							<p><?php esc_html_e( 'Display QR codes for all supported gateways (bKash, Rocket, Nagad, Upay) making payments quick and easy.', 'bangladeshi-payment-gateways' ); ?></p>
+							<p><?php esc_html_e( 'Display QR codes for all supported gateways (bKash, Rocket, Nagad, Upay, and Bangla QR) making payments quick and easy.', 'bangladeshi-payment-gateways' ); ?></p>
 						</div>
 					</div>
 					<div class="bdpg-feature-item">
@@ -867,6 +867,17 @@ class Dashboard {
 									</div>
 								</div>
 
+								<div class="bdpg-stat-card bdpg-stat-card-bangla_qr">
+									<div class="bdpg-stat-icon">
+										<img src="<?php echo esc_url( BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/Bangla_qr.png' ); ?>" alt="Bangla QR">
+									</div>
+									<div class="bdpg-stat-content">
+										<h3><?php esc_html_e( 'Bangla QR', 'bangladeshi-payment-gateways' ); ?></h3>
+										<p class="bdpg-stat-count" id="bdpg-stat-bangla_qr-count">-</p>
+										<p class="bdpg-stat-amount" id="bdpg-stat-bangla_qr-amount">-</p>
+									</div>
+								</div>
+
 								<div class="bdpg-stat-card bdpg-stat-card-total">
 									<div class="bdpg-stat-icon bdpg-stat-icon-total">
 										<span class="dashicons dashicons-money-alt"></span>
@@ -925,6 +936,7 @@ class Dashboard {
 									<option value="rocket"><?php esc_html_e( 'Rocket', 'bangladeshi-payment-gateways' ); ?></option>
 									<option value="nagad"><?php esc_html_e( 'Nagad', 'bangladeshi-payment-gateways' ); ?></option>
 									<option value="upay"><?php esc_html_e( 'Upay', 'bangladeshi-payment-gateways' ); ?></option>
+									<option value="bangla_qr"><?php esc_html_e( 'Bangla QR', 'bangladeshi-payment-gateways' ); ?></option>
 								</select>
 
 								<button type="button" id="bdpg-trans-filter" class="button button-primary">

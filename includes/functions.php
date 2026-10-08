@@ -34,13 +34,20 @@ function bdpg_get_instruction_by_gateway( $gateway ) {
 06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below',
 			'bangladeshi-payment-gateways'
 		),
-		'upay'   => __(
+		'upay'      => __(
 			'01. Go to your Upay app or Dial *268#
 02. Choose "Send Money"
 03. Enter below Upay Account Number
 04. Enter <b>total amount</b>
 05. Now enter your Upay Account PIN to confirm the transaction
 06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below',
+			'bangladeshi-payment-gateways'
+		),
+		'bangla_qr' => __(
+			'01. Open any Bangla QR supported Bank or MFS app (bKash, Nagad, Rocket, Upay, Cellfin, etc.)
+02. Scan the Bangla QR code
+03. Enter <b>total amount</b> and confirm payment with your PIN
+04. Enter your Phone Number and Transaction ID below to verify',
 			'bangladeshi-payment-gateways'
 		),
 	);
@@ -58,6 +65,8 @@ function bdpg_gateway_name_to_title( $gateway ) {
 			return __( 'Nagad', 'bangladeshi-payment-gateways' );
 		case 'upay':
 			return __( 'Upay', 'bangladeshi-payment-gateways' );
+		case 'bangla_qr':
+			return __( 'Bangla QR', 'bangladeshi-payment-gateways' );
 		default:
 			return '';
 	}

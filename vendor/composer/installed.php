@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'ultradevs/bangladeshi-payment-gateways',
-        'pretty_version' => 'dev-develop',
-        'version' => 'dev-develop',
-        'reference' => '5d29dbcffe87321ee9477ff5899f9eba5a7270e3',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'ae945a27270ddc1735f81e3201e3f2e0cf1b0281',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'appsero/client' => array(
             'pretty_version' => 'dev-develop',
             'version' => 'dev-develop',
-            'reference' => '96bc89344359e39104ab0da6464ee3aeff0b6897',
+            'reference' => 'dc54c071df32604af1236a180abb83e2d181c3ba',
             'type' => 'library',
             'install_path' => __DIR__ . '/../appsero/client',
             'aliases' => array(
@@ -98,9 +98,9 @@
             'dev_requirement' => false,
         ),
         'ultradevs/bangladeshi-payment-gateways' => array(
-            'pretty_version' => 'dev-develop',
-            'version' => 'dev-develop',
-            'reference' => '5d29dbcffe87321ee9477ff5899f9eba5a7270e3',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'ae945a27270ddc1735f81e3201e3f2e0cf1b0281',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

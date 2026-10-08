@@ -460,6 +460,9 @@
 .bdpg-stat-card-upay { border-color: #8dc63f; }
 .bdpg-stat-card-upay::before { background: linear-gradient(90deg, #8dc63f, #6da31f); }
 
+.bdpg-stat-card-bangla_qr { border-color: #006a4e; }
+.bdpg-stat-card-bangla_qr::before { background: linear-gradient(90deg, #006a4e, #f42a41); }
+
 .bdpg-stat-card-total { border-color: #2271b1; }
 
 .bdpg-stat-card:hover {
@@ -599,6 +602,11 @@
 .bdpg-gateway-upay {
 	background: #f1f8e9;
 	color: #8dc63f;
+}
+
+.bdpg-gateway-bangla_qr {
+	background: #e8f5e9;
+	color: #006a4e;
 }
 
 /* Pagination */

@@ -10,8 +10,8 @@
 }
 
 .bdpg-acc__qr-code {
-	height: 130px;
-	width: 150px;
+	/* height: 130px; */
+	width: 400px;
 	margin: 0 auto;
 	margin-bottom: 10px;
 }
@@ -56,9 +56,27 @@
 .payment_method_woo_bkash label,
 .payment_method_woo_nagad label,
 .payment_method_woo_rocket label,
-.payment_method_woo_upay label {
+.payment_method_woo_upay label,
+.payment_method_woo_bangla_qr label {
 	display: inline-flex;
 	justify-content: space-between;
 	align-items: center;
 	gap: 10px;
 }
+
+.bdpg-bangla-qr-wrapper .bdpg-bangla-qr-acc {
+	text-align: center;
+}
+
+.bdpg-bangla-qr-wrapper .bdpg-bangla-qr-image-wrap {
+	height: 160px;
+	width: 160px;
+	margin: 0 auto 10px auto;
+}
+
+.bdpg-bangla-qr-wrapper .bdpg-bangla-qr-image-wrap img {
+	width: 100% !important;
+	height: 100% !important;
+	object-fit: contain;
+}
+

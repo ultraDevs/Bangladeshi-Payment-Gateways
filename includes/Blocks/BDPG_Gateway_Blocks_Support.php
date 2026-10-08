@@ -157,6 +157,7 @@ abstract class BDPG_Gateway_Blocks_Support extends \Automattic\WooCommerce\Block
 			'gateway_charge_details'  => $gateway_charge_details,
 			'gateway'                 => $this->gateway,
 			'accounts'                => $this->accounts,
+			'qr_code'                 => isset( $this->settings['qr_code'] ) ? $this->settings['qr_code'] : '',
 			'icon'                    => BD_PAYMENT_GATEWAYS_DIR_URL . 'assets/images/' . ucfirst( $this->gateway ) . '.png',
 			'supports'                => array( 'products' ),
 			'usd_conversion_enabled'  => \bdpg_is_usd_conversion_enabled(),
