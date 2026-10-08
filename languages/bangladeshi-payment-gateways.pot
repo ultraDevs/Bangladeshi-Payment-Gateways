@@ -1,232 +1,974 @@
-# Copyright (C) 2024 ultraDevs
+# Copyright (C) 2026 ultraDevs
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 3.0.0\n"
+"Project-Id-Version: Bangladeshi Payment Gateways - Make Payment Using QR Code 4.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Bangladeshi-Payment-Gateways\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-08-10T05:38:48+00:00\n"
+"POT-Creation-Date: 2026-10-08T05:02:54+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: bangladeshi-payment-gateways\n"
 
 #. Plugin Name of the plugin
-#: bd-payment-gateways.php
+#: bd-payment-gateways.php:9
 msgid "Bangladeshi Payment Gateways - Make Payment Using QR Code"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: bd-payment-gateways.php
+#: bd-payment-gateways.php:10
 msgid "https://ultradevs.com/products/wp-plugin/bangladeshi-payment-gateways/"
 msgstr ""
 
 #. Description of the plugin
-#: bd-payment-gateways.php
+#: bd-payment-gateways.php:11
 msgid "Bangladeshi Payment Gateways for WooCommerce."
 msgstr ""
 
 #. Author of the plugin
-#: bd-payment-gateways.php
+#: bd-payment-gateways.php:13
 msgid "ultraDevs"
 msgstr ""
 
 #. Author URI of the plugin
-#: bd-payment-gateways.php
+#: bd-payment-gateways.php:14
 msgid "https://ultradevs.com"
 msgstr ""
 
 #. translators: %1$s Plugin Name, %2$s wooCommerce.
-#: bd-payment-gateways.php:208
+#: bd-payment-gateways.php:271
+#, php-format
 msgid " %1$s requires %2$s to be installed and activated. Please activate %2$s to continue."
 msgstr ""
 
-#: bd-payment-gateways.php:209
+#: bd-payment-gateways.php:272
+#: includes/Admin/Dashboard.php:190
+#: includes/Admin/Dashboard.php:303
 msgid "Bangladeshi Payment Gateways"
 msgstr ""
 
-#: bd-payment-gateways.php:210
+#: bd-payment-gateways.php:273
 msgid "WooCommerce"
 msgstr ""
 
-#: bd-payment-gateways.php:226
+#: bd-payment-gateways.php:289
 msgid "Payment Settings"
 msgstr ""
 
-#: bd-payment-gateways.php:232
+#: bd-payment-gateways.php:295
 msgid "<b style=\"color: green\">Write a Review</b>"
 msgstr ""
 
+#: includes/Admin/Dashboard.php:119
+msgid "IMPORTANT: Run HPOS Migration BEFORE Enabling Compatibility Mode or Order Sync"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:122
+msgid "Before enabling Compatibility mode or Order sync, you must run the HPOS migration tool first."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:125
+msgid "When you enable Compatibility mode or Order sync, WooCommerce may clear post meta data during synchronization. Running the migration first ensures your payment data (account numbers and transaction IDs) is safely copied to the HPOS order meta tables and will not be lost."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:130
+msgid "Migration completed. Your payment data is safe and you can now enable Compatibility mode or Order sync."
+msgstr ""
+
+#. translators: %s: percentage complete
+#: includes/Admin/Dashboard.php:138
+#, php-format
+msgid "Migration in progress (%1$d%% complete). Please wait before enabling Compatibility mode or Order sync."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:147
+msgid "Run HPOS Migration Now"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:153
+msgid "View Migration Status →"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:191
+msgid "BD Payment"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:201
+#: includes/Admin/Dashboard.php:202
+msgid "Dashboard"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:210
+#: includes/Admin/Dashboard.php:211
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:219
+#: includes/Admin/Dashboard.php:220
+msgid "Statistics"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:228
+#: includes/Admin/Dashboard.php:229
+msgid "Transactions"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:237
+#: includes/Admin/Dashboard.php:238
+msgid "HPOS Migration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:310
+msgid "Thank you for using Bangladeshi Payment Gateways. This plugin allows you to accept payments through bKash, Rocket, Nagad, Upay, and Bangla QR using QR codes in your WooCommerce store."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:315
+msgid "Configure Payment Gateways"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:319
+msgid "Plugin Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:344
+msgid "Features"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:354
+msgid "WooCommerce Checkout Block Support"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:355
+msgid "Full compatibility with the modern WooCommerce Checkout Block. Your customers get a seamless, modern checkout experience."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:363
+msgid "QR Code Payments"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:364
+msgid "Display QR codes for all supported gateways (bKash, Rocket, Nagad, Upay, and Bangla QR) making payments quick and easy."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:372
+msgid "Automatic Currency Conversion"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:373
+msgid "Convert USD to BDT automatically at your set exchange rate when store currency is USD."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:381
+msgid "Gateway Fee Support"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:382
+msgid "Add custom gateway fees and automatically calculate total payment amount including fees."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:390
+msgid "HPOS Compatible"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:391
+msgid "Full compatibility with WooCommerce High-Performance Order Storage (HPOS) for faster, more efficient order management."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:410
+msgid "More Plugins by ultraDevs"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:411
+msgid "Check out our other WordPress plugins to enhance your website:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:444
+msgid "Active"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:446
+msgid "Installed"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:467
+msgid "Install Now"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:483
+msgid "Activate"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:487
+msgid "View Details"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:534
+msgid "Easy Dropbox Integration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:535
+msgid "Integrate Dropbox with your WordPress site for easy file management and backups."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:539
+msgid "Sticky List"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:540
+msgid "Keep important posts and pages at the top of your lists with sticky functionality."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:544
+msgid "PB Star Rating Block"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:545
+msgid "Add beautiful star rating blocks to your posts and pages with the block editor."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:549
+msgid "TestimonialX Block"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:550
+msgid "Display customer testimonials with style using the Gutenberg block editor."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:554
+msgid "Random Image Block"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:555
+msgid "Display random images from your media library with this handy block editor plugin."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:581
+msgid "Bangladeshi Payment Gateways Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:591
+msgid "Currency Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:597
+msgid "Enable USD Conversion"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:609
+#: includes/Admin/Dashboard.php:642
+msgid "Yes"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:619
+#: includes/Admin/Dashboard.php:652
+msgid "No"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:623
+msgid "When enabled, if your store currency is set to USD, the payment amount will be automatically converted to BDT using the exchange rate below."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:630
+msgid "Show Conversion Details"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:656
+msgid "Show the conversion details (original amount, exchange rate) to customers on the checkout page."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:663
+msgid "USD to BDT Exchange Rate"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:676
+msgid "Enter the current exchange rate from USD to Bangladeshi Taka (BDT). For example, if 1 USD = 123 BDT, enter 123."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:682
+msgid "Save Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:686
+msgid "Payment Gateway Settings"
+msgstr ""
+
+#. translators: %s: WooCommerce settings link
+#: includes/Admin/Dashboard.php:691
+#, php-format
+msgid "To configure individual payment gateway settings (bKash, Rocket, Nagad, Upay), please visit the %s."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:695
+msgid "WooCommerce Payment Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:702
+msgid "Go to Payment Gateway Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:710
+msgid "Support Development"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:712
+msgid "Enjoying this plugin? Your support helps us continue development and keep this plugin free for everyone."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:716
+msgid "Donate Us"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:722
+msgid "Support Forums"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:726
+msgid "Plugin Documentation"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:730
+msgid "Leave a Review"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:778
+msgid "Loading..."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:779
+msgid "No data found"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:780
+msgid "Exporting..."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:801
+msgid "Payment Statistics"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:808
+#: includes/Admin/Dashboard.php:921
+msgid "From:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:812
+#: includes/Admin/Dashboard.php:926
+msgid "To:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:817
+#: includes/Admin/Dashboard.php:944
+msgid "Filter"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:820
+#: includes/Admin/Dashboard.php:947
+msgid "Reset"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:831
+#: includes/Admin/Dashboard.php:935
+#: includes/functions.php:61
+msgid "bKash"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:842
+#: includes/Admin/Dashboard.php:936
+#: includes/functions.php:63
+msgid "Rocket"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:853
+#: includes/Admin/Dashboard.php:937
+#: includes/functions.php:65
+msgid "Nagad"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:864
+#: includes/Admin/Dashboard.php:938
+#: includes/functions.php:67
+msgid "Upay"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:875
+#: includes/Admin/Dashboard.php:939
+#: includes/functions.php:69
+#: includes/Gateways/Bangla_QR.php:46
+#: includes/Gateways/Bangla_QR.php:64
+msgid "Bangla QR"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:886
+msgid "Total"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:914
+msgid "Transaction Log"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:931
+msgid "Gateway:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:934
+msgid "All Gateways"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:953
+msgid "Export CSV"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:957
+msgid "Export PDF"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:967
+#: includes/Admin/Statistics.php:309
+msgid "Order ID"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:968
+#: includes/Admin/Statistics.php:310
+#: includes/Admin/Statistics.php:445
+msgid "Date"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:969
+#: includes/Admin/Statistics.php:311
+#: includes/Admin/Statistics.php:446
+msgid "Gateway"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:970
+#: includes/Admin/Statistics.php:312
+#: includes/Admin/Statistics.php:447
+msgid "Account No"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:971
+#: includes/Admin/Statistics.php:313
+#: includes/Admin/Statistics.php:448
+#: includes/BDPG_Gateway.php:720
+#: includes/BDPG_Gateway.php:799
+#: includes/Gateways/Bangla_QR.php:269
+#: includes/Gateways/Bangla_QR.php:312
+msgid "Transaction ID"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:972
+#: includes/Admin/Statistics.php:314
+#: includes/Admin/Statistics.php:449
+msgid "Amount"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:973
+#: includes/Admin/Statistics.php:315
+#: includes/Admin/Statistics.php:450
+msgid "Customer"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:974
+#: includes/Admin/Statistics.php:316
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:980
+msgid "Loading transactions..."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:991
+msgid "Previous"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:995
+msgid "Next"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1023
+msgid "HPOS Data Migration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1030
+msgid "HPOS is not enabled"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1031
+msgid "High-Performance Order Storage (HPOS) is currently disabled. Migration is only needed when you enable HPOS or Compatibility mode."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1035
+msgid "Go to HPOS Settings"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1042
+msgid "About HPOS Migration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1043
+msgid "This tool migrates payment data (account numbers and transaction IDs) from WordPress post meta to WooCommerce HPOS order meta tables. This ensures your payment data remains available when using HPOS or Compatibility mode."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1045
+msgid "When to use this tool:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1047
+msgid "After enabling HPOS (High-Performance Order Storage)"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1048
+msgid "After enabling Compatibility mode"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1049
+msgid "If you notice account numbers or transaction IDs missing from order details"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1052
+msgid "What this tool does:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1054
+msgid "Copies payment data from post meta to HPOS order meta tables"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1055
+msgid "Processes orders in batches in the background (Action Scheduler)"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1056
+msgid "Migrates data for bKash, Rocket, Nagad, and Upay gateways"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1057
+msgid "Safe to run multiple times - will not create duplicates"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1062
+msgid "Migration Status"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1065
+msgid "Loading migration status..."
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1070
+msgid "Status:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1074
+msgid "Progress:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1080
+msgid "Current Gateway:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1084
+msgid "Started:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1088
+msgid "Completed:"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1101
+msgid "Start Migration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1106
+msgid "Reset Migration"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1127
+#: includes/Admin/Dashboard.php:1145
+#: includes/Admin/Dashboard.php:1170
+#: includes/Admin/Statistics.php:225
+#: includes/Admin/Statistics.php:250
+#: includes/Admin/Statistics.php:275
+msgid "Permission denied"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1152
+msgid "Migration is already running or scheduled"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1158
+msgid "Migration started successfully"
+msgstr ""
+
+#: includes/Admin/Dashboard.php:1176
+msgid "Migration reset successfully"
+msgstr ""
+
+#: includes/Admin/Statistics.php:375
+msgid "Transactions Report"
+msgstr ""
+
+#: includes/Admin/Statistics.php:428
+msgid "Bangladeshi Payment Gateways - Transactions Report"
+msgstr ""
+
+#: includes/Admin/Statistics.php:429
+msgid "Generated on:"
+msgstr ""
+
+#: includes/Admin/Statistics.php:430
+msgid "Total Transactions:"
+msgstr ""
+
+#: includes/Admin/Statistics.php:435
+msgid "PDF Library Not Found"
+msgstr ""
+
+#: includes/Admin/Statistics.php:436
+msgid "mPDF library is not available. Use your browser's print dialog (Ctrl+P / Cmd+P) and select \"Save as PDF\" as the destination."
+msgstr ""
+
+#: includes/Admin/Statistics.php:444
+msgid "Order"
+msgstr ""
+
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:94
+#: includes/BDPG_Gateway.php:214
+#, php-format
 msgid "%s Payment Gateway Settings."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:99
+#: includes/BDPG_Gateway.php:219
+#, php-format
 msgid "%s"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:152
+#: includes/BDPG_Gateway.php:232
+#: includes/Gateways/Bangla_QR.php:55
 msgid "Enable/Disable"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:155
+#: includes/BDPG_Gateway.php:235
+#, php-format
 msgid "Enable %s Gateway"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:163
-#: includes/BDPG_Gateway.php:166
+#: includes/BDPG_Gateway.php:243
+#: includes/BDPG_Gateway.php:246
+#: includes/Gateways/Bangla_QR.php:62
 msgid "Title"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:170
+#: includes/BDPG_Gateway.php:250
+#: includes/BDPG_Gateway.php:252
+#: includes/Gateways/Bangla_QR.php:69
 msgid "Description"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:177
+#: includes/BDPG_Gateway.php:259
+#, php-format
 msgid "%s Charge?"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:183
+#: includes/BDPG_Gateway.php:265
+#, php-format
 msgid "Add %s <b>Send Money</b> charge?"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:192
+#: includes/BDPG_Gateway.php:274
+#, php-format
 msgid "%s Fee"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:197
+#: includes/BDPG_Gateway.php:279
 msgid "Don't add %."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:203
+#: includes/BDPG_Gateway.php:285
+#, php-format
 msgid "%s Charge Details"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:209
+#: includes/BDPG_Gateway.php:291
+#, php-format
 msgid "%s \"Send Money\" fee will be added with net price."
 msgstr ""
 
-#: includes/BDPG_Gateway.php:215
-#: includes/BDPG_Gateway.php:217
+#: includes/BDPG_Gateway.php:297
+#: includes/BDPG_Gateway.php:299
+#: includes/Gateways/Bangla_QR.php:82
 msgid "Instructions"
 msgstr ""
 
 #. translators: %s: Total Payment.
-#: includes/BDPG_Gateway.php:245
+#: includes/BDPG_Gateway.php:332
+#: includes/Gateways/Bangla_QR.php:156
+#, php-format
 msgid "You need to send us <b>%s</b>"
 msgstr ""
 
+#. translators: 1: Original amount, 2: Exchange rate.
+#: includes/BDPG_Gateway.php:341
+#: includes/Gateways/Bangla_QR.php:165
+#, php-format
+msgid "Converted from %1$s at 1 USD = %2$s BDT"
+msgstr ""
+
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:278
+#. translators: %s: Payment Gateway
+#: includes/BDPG_Gateway.php:379
+#: blocks/src/payment-method.js:111
+#: dist/bdpg-blocks.js:2
+#, php-format,js-format
 msgid "Your %s Account Number"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:290
+#. translators: %s: Payment Gateway
+#: includes/BDPG_Gateway.php:391
+#: blocks/src/payment-method.js:119
+#: dist/bdpg-blocks.js:3
+#, php-format,js-format
 msgid "Your %s Transaction ID"
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:416
+#: includes/BDPG_Gateway.php:521
+#, php-format
 msgid "Awaiting %s payment."
 msgstr ""
 
-#: includes/BDPG_Gateway.php:446
+#: includes/BDPG_Gateway.php:552
 msgid "Thank you. Your order has been received."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:483
+#: includes/BDPG_Gateway.php:590
+#, php-format
 msgid "Please enter your %s account number."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:491
+#: includes/BDPG_Gateway.php:602
+#, php-format
+msgid "Please enter a valid %s account number (numbers only)."
+msgstr ""
+
+#. translators: %s: Payment Gateway.
+#: includes/BDPG_Gateway.php:613
+#, php-format
 msgid "Please enter your %s transaction ID."
 msgstr ""
 
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:536
-#: includes/BDPG_Gateway.php:619
+#: includes/BDPG_Gateway.php:707
+#: includes/BDPG_Gateway.php:786
+#, php-format
 msgid "%s Account Number"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:548
-#: includes/BDPG_Gateway.php:631
-msgid "Transaction ID"
-msgstr ""
-
 #. translators: %s: Payment Gateway.
-#: includes/BDPG_Gateway.php:582
+#: includes/BDPG_Gateway.php:754
+#, php-format
 msgid "%s Charge"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:652
+#: includes/BDPG_Gateway.php:821
 msgid "Payment No"
 msgstr ""
 
-#: includes/BDPG_Gateway.php:653
+#: includes/BDPG_Gateway.php:822
 msgid "Tran. ID"
 msgstr ""
 
-#: includes/functions.php:11
-#: includes/functions.php:24
+#: includes/functions.php:10
 msgid ""
-"\n"
-"                01. Go to your Rocket app or Dial *322#\n"
-"                02. Choose “Send Money”\n"
-"                03. Enter below Rocket Account Number\n"
-"                04. Enter <b>total amount</b>\n"
-"                06. Now enter your Rocket Account PIN to confirm the transaction\n"
-"                07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Go to your bKash app or Dial *247#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below bKash Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your bKash Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/functions.php:19
+msgid ""
+"01. Go to your Rocket app or Dial *322#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below Rocket Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your Rocket Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+msgstr ""
+
+#: includes/functions.php:28
+msgid ""
+"01. Go to your Nagad app or Dial *167#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below Nagad Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your Nagad Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
 #: includes/functions.php:37
 msgid ""
-"\n"
-"                01. Go to your Nagad app or Dial *167#\n"
-"                02. Choose “Send Money”\n"
-"                03. Enter below Nagad Account Number\n"
-"                04. Enter <b>total amount</b>\n"
-"                06. Now enter your Nagad Account PIN to confirm the transaction\n"
-"                07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Go to your Upay app or Dial *268#\n"
+"02. Choose \"Send Money\"\n"
+"03. Enter below Upay Account Number\n"
+"04. Enter <b>total amount</b>\n"
+"05. Now enter your Upay Account PIN to confirm the transaction\n"
+"06. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
 msgstr ""
 
-#: includes/functions.php:50
+#: includes/functions.php:46
 msgid ""
-"\n"
-"                01. Go to your Upay app or Dial *268#\n"
-"                02. Choose “Send Money”\n"
-"                03. Enter below Upay Account Number\n"
-"                04. Enter <b>total amount</b>\n"
-"                06. Now enter your Upay Account PIN to confirm the transaction\n"
-"                07. Copy Transaction ID from payment confirmation message and paste that Transaction ID below"
+"01. Open any Bangla QR supported Bank or MFS app (bKash, Nagad, Rocket, Upay, Cellfin, etc.)\n"
+"02. Scan the Bangla QR code\n"
+"03. Enter <b>total amount</b> and confirm payment with your PIN\n"
+"04. Enter your Phone Number and Transaction ID below to verify"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:45
+msgid "Bangla QR Payment Gateway Settings. Allow customers to make payments by scanning your Bangla QR code."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:56
+msgid "Enable Bangla QR Gateway"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:65
+msgid "Payment method title that the customer will see on checkout."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:71
+msgid "Payment method description that the customer will see on checkout."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:76
+#: includes/Gateways/Bangla_QR.php:100
+msgid "Bangla QR Code"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:78
+#: includes/Gateways/Bangla_QR.php:101
+msgid "Upload your Bangla QR code image."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:84
+msgid "Instructions that will be added to the thank you page and order emails."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:120
+msgid "Edit Image"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:120
+msgid "Add Image"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:122
+msgid "Remove QR Code"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:182
+#: blocks/src/payment-method.js:190
+#: dist/bdpg-blocks.js:3
+msgid "Scan with any Bank or MFS App"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:190
+#: blocks/src/payment-method.js:108
+#: dist/bdpg-blocks.js:1
+msgid "Your Phone Number"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:196
+#: blocks/src/payment-method.js:116
+#: dist/bdpg-blocks.js:2
+msgid "Your Transaction ID"
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:218
+#: blocks/src/payment-method.js:52
+#: dist/bdpg-blocks.js:1
+msgid "Please enter your phone number."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:226
+#: blocks/src/payment-method.js:69
+#: dist/bdpg-blocks.js:1
+msgid "Please enter a valid phone number (numbers only)."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:233
+#: blocks/src/payment-method.js:84
+#: dist/bdpg-blocks.js:1
+msgid "Please enter your transaction ID."
+msgstr ""
+
+#: includes/Gateways/Bangla_QR.php:259
+#: includes/Gateways/Bangla_QR.php:302
+msgid "Phone Number"
 msgstr ""
 
 #. translators: %1$s Plugin Name.
-#: includes/Review.php:119
+#: includes/Review.php:117
+#, php-format
 msgid "Hey, we noticed you have been using %1$s for more than 3 days now - that's awesome! <br> Could you please do us a BIG favor and give it a rating on WordPress.org to help us do more great work and boost our motivation?"
 msgstr ""
 
-#: includes/Review.php:164
+#: includes/Review.php:162
 msgid "Yes, you deserve it"
 msgstr ""
 
-#: includes/Review.php:168
+#: includes/Review.php:166
 msgid "No, maybe later"
 msgstr ""
 
-#: includes/Review.php:172
+#: includes/Review.php:170
 msgid "I already did"
+msgstr ""
+
+#: blocks/src/payment-method.js:56
+#: dist/bdpg-blocks.js:1
+msgid "Please enter your account number."
+msgstr ""
+
+#: blocks/src/payment-method.js:73
+#: dist/bdpg-blocks.js:1
+msgid "Please enter a valid account number (numbers only)."
+msgstr ""
+
+#: blocks/src/payment-method.js:148
+#: dist/bdpg-blocks.js:3
+msgid "You need to send us"
+msgstr ""
+
+#: blocks/src/payment-method.js:162
+#: dist/bdpg-blocks.js:3
+msgid "Converted from "
+msgstr ""
+
+#: blocks/src/payment-method.js:167
+#: dist/bdpg-blocks.js:3
+msgid " at 1 USD = "
+msgstr ""
+
+#: blocks/src/payment-method.js:220
+#: dist/bdpg-blocks.js:3
+msgid "Account Type:"
+msgstr ""
+
+#: blocks/src/payment-method.js:229
+#: dist/bdpg-blocks.js:3
+msgid "Account Number:"
 msgstr ""

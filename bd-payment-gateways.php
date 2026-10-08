@@ -93,7 +93,7 @@ final class BDPaymentGateways {
 		// Load text domain on init hook.
 		add_action( 'init', array( $this, 'load_text_domain' ) );
 
-		add_action( 'plugins_loaded', array( $this, 'init' ), 1 );
+		add_action( 'plugins_loaded', array( $this, 'init' ) );
 
 		register_activation_hook( __FILE__, array( $this, 'activate' ) );
 
@@ -154,15 +154,6 @@ final class BDPaymentGateways {
 
 		$this->appsero_init_tracker();
 
-		// Payment Gateways classes.
-		$this->gateways = array(
-			ultraDevs\BDPG\Gateways\Bkash::get_instance(),
-			ultraDevs\BDPG\Gateways\Rocket::get_instance(),
-			ultraDevs\BDPG\Gateways\Nagad::get_instance(),
-			ultraDevs\BDPG\Gateways\Upay::get_instance(),
-			ultraDevs\BDPG\Gateways\Bangla_QR::get_instance(),
-		);
-
 		// Assets Manager Class.
 		$assets_manager = new ultraDevs\BDPG\Assets_Manager();
 
@@ -179,7 +170,7 @@ final class BDPaymentGateways {
 		// Statistics Class.
 		new ultraDevs\BDPG\Admin\Statistics();
 
-		add_action( 'woocommerce_payment_gateways', array( $this, 'add_payment_gateways' ) );
+		add_filter( 'woocommerce_payment_gateways', array( $this, 'add_payment_gateways' ) );
 
 		// Register block support gateways.
 		add_action( 'woocommerce_blocks_loaded', array( $this, 'init_block_gateways' ) );
@@ -233,10 +224,11 @@ final class BDPaymentGateways {
 	 * @return array
 	 */
 	public function add_payment_gateways( $gateways ) {
-
-		foreach ( $this->gateways as $gateway ) {
-			$gateways[] = $gateway;
-		}
+		$gateways[] = ultraDevs\BDPG\Gateways\Bkash::class;
+		$gateways[] = ultraDevs\BDPG\Gateways\Rocket::class;
+		$gateways[] = ultraDevs\BDPG\Gateways\Nagad::class;
+		$gateways[] = ultraDevs\BDPG\Gateways\Upay::class;
+		$gateways[] = ultraDevs\BDPG\Gateways\Bangla_QR::class;
 
 		return $gateways;
 	}
